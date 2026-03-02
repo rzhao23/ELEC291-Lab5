@@ -11,7 +11,7 @@ R_GSINIT,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,004A,NO
+R_CONST,code,0061,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0005,NO
@@ -21,7 +21,7 @@ R_IXSEG,xdata,0000,NO
 R_ISEG,idata,0000,NO
 R_HOME,code,0000,NO
 R_XINIT,code,0000,NO
-R_CSEG,code,03B1,NO
+R_CSEG,code,03D3,NO
 </SEGMENTS>
 
 <LOCALS>
@@ -49,11 +49,12 @@ L006001?,R_CSEG,00F3,0000
 L013010?,R_CSEG,02DD,0000
 L011009?,R_CSEG,01AC,0000
 __str_0,R_CONST,0000,0000
-__str_1,R_CONST,0004,0000
-__str_2,R_CONST,0009,0000
-__str_3,R_CONST,002A,0000
-__str_4,R_CONST,0035,0000
-__str_5,R_CONST,0041,0000
+__str_1,R_CONST,0005,0000
+__str_2,R_CONST,0026,0000
+__str_3,R_CONST,0031,0000
+__str_4,R_CONST,003D,0000
+__str_5,R_CONST,0046,0000
+__str_6,R_CONST,0055,0000
 L011003?,R_CSEG,0240,0000
 L011001?,R_CSEG,01A9,0000
 L008001?,R_CSEG,0126,0000
@@ -64,15 +65,16 @@ L013007?,R_CSEG,02DA,0000
 L013004?,R_CSEG,02D5,0000
 L013001?,R_CSEG,02D2,0000
 L005018?,R_CSEG,00A9,0000
+L014006?,R_CSEG,0379,0000
 _read_ripple_voltage_pin_1_76,R_DSEG,0002,0001
-L014002?,R_CSEG,039D,0000
+L014002?,R_CSEG,0392,0000
 </LOCALS>
 
 <PUBLICS>
 _InitPinADC,R_CSEG,00D0,0000
 _TIMER0_Init,R_CSEG,0113,0000
 _Volts_at_Pin,R_CSEG,0130,0000
-_main,R_CSEG,032E,0000
+_main,R_CSEG,030A,0000
 _last_accept_frequency,R_DSEG,0000,0002
 __c51_external_startup,R_CSEG,0000,0000
 _InitPinADC_PARM_2,R_OSEG,0000,0001
@@ -487,17 +489,15 @@ F5 83
 E4
 F5 data8(__divuint_PARM_2;0x0001;+;)
 12 addr16(__divuint;)  
-AA 82
 E5 83
-CA
+C5 82
 25 E0
-CA
+C5 82
 33
-FB
-C0 02
-C0 03
-C0 02
-C0 03
+F5 83
+22
+90 01 F4
+12 addr16(_waitms;)  
 74 data8(__str_0;)
 C0 E0
 74 data8(__str_0;0x0008;>>;)
@@ -505,32 +505,9 @@ C0 E0
 74 80
 C0 E0
 12 addr16(_printf;)  
-E5 81
-24 FB
-F5 81
-D0 03
-D0 02
-8A 82
-8B 83
-22
-90 01 F4
-12 addr16(_waitms;)  
-74 data8(__str_1;)
-C0 E0
-74 data8(__str_1;0x0008;>>;)
-C0 E0
-74 80
-C0 E0
-12 addr16(_printf;)  
 15 81
 15 81
 15 81
-74 data8(__str_5;)
-C0 E0
-74 data8(__str_5;0x0008;>>;)
-C0 E0
-74 80
-C0 E0
 74 data8(__str_4;)
 C0 E0
 74 data8(__str_4;0x0008;>>;)
@@ -546,6 +523,12 @@ C0 E0
 74 data8(__str_2;)
 C0 E0
 74 data8(__str_2;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+74 data8(__str_1;)
+C0 E0
+74 data8(__str_1;0x0008;>>;)
 C0 E0
 74 80
 C0 E0
@@ -565,10 +548,44 @@ F5 81
 75 82 0E
 12 addr16(_read_ripple_voltage;)  
 12 addr16(_measure_period;)  
+AA 82
+AB 83
+EA
+4B
+70 rel2(L014002?;)
+90 00 64
+12 addr16(_waitms;)  
+80 rel2(L014006?;)
+C0 02
+C0 03
 12 addr16(_measure_zero_cross_time;)  
+AC 82
+AD 83
+C0 04
+C0 05
+74 data8(__str_5;)
+C0 E0
+74 data8(__str_5;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+12 addr16(_printf;)  
+E5 81
+24 FB
+F5 81
+74 data8(__str_6;)
+C0 E0
+74 data8(__str_6;0x0008;>>;)
+C0 E0
+74 80
+C0 E0
+12 addr16(_printf;)  
+E5 81
+24 FB
+F5 81
 90 01 F4
 12 addr16(_waitms;)  
-80 rel2(L014002?;)
+80 rel2(L014006?;)
 </CODE>
 
 <CODE R_CSEG>
@@ -578,9 +595,6 @@ F5 81
 </CODE>
 
 <CODE R_CONST>
-25 75 
-0A
-00
 1B
 5B 32 4A 
 00
@@ -596,7 +610,13 @@ F5 81
 00
 4D 61 72 20 20 32 20 32 30 32 36 
 00
-31 33 3A 34 37 3A 32 39 
+31 34 3A 33 36 3A 33 31 
+00
+74 69 6D 65 20 64 69 66 66 3A 20 25 75 
+0A
+00
+70 65 72 69 6F 64 3A 20 25 75 
+0A
 00
 </CODE>
 

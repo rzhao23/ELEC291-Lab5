@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Mon Mar 02 13:47:29 2026
+; This file was generated Mon Mar 02 14:36:31 2026
 ;--------------------------------------------------------
 $name lab5
 $optc51 --model-small
@@ -1126,7 +1126,7 @@ L012012?:
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'measure_zero_cross_time'
 ;------------------------------------------------------------
-;time_us                   Allocated to registers r2 r3 
+;time_us                   Allocated to registers 
 ;------------------------------------------------------------
 ;	src/lab5.c:251: unsigned int measure_zero_cross_time(void){
 ;	-----------------------------------------
@@ -1175,18 +1175,33 @@ L013010?:
 	clr	a
 	mov	(__divuint_PARM_2 + 1),a
 	lcall	__divuint
-	mov	r2,dpl
 	mov	a,dph
-	xch	a,r2
+	xch	a,dpl
 	add	a,acc
-	xch	a,r2
+	xch	a,dpl
 	rlc	a
-	mov	r3,a
-;	src/lab5.c:270: printf("%u\n", time_us);
-	push	ar2
-	push	ar3
-	push	ar2
-	push	ar3
+	mov	dph,a
+;	src/lab5.c:271: return time_us;
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;v1                        Allocated with name '_main_v1_1_86'
+;v2                        Allocated to registers 
+;period                    Allocated to registers r2 r3 
+;frequency                 Allocated to registers 
+;zero_time_diff            Allocated to registers r4 r5 
+;phase_angle               Allocated to registers 
+;------------------------------------------------------------
+;	src/lab5.c:274: void main(void){
+;	-----------------------------------------
+;	 function main
+;	-----------------------------------------
+_main:
+;	src/lab5.c:283: waitms(500);
+	mov	dptr,#0x01F4
+	lcall	_waitms
+;	src/lab5.c:284: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
 	mov	a,#__str_0
 	push	acc
 	mov	a,#(__str_0 >> 8)
@@ -1194,50 +1209,11 @@ L013010?:
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-	pop	ar3
-	pop	ar2
-;	src/lab5.c:271: return time_us;
-	mov	dpl,r2
-	mov	dph,r3
-	ret
-;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
-;------------------------------------------------------------
-;v1                        Allocated with name '_main_v1_1_86'
-;v2                        Allocated to registers 
-;period                    Allocated to registers 
-;frequency                 Allocated to registers 
-;------------------------------------------------------------
-;	src/lab5.c:274: void main(void){
-;	-----------------------------------------
-;	 function main
-;	-----------------------------------------
-_main:
-;	src/lab5.c:281: waitms(500);
-	mov	dptr,#0x01F4
-	lcall	_waitms
-;	src/lab5.c:282: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-	mov	a,#__str_1
-	push	acc
-	mov	a,#(__str_1 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/lab5.c:286: __FILE__, __DATE__, __TIME__);
-;	src/lab5.c:285: "Compiled: %s, %s\n\n",
-	mov	a,#__str_5
-	push	acc
-	mov	a,#(__str_5 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
+;	src/lab5.c:288: __FILE__, __DATE__, __TIME__);
+;	src/lab5.c:287: "Compiled: %s, %s\n\n",
 	mov	a,#__str_4
 	push	acc
 	mov	a,#(__str_4 >> 8)
@@ -1256,51 +1232,93 @@ _main:
 	push	acc
 	mov	a,#0x80
 	push	acc
+	mov	a,#__str_1
+	push	acc
+	mov	a,#(__str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
 	lcall	_printf
 	mov	a,sp
 	add	a,#0xf4
 	mov	sp,a
-;	src/lab5.c:289: InitPinADC(1, 6);
+;	src/lab5.c:291: InitPinADC(1, 6);
 	mov	_InitPinADC_PARM_2,#0x06
 	mov	dpl,#0x01
 	lcall	_InitPinADC
-;	src/lab5.c:290: InitPinADC(2, 1);
+;	src/lab5.c:292: InitPinADC(2, 1);
 	mov	_InitPinADC_PARM_2,#0x01
 	mov	dpl,#0x02
 	lcall	_InitPinADC
-;	src/lab5.c:291: InitADC();
+;	src/lab5.c:293: InitADC();
 	lcall	_InitADC
-;	src/lab5.c:292: TIMER0_Init();
+;	src/lab5.c:294: TIMER0_Init();
 	lcall	_TIMER0_Init
-;	src/lab5.c:293: init_pin_input();
+;	src/lab5.c:295: init_pin_input();
 	lcall	_init_pin_input
-;	src/lab5.c:295: while(1){
-L014002?:
-;	src/lab5.c:296: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
+;	src/lab5.c:297: while(1){
+L014006?:
+;	src/lab5.c:298: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
 	mov	dpl,#0x0E
 	lcall	_read_ripple_voltage
-;	src/lab5.c:302: period = measure_period();
+;	src/lab5.c:305: period = measure_period();
 	lcall	_measure_period
-;	src/lab5.c:306: measure_zero_cross_time();
+	mov	r2,dpl
+	mov	r3,dph
+;	src/lab5.c:306: if(period == 0){
+	mov	a,r2
+	orl	a,r3
+	jnz	L014002?
+;	src/lab5.c:307: waitms(100);
+	mov	dptr,#0x0064
+	lcall	_waitms
+;	src/lab5.c:308: continue;
+	sjmp	L014006?
+L014002?:
+;	src/lab5.c:314: zero_time_diff = measure_zero_cross_time();
+	push	ar2
+	push	ar3
 	lcall	_measure_zero_cross_time
-;	src/lab5.c:307: waitms(500);
+	mov	r4,dpl
+	mov	r5,dph
+;	src/lab5.c:316: printf("time diff: %u\n", zero_time_diff);
+	push	ar4
+	push	ar5
+	mov	a,#__str_5
+	push	acc
+	mov	a,#(__str_5 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	src/lab5.c:317: printf("period: %u\n", period);
+	mov	a,#__str_6
+	push	acc
+	mov	a,#(__str_6 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+;	src/lab5.c:326: waitms(500);
 	mov	dptr,#0x01F4
 	lcall	_waitms
-	sjmp	L014002?
+	sjmp	L014006?
 	rseg R_CSEG
 
 	rseg R_XINIT
 
 	rseg R_CONST
 __str_0:
-	db '%u'
-	db 0x0A
-	db 0x00
-__str_1:
 	db 0x1B
 	db '[2J'
 	db 0x00
-__str_2:
+__str_1:
 	db 'Lab5'
 	db 0x0A
 	db 'File: %s'
@@ -1309,14 +1327,22 @@ __str_2:
 	db 0x0A
 	db 0x0A
 	db 0x00
-__str_3:
+__str_2:
 	db 'src/lab5.c'
 	db 0x00
-__str_4:
+__str_3:
 	db 'Mar  2 2026'
 	db 0x00
+__str_4:
+	db '14:36:31'
+	db 0x00
 __str_5:
-	db '13:47:29'
+	db 'time diff: %u'
+	db 0x0A
+	db 0x00
+__str_6:
+	db 'period: %u'
+	db 0x0A
 	db 0x00
 
 	CSEG

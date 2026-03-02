@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-0000              4   ; This file was generated Mon Mar 02 13:47:29 2026
+0000              4   ; This file was generated Mon Mar 02 14:36:31 2026
 0000              5   ;--------------------------------------------------------
                   5   $name lab5
                   6   $optc51 --model-small
@@ -1126,7 +1126,7 @@
 02C4           1126   ;------------------------------------------------------------
 02C4           1127   ;Allocation info for local variables in function 'measure_zero_cross_time'
 02C4           1128   ;------------------------------------------------------------
-02C4           1129   ;time_us                   Allocated to registers r2 r3 
+02C4           1129   ;time_us                   Allocated to registers 
 02C4           1130   ;------------------------------------------------------------
 02C4           1131   ;        src/lab5.c:251: unsigned int measure_zero_cross_time(void){
 02C4           1132   ;        -----------------------------------------
@@ -1175,159 +1175,190 @@
 02F8 E4        1175            clr     a
 02F9 F501      1176            mov     (__divuint_PARM_2 + 1),a
 02FB 120000    1177            lcall   __divuint
-02FE AA82      1178            mov     r2,dpl
-0300 E583      1179            mov     a,dph
-0302 CA        1180            xch     a,r2
-0303 25E0      1181            add     a,acc
-0305 CA        1182            xch     a,r2
-0306 33        1183            rlc     a
-0307 FB        1184            mov     r3,a
-0308           1185   ;        src/lab5.c:270: printf("%u\n", time_us);
-0308 C002      1186            push    ar2
-030A C003      1187            push    ar3
-030C C002      1188            push    ar2
-030E C003      1189            push    ar3
-0310 7440      1190            mov     a,#__str_0
-0312 C0E0      1191            push    acc
-0314 74BB      1192            mov     a,#(__str_0 >> 8)
-0316 C0E0      1193            push    acc
-0318 7480      1194            mov     a,#0x80
-031A C0E0      1195            push    acc
-031C 120000    1196            lcall   _printf
-031F E581      1197            mov     a,sp
-0321 24FB      1198            add     a,#0xfb
-0323 F581      1199            mov     sp,a
-0325 D003      1200            pop     ar3
-0327 D002      1201            pop     ar2
-0329           1202   ;        src/lab5.c:271: return time_us;
-0329 8A82      1203            mov     dpl,r2
-032B 8B83      1204            mov     dph,r3
-032D 22        1205            ret
-032E           1206   ;------------------------------------------------------------
-032E           1207   ;Allocation info for local variables in function 'main'
-032E           1208   ;------------------------------------------------------------
-032E           1209   ;v1                        Allocated with name '_main_v1_1_86'
-032E           1210   ;v2                        Allocated to registers 
-032E           1211   ;period                    Allocated to registers 
-032E           1212   ;frequency                 Allocated to registers 
-032E           1213   ;------------------------------------------------------------
-032E           1214   ;        src/lab5.c:274: void main(void){
-032E           1215   ;        -----------------------------------------
-032E           1216   ;         function main
-032E           1217   ;        -----------------------------------------
-032E           1218   _main:
-032E           1219   ;        src/lab5.c:281: waitms(500);
-032E 9001F4    1220            mov     dptr,#0x01F4
-0331 120000    1221            lcall   _waitms
-0334           1222   ;        src/lab5.c:282: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-0334 74C0      1223            mov     a,#__str_1
-0336 C0E0      1224            push    acc
-0338 74BB      1225            mov     a,#(__str_1 >> 8)
-033A C0E0      1226            push    acc
-033C 7480      1227            mov     a,#0x80
-033E C0E0      1228            push    acc
-0340 120000    1229            lcall   _printf
-0343 1581      1230            dec     sp
-0345 1581      1231            dec     sp
-0347 1581      1232            dec     sp
-0349           1233   ;        src/lab5.c:286: __FILE__, __DATE__, __TIME__);
-0349           1234   ;        src/lab5.c:285: "Compiled: %s, %s\n\n",
-0349 7400      1235            mov     a,#__str_5
+02FE E583      1178            mov     a,dph
+0300 C582      1179            xch     a,dpl
+0302 25E0      1180            add     a,acc
+0304 C582      1181            xch     a,dpl
+0306 33        1182            rlc     a
+0307 F583      1183            mov     dph,a
+0309           1184   ;        src/lab5.c:271: return time_us;
+0309 22        1185            ret
+030A           1186   ;------------------------------------------------------------
+030A           1187   ;Allocation info for local variables in function 'main'
+030A           1188   ;------------------------------------------------------------
+030A           1189   ;v1                        Allocated with name '_main_v1_1_86'
+030A           1190   ;v2                        Allocated to registers 
+030A           1191   ;period                    Allocated to registers r2 r3 
+030A           1192   ;frequency                 Allocated to registers 
+030A           1193   ;zero_time_diff            Allocated to registers r4 r5 
+030A           1194   ;phase_angle               Allocated to registers 
+030A           1195   ;------------------------------------------------------------
+030A           1196   ;        src/lab5.c:274: void main(void){
+030A           1197   ;        -----------------------------------------
+030A           1198   ;         function main
+030A           1199   ;        -----------------------------------------
+030A           1200   _main:
+030A           1201   ;        src/lab5.c:283: waitms(500);
+030A 9001F4    1202            mov     dptr,#0x01F4
+030D 120000    1203            lcall   _waitms
+0310           1204   ;        src/lab5.c:284: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+0310 7440      1205            mov     a,#__str_0
+0312 C0E0      1206            push    acc
+0314 74BB      1207            mov     a,#(__str_0 >> 8)
+0316 C0E0      1208            push    acc
+0318 7480      1209            mov     a,#0x80
+031A C0E0      1210            push    acc
+031C 120000    1211            lcall   _printf
+031F 1581      1212            dec     sp
+0321 1581      1213            dec     sp
+0323 1581      1214            dec     sp
+0325           1215   ;        src/lab5.c:288: __FILE__, __DATE__, __TIME__);
+0325           1216   ;        src/lab5.c:287: "Compiled: %s, %s\n\n",
+0325 74C0      1217            mov     a,#__str_4
+0327 C0E0      1218            push    acc
+0329 74BB      1219            mov     a,#(__str_4 >> 8)
+032B C0E0      1220            push    acc
+032D 7480      1221            mov     a,#0x80
+032F C0E0      1222            push    acc
+0331 7400      1223            mov     a,#__str_3
+0333 C0E0      1224            push    acc
+0335 74BC      1225            mov     a,#(__str_3 >> 8)
+0337 C0E0      1226            push    acc
+0339 7480      1227            mov     a,#0x80
+033B C0E0      1228            push    acc
+033D 7440      1229            mov     a,#__str_2
+033F C0E0      1230            push    acc
+0341 74BC      1231            mov     a,#(__str_2 >> 8)
+0343 C0E0      1232            push    acc
+0345 7480      1233            mov     a,#0x80
+0347 C0E0      1234            push    acc
+0349 7480      1235            mov     a,#__str_1
 034B C0E0      1236            push    acc
-034D 74BC      1237            mov     a,#(__str_5 >> 8)
+034D 74BC      1237            mov     a,#(__str_1 >> 8)
 034F C0E0      1238            push    acc
 0351 7480      1239            mov     a,#0x80
 0353 C0E0      1240            push    acc
-0355 7440      1241            mov     a,#__str_4
-0357 C0E0      1242            push    acc
-0359 74BC      1243            mov     a,#(__str_4 >> 8)
-035B C0E0      1244            push    acc
-035D 7480      1245            mov     a,#0x80
-035F C0E0      1246            push    acc
-0361 7480      1247            mov     a,#__str_3
-0363 C0E0      1248            push    acc
-0365 74BC      1249            mov     a,#(__str_3 >> 8)
-0367 C0E0      1250            push    acc
-0369 7480      1251            mov     a,#0x80
-036B C0E0      1252            push    acc
-036D 74C0      1253            mov     a,#__str_2
-036F C0E0      1254            push    acc
-0371 74BC      1255            mov     a,#(__str_2 >> 8)
-0373 C0E0      1256            push    acc
-0375 7480      1257            mov     a,#0x80
-0377 C0E0      1258            push    acc
-0379 120000    1259            lcall   _printf
-037C E581      1260            mov     a,sp
-037E 24F4      1261            add     a,#0xf4
-0380 F581      1262            mov     sp,a
-0382           1263   ;        src/lab5.c:289: InitPinADC(1, 6);
-0382 75C806    1264            mov     _InitPinADC_PARM_2,#0x06
-0385 758201    1265            mov     dpl,#0x01
-0388 120000    1266            lcall   _InitPinADC
-038B           1267   ;        src/lab5.c:290: InitPinADC(2, 1);
-038B 75C801    1268            mov     _InitPinADC_PARM_2,#0x01
-038E 758202    1269            mov     dpl,#0x02
-0391 120000    1270            lcall   _InitPinADC
-0394           1271   ;        src/lab5.c:291: InitADC();
-0394 120000    1272            lcall   _InitADC
-0397           1273   ;        src/lab5.c:292: TIMER0_Init();
-0397 120000    1274            lcall   _TIMER0_Init
-039A           1275   ;        src/lab5.c:293: init_pin_input();
-039A 120000    1276            lcall   _init_pin_input
-039D           1277   ;        src/lab5.c:295: while(1){
-039D           1278   L014002?:
-039D           1279   ;        src/lab5.c:296: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
-039D 75820E    1280            mov     dpl,#0x0E
-03A0 120000    1281            lcall   _read_ripple_voltage
-03A3           1282   ;        src/lab5.c:302: period = measure_period();
-03A3 120000    1283            lcall   _measure_period
-03A6           1284   ;        src/lab5.c:306: measure_zero_cross_time();
-03A6 120000    1285            lcall   _measure_zero_cross_time
-03A9           1286   ;        src/lab5.c:307: waitms(500);
-03A9 9001F4    1287            mov     dptr,#0x01F4
-03AC 120000    1288            lcall   _waitms
-03AF 8000      1289            sjmp    L014002?
-03B1           1290            rseg R_CSEG
-03B1           1291   
-0000           1292            rseg R_XINIT
-0000           1293   
-0000           1294            rseg R_CONST
-0000           1295   __str_0:
-0000 2575      1296            db '%u'
-0002 0A        1297            db 0x0A
-0003 00        1298            db 0x00
-0004           1299   __str_1:
-0004 1B        1300            db 0x1B
-0005 5B324A    1301            db '[2J'
-0008 00        1302            db 0x00
-0009           1303   __str_2:
-0009 4C616235  1304            db 'Lab5'
-000D 0A        1305            db 0x0A
-000E 46696C65  1306            db 'File: %s'
+0355 120000    1241            lcall   _printf
+0358 E581      1242            mov     a,sp
+035A 24F4      1243            add     a,#0xf4
+035C F581      1244            mov     sp,a
+035E           1245   ;        src/lab5.c:291: InitPinADC(1, 6);
+035E 75C806    1246            mov     _InitPinADC_PARM_2,#0x06
+0361 758201    1247            mov     dpl,#0x01
+0364 120000    1248            lcall   _InitPinADC
+0367           1249   ;        src/lab5.c:292: InitPinADC(2, 1);
+0367 75C801    1250            mov     _InitPinADC_PARM_2,#0x01
+036A 758202    1251            mov     dpl,#0x02
+036D 120000    1252            lcall   _InitPinADC
+0370           1253   ;        src/lab5.c:293: InitADC();
+0370 120000    1254            lcall   _InitADC
+0373           1255   ;        src/lab5.c:294: TIMER0_Init();
+0373 120000    1256            lcall   _TIMER0_Init
+0376           1257   ;        src/lab5.c:295: init_pin_input();
+0376 120000    1258            lcall   _init_pin_input
+0379           1259   ;        src/lab5.c:297: while(1){
+0379           1260   L014006?:
+0379           1261   ;        src/lab5.c:298: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
+0379 75820E    1262            mov     dpl,#0x0E
+037C 120000    1263            lcall   _read_ripple_voltage
+037F           1264   ;        src/lab5.c:305: period = measure_period();
+037F 120000    1265            lcall   _measure_period
+0382 AA82      1266            mov     r2,dpl
+0384 AB83      1267            mov     r3,dph
+0386           1268   ;        src/lab5.c:306: if(period == 0){
+0386 EA        1269            mov     a,r2
+0387 4B        1270            orl     a,r3
+0388 7000      1271            jnz     L014002?
+038A           1272   ;        src/lab5.c:307: waitms(100);
+038A 900064    1273            mov     dptr,#0x0064
+038D 120000    1274            lcall   _waitms
+0390           1275   ;        src/lab5.c:308: continue;
+0390 8000      1276            sjmp    L014006?
+0392           1277   L014002?:
+0392           1278   ;        src/lab5.c:314: zero_time_diff = measure_zero_cross_time();
+0392 C002      1279            push    ar2
+0394 C003      1280            push    ar3
+0396 120000    1281            lcall   _measure_zero_cross_time
+0399 AC82      1282            mov     r4,dpl
+039B AD83      1283            mov     r5,dph
+039D           1284   ;        src/lab5.c:316: printf("time diff: %u\n", zero_time_diff);
+039D C004      1285            push    ar4
+039F C005      1286            push    ar5
+03A1 7440      1287            mov     a,#__str_5
+03A3 C0E0      1288            push    acc
+03A5 74BD      1289            mov     a,#(__str_5 >> 8)
+03A7 C0E0      1290            push    acc
+03A9 7480      1291            mov     a,#0x80
+03AB C0E0      1292            push    acc
+03AD 120000    1293            lcall   _printf
+03B0 E581      1294            mov     a,sp
+03B2 24FB      1295            add     a,#0xfb
+03B4 F581      1296            mov     sp,a
+03B6           1297   ;        src/lab5.c:317: printf("period: %u\n", period);
+03B6 7480      1298            mov     a,#__str_6
+03B8 C0E0      1299            push    acc
+03BA 74BD      1300            mov     a,#(__str_6 >> 8)
+03BC C0E0      1301            push    acc
+03BE 7480      1302            mov     a,#0x80
+03C0 C0E0      1303            push    acc
+03C2 120000    1304            lcall   _printf
+03C5 E581      1305            mov     a,sp
+03C7 24FB      1306            add     a,#0xfb
+03C9 F581      1307            mov     sp,a
+03CB           1308   ;        src/lab5.c:326: waitms(500);
+03CB 9001F4    1309            mov     dptr,#0x01F4
+03CE 120000    1310            lcall   _waitms
+03D1 8000      1311            sjmp    L014006?
+03D3           1312            rseg R_CSEG
+03D3           1313   
+0000           1314            rseg R_XINIT
+0000           1315   
+0000           1316            rseg R_CONST
+0000           1317   __str_0:
+0000 1B        1318            db 0x1B
+0001 5B324A    1319            db '[2J'
+0004 00        1320            db 0x00
+0005           1321   __str_1:
+0005 4C616235  1322            db 'Lab5'
+0009 0A        1323            db 0x0A
+000A 46696C65  1324            db 'File: %s'
      3A202573
-0016 0A        1307            db 0x0A
-0017 436F6D70  1308            db 'Compiled: %s, %s'
+0012 0A        1325            db 0x0A
+0013 436F6D70  1326            db 'Compiled: %s, %s'
      696C6564
      3A202573
      2C202573
-0027 0A        1309            db 0x0A
-0028 0A        1310            db 0x0A
-0029 00        1311            db 0x00
-002A           1312   __str_3:
-002A 7372632F  1313            db 'src/lab5.c'
+0023 0A        1327            db 0x0A
+0024 0A        1328            db 0x0A
+0025 00        1329            db 0x00
+0026           1330   __str_2:
+0026 7372632F  1331            db 'src/lab5.c'
      6C616235
      2E63
-0034 00        1314            db 0x00
-0035           1315   __str_4:
-0035 4D617220  1316            db 'Mar  2 2026'
+0030 00        1332            db 0x00
+0031           1333   __str_3:
+0031 4D617220  1334            db 'Mar  2 2026'
      20322032
      303236
-0040 00        1317            db 0x00
-0041           1318   __str_5:
-0041 31333A34  1319            db '13:47:29'
-     373A3239
-0049 00        1320            db 0x00
-004A           1321   
-0003           1322            CSEG
-0003           1323   
-0003           1324   end
+003C 00        1335            db 0x00
+003D           1336   __str_4:
+003D 31343A33  1337            db '14:36:31'
+     363A3331
+0045 00        1338            db 0x00
+0046           1339   __str_5:
+0046 74696D65  1340            db 'time diff: %u'
+     20646966
+     663A2025
+     75
+0053 0A        1341            db 0x0A
+0054 00        1342            db 0x00
+0055           1343   __str_6:
+0055 70657269  1344            db 'period: %u'
+     6F643A20
+     2575
+005F 0A        1345            db 0x0A
+0060 00        1346            db 0x00
+0061           1347   
+0003           1348            CSEG
+0003           1349   
+0003           1350   end

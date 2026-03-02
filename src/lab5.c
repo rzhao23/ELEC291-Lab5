@@ -267,7 +267,7 @@ unsigned int measure_zero_cross_time(void){
 	CKCON0 &= 0b_1111_1000; // Set Timer back to sysclk/12
     time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
     //printf("%u\n", (TH0*0x100+TL0));
-    printf("%u\n", time_us);
+    //printf("%u\n", time_us);
     return time_us;
 }
 
@@ -277,6 +277,8 @@ void main(void){
     float v2;
     unsigned int period;
     unsigned int frequency;
+	unsigned int zero_time_diff;
+	float phase_angle;
 
     waitms(500);
     printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
@@ -299,11 +301,28 @@ void main(void){
 
         //v1 = read_ripple_voltage(QFP32_MUX_P1_6);
         //printf("%d\n", P2_2);
-        period = measure_period();
+        
+		period = measure_period();
+		if(period == 0){
+			waitms(100);
+			continue;
+		}
+
         frequency = 1000000 / period; // frequency in Hz
         //printf("f2 = %u\n\n",frequency);
 
-		measure_zero_cross_time();
+		zero_time_diff = measure_zero_cross_time();
+		//phase_angle = (int)((long)zero_time_diff * (-1L * 360L) / (long)period);
+		printf("time diff: %u\n", zero_time_diff);
+		printf("period: %u\n", period);
+		phase_angle = (float)zero_time_diff * (-360.0f) / (float)period;
+		//printf("%d\n", phase_angle);
+
+		if (phase_angle <= -180){
+			phase_angle += 360;
+		}
+
+		//printf("%.2f\n", phase_angle);
         waitms(500);
     }
     
