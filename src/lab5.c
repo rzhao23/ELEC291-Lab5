@@ -248,6 +248,8 @@ unsigned int measure_period(void){
 // measure the zero cross time difference between two signals (p2.2 and p2.3)
 // use p2.2 as reference signal
 // return time in us
+unsigned int time_us_prev = 0;
+
 unsigned int measure_zero_cross_time(void){
     unsigned int time_us;
 
@@ -263,11 +265,21 @@ unsigned int measure_zero_cross_time(void){
     while(P2_3 == 1); // Wait for p2.3 to be 1
     while(P2_3 == 0); // Wait for p2.3 to be 0
     TR0 = 0;
+<<<<<<< HEAD
+
+	CKCON0&=0b_1111_1000;
+
+    time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
+	time_us_prev = time_us;
+
+    //printf("%u\n", time_us);
+=======
 	
 	CKCON0 &= 0b_1111_1000; // Set Timer back to sysclk/12
     time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
     //printf("%u\n", (TH0*0x100+TL0));
     //printf("%u\n", time_us);
+>>>>>>> d6ea3944cb115a9798bdf8a5564e942de8e07e51
     return time_us;
 }
 
