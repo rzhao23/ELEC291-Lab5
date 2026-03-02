@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-0000              4   ; This file was generated Mon Mar 02 13:13:27 2026
+0000              4   ; This file was generated Mon Mar 02 13:28:41 2026
 0000              5   ;--------------------------------------------------------
                   5   $name lab5
                   6   $optc51 --model-small
@@ -488,9 +488,9 @@
 0000            488            rseg R_DSEG
 0000            489   _last_accept_frequency:
 0000            490            ds 2
-0002            491   _read_ripple_voltage_pin_1_62:
+0002            491   _read_ripple_voltage_pin_1_76:
 0002            492            ds 1
-0003            493   _read_ripple_voltage_voltage_sum_1_63:
+0003            493   _read_ripple_voltage_voltage_sum_1_77:
 0003            494            ds 4
 0007            495   ;--------------------------------------------------------
 0007            496   ; overlayable items in internal ram 
@@ -546,10 +546,10 @@
 0000            546   ; data variables initialization
 0000            547   ;--------------------------------------------------------
 0000            548            rseg R_DINIT
-0000            549   ;        D:\Coding\2026\291\lab5\src\lab5.c:9: unsigned int last_accept_frequency = 0;
+0000            549   ;        src/lab5.c:11: unsigned int last_accept_frequency = 0;
 0000 E4         550            clr     a
-0001 F510       551            mov     _last_accept_frequency,a
-0003 F511       552            mov     (_last_accept_frequency + 1),a
+0001 F5C0       551            mov     _last_accept_frequency,a
+0003 F5C1       552            mov     (_last_accept_frequency + 1),a
 0005            553            ; The linker places a 'ret' at the end of segment R_DINIT.
 0005            554   ;--------------------------------------------------------
 0005            555   ; code
@@ -559,95 +559,95 @@
 0000            559   ;Allocation info for local variables in function '_c51_external_startup'
 0000            560   ;------------------------------------------------------------
 0000            561   ;------------------------------------------------------------
-0000            562   ;        D:\Coding\2026\291\lab5\src\lab5.c:11: char _c51_external_startup (void)
+0000            562   ;        src/lab5.c:13: char _c51_external_startup (void)
 0000            563   ;        -----------------------------------------
 0000            564   ;         function _c51_external_startup
 0000            565   ;        -----------------------------------------
 0000            566   __c51_external_startup:
 0000            567            using   0
-0000            568   ;        D:\Coding\2026\291\lab5\src\lab5.c:14: SFRPAGE = 0x00;
+0000            568   ;        src/lab5.c:16: SFRPAGE = 0x00;
 0000 75A700     569            mov     _SFRPAGE,#0x00
-0003            570   ;        D:\Coding\2026\291\lab5\src\lab5.c:15: WDTCN = 0xDE; //First key
+0003            570   ;        src/lab5.c:17: WDTCN = 0xDE; //First key
 0003 7597DE     571            mov     _WDTCN,#0xDE
-0006            572   ;        D:\Coding\2026\291\lab5\src\lab5.c:16: WDTCN = 0xAD; //Second key
+0006            572   ;        src/lab5.c:18: WDTCN = 0xAD; //Second key
 0006 7597AD     573            mov     _WDTCN,#0xAD
-0009            574   ;        D:\Coding\2026\291\lab5\src\lab5.c:18: VDM0CN=0x80;       // enable VDD monitor
+0009            574   ;        src/lab5.c:20: VDM0CN=0x80;       // enable VDD monitor
 0009 75FF80     575            mov     _VDM0CN,#0x80
-000C            576   ;        D:\Coding\2026\291\lab5\src\lab5.c:19: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
+000C            576   ;        src/lab5.c:21: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 000C 75EF06     577            mov     _RSTSRC,#0x06
-000F            578   ;        D:\Coding\2026\291\lab5\src\lab5.c:26: SFRPAGE = 0x10;
+000F            578   ;        src/lab5.c:28: SFRPAGE = 0x10;
 000F 75A710     579            mov     _SFRPAGE,#0x10
-0012            580   ;        D:\Coding\2026\291\lab5\src\lab5.c:27: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
+0012            580   ;        src/lab5.c:29: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 0012 75C120     581            mov     _PFE0CN,#0x20
-0015            582   ;        D:\Coding\2026\291\lab5\src\lab5.c:28: SFRPAGE = 0x00;
+0015            582   ;        src/lab5.c:30: SFRPAGE = 0x00;
 0015 75A700     583            mov     _SFRPAGE,#0x00
-0018            584   ;        D:\Coding\2026\291\lab5\src\lab5.c:49: CLKSEL = 0x00;
+0018            584   ;        src/lab5.c:51: CLKSEL = 0x00;
 0018 75A900     585            mov     _CLKSEL,#0x00
-001B            586   ;        D:\Coding\2026\291\lab5\src\lab5.c:50: CLKSEL = 0x00;
+001B            586   ;        src/lab5.c:52: CLKSEL = 0x00;
 001B 75A900     587            mov     _CLKSEL,#0x00
-001E            588   ;        D:\Coding\2026\291\lab5\src\lab5.c:51: while ((CLKSEL & 0x80) == 0);
+001E            588   ;        src/lab5.c:53: while ((CLKSEL & 0x80) == 0);
 001E            589   L002001?:
 001E E5A9       590            mov     a,_CLKSEL
-0020 30E700     591            jnb     acc.7,L002001?
-0023            592   ;        D:\Coding\2026\291\lab5\src\lab5.c:52: CLKSEL = 0x03;
+0020 30E7B0     591            jnb     acc.7,L002001?
+0023            592   ;        src/lab5.c:54: CLKSEL = 0x03;
 0023 75A903     593            mov     _CLKSEL,#0x03
-0026            594   ;        D:\Coding\2026\291\lab5\src\lab5.c:53: CLKSEL = 0x03;
+0026            594   ;        src/lab5.c:55: CLKSEL = 0x03;
 0026 75A903     595            mov     _CLKSEL,#0x03
-0029            596   ;        D:\Coding\2026\291\lab5\src\lab5.c:54: while ((CLKSEL & 0x80) == 0);
+0029            596   ;        src/lab5.c:56: while ((CLKSEL & 0x80) == 0);
 0029            597   L002004?:
 0029 E5A9       598            mov     a,_CLKSEL
-002B 30E780     599            jnb     acc.7,L002004?
-002E            600   ;        D:\Coding\2026\291\lab5\src\lab5.c:59: P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
+002B 30E730     599            jnb     acc.7,L002004?
+002E            600   ;        src/lab5.c:61: P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
 002E 43A410     601            orl     _P0MDOUT,#0x10
-0031            602   ;        D:\Coding\2026\291\lab5\src\lab5.c:60: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+0031            602   ;        src/lab5.c:62: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
 0031 75E101     603            mov     _XBR0,#0x01
-0034            604   ;        D:\Coding\2026\291\lab5\src\lab5.c:61: XBR1     = 0X00;
+0034            604   ;        src/lab5.c:63: XBR1     = 0X00;
 0034 75E200     605            mov     _XBR1,#0x00
-0037            606   ;        D:\Coding\2026\291\lab5\src\lab5.c:62: XBR2     = 0x40; // Enable crossbar and weak pull-ups
+0037            606   ;        src/lab5.c:64: XBR2     = 0x40; // Enable crossbar and weak pull-ups
 0037 75E340     607            mov     _XBR2,#0x40
-003A            608   ;        D:\Coding\2026\291\lab5\src\lab5.c:68: SCON0 = 0x10;
+003A            608   ;        src/lab5.c:70: SCON0 = 0x10;
 003A 759810     609            mov     _SCON0,#0x10
-003D            610   ;        D:\Coding\2026\291\lab5\src\lab5.c:69: TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
+003D            610   ;        src/lab5.c:71: TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
 003D 758DE6     611            mov     _TH1,#0xE6
-0040            612   ;        D:\Coding\2026\291\lab5\src\lab5.c:70: TL1 = TH1;      // Init Timer1
+0040            612   ;        src/lab5.c:72: TL1 = TH1;      // Init Timer1
 0040 858D8B     613            mov     _TL1,_TH1
-0043            614   ;        D:\Coding\2026\291\lab5\src\lab5.c:71: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
+0043            614   ;        src/lab5.c:73: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
 0043 53890F     615            anl     _TMOD,#0x0F
-0046            616   ;        D:\Coding\2026\291\lab5\src\lab5.c:72: TMOD |=  0x20;                       
+0046            616   ;        src/lab5.c:74: TMOD |=  0x20;                       
 0046 438920     617            orl     _TMOD,#0x20
-0049            618   ;        D:\Coding\2026\291\lab5\src\lab5.c:73: TR1 = 1; // START Timer1
+0049            618   ;        src/lab5.c:75: TR1 = 1; // START Timer1
 0049 D28E       619            setb    _TR1
-004B            620   ;        D:\Coding\2026\291\lab5\src\lab5.c:74: TI = 1;  // Indicate TX0 ready
+004B            620   ;        src/lab5.c:76: TI = 1;  // Indicate TX0 ready
 004B D299       621            setb    _TI
-004D            622   ;        D:\Coding\2026\291\lab5\src\lab5.c:76: return 0;
+004D            622   ;        src/lab5.c:78: return 0;
 004D 758200     623            mov     dpl,#0x00
 0050 22         624            ret
 0051            625   ;------------------------------------------------------------
 0051            626   ;Allocation info for local variables in function 'InitADC'
 0051            627   ;------------------------------------------------------------
 0051            628   ;------------------------------------------------------------
-0051            629   ;        D:\Coding\2026\291\lab5\src\lab5.c:79: void InitADC (void)
+0051            629   ;        src/lab5.c:81: void InitADC (void)
 0051            630   ;        -----------------------------------------
 0051            631   ;         function InitADC
 0051            632   ;        -----------------------------------------
 0051            633   _InitADC:
-0051            634   ;        D:\Coding\2026\291\lab5\src\lab5.c:81: SFRPAGE = 0x00;
+0051            634   ;        src/lab5.c:83: SFRPAGE = 0x00;
 0051 75A700     635            mov     _SFRPAGE,#0x00
-0054            636   ;        D:\Coding\2026\291\lab5\src\lab5.c:82: ADEN=0; // Disable ADC
+0054            636   ;        src/lab5.c:84: ADEN=0; // Disable ADC
 0054 C2EF       637            clr     _ADEN
-0056            638   ;        D:\Coding\2026\291\lab5\src\lab5.c:87: (0x0 << 0) ; // Accumulate n conversions: 0x0: 1, 0x1:4, 0x2:8, 0x3:16, 0x4:32
+0056            638   ;        src/lab5.c:89: (0x0 << 0) ; // Accumulate n conversions: 0x0: 1, 0x1:4, 0x2:8, 0x3:16, 0x4:32
 0056 75B280     639            mov     _ADC0CN1,#0x80
-0059            640   ;        D:\Coding\2026\291\lab5\src\lab5.c:91: (0x0 << 2); // 0:SYSCLK ADCCLK = SYSCLK. 1:HFOSC0 ADCCLK = HFOSC0.
+0059            640   ;        src/lab5.c:93: (0x0 << 2); // 0:SYSCLK ADCCLK = SYSCLK. 1:HFOSC0 ADCCLK = HFOSC0.
 0059 75BC20     641            mov     _ADC0CF0,#0x20
-005C            642   ;        D:\Coding\2026\291\lab5\src\lab5.c:95: (0x1E << 0); // Conversion Tracking Time. Tadtk = ADTK / (Fsarclk)
+005C            642   ;        src/lab5.c:97: (0x1E << 0); // Conversion Tracking Time. Tadtk = ADTK / (Fsarclk)
 005C 75B91E     643            mov     _ADC0CF1,#0x1E
-005F            644   ;        D:\Coding\2026\291\lab5\src\lab5.c:104: (0x0 << 0) ; // TEMPE. 0: Disable the Temperature Sensor. 1: Enable the Temperature Sensor.
+005F            644   ;        src/lab5.c:106: (0x0 << 0) ; // TEMPE. 0: Disable the Temperature Sensor. 1: Enable the Temperature Sensor.
 005F 75E800     645            mov     _ADC0CN0,#0x00
-0062            646   ;        D:\Coding\2026\291\lab5\src\lab5.c:109: (0x1F << 0); // ADPWR. Power Up Delay Time. Tpwrtime = ((4 * (ADPWR + 1)) + 2) / (Fadcclk)
+0062            646   ;        src/lab5.c:111: (0x1F << 0); // ADPWR. Power Up Delay Time. Tpwrtime = ((4 * (ADPWR + 1)) + 2) / (Fadcclk)
 0062 75DF3F     647            mov     _ADC0CF2,#0x3F
-0065            648   ;        D:\Coding\2026\291\lab5\src\lab5.c:113: (0x0 << 0) ; // ADCM. 0x0: ADBUSY, 0x1: TIMER0, 0x2: TIMER2, 0x3: TIMER3, 0x4: CNVSTR, 0x5: CEX5, 0x6: TIMER4, 0x7: TIMER5, 0x8: CLU0, 0x9: CLU1, 0xA: CLU2, 0xB: CLU3
+0065            648   ;        src/lab5.c:115: (0x0 << 0) ; // ADCM. 0x0: ADBUSY, 0x1: TIMER0, 0x2: TIMER2, 0x3: TIMER3, 0x4: CNVSTR, 0x5: CEX5, 0x6: TIMER4, 0x7: TIMER5, 0x8: CLU0, 0x9: CLU1, 0xA: CLU2, 0xB: CLU3
 0065 75B300     649            mov     _ADC0CN2,#0x00
-0068            650   ;        D:\Coding\2026\291\lab5\src\lab5.c:115: ADEN=1; // Enable ADC
+0068            650   ;        src/lab5.c:117: ADEN=1; // Enable ADC
 0068 D2EF       651            setb    _ADEN
 006A 22         652            ret
 006B            653   ;------------------------------------------------------------
@@ -656,40 +656,40 @@
 006B            656   ;us                        Allocated to registers r2 
 006B            657   ;i                         Allocated to registers r3 
 006B            658   ;------------------------------------------------------------
-006B            659   ;        D:\Coding\2026\291\lab5\src\lab5.c:119: void Timer3us(unsigned char us)
+006B            659   ;        src/lab5.c:121: void Timer3us(unsigned char us)
 006B            660   ;        -----------------------------------------
 006B            661   ;         function Timer3us
 006B            662   ;        -----------------------------------------
 006B            663   _Timer3us:
 006B AA82       664            mov     r2,dpl
-006D            665   ;        D:\Coding\2026\291\lab5\src\lab5.c:124: CKCON0|=0b_0100_0000;
+006D            665   ;        src/lab5.c:126: CKCON0|=0b_0100_0000;
 006D 438E40     666            orl     _CKCON0,#0x40
-0070            667   ;        D:\Coding\2026\291\lab5\src\lab5.c:126: TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
+0070            667   ;        src/lab5.c:128: TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
 0070 7592B8     668            mov     _TMR3RL,#0xB8
 0073 7593FF     669            mov     (_TMR3RL >> 8),#0xFF
-0076            670   ;        D:\Coding\2026\291\lab5\src\lab5.c:127: TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
+0076            670   ;        src/lab5.c:129: TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
 0076 859294     671            mov     _TMR3,_TMR3RL
 0079 859395     672            mov     (_TMR3 >> 8),(_TMR3RL >> 8)
-007C            673   ;        D:\Coding\2026\291\lab5\src\lab5.c:129: TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
+007C            673   ;        src/lab5.c:131: TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
 007C 759104     674            mov     _TMR3CN0,#0x04
-007F            675   ;        D:\Coding\2026\291\lab5\src\lab5.c:130: for (i = 0; i < us; i++)       // Count <us> overflows
+007F            675   ;        src/lab5.c:132: for (i = 0; i < us; i++)       // Count <us> overflows
 007F 7B00       676            mov     r3,#0x00
 0081            677   L004004?:
 0081 C3         678            clr     c
 0082 EB         679            mov     a,r3
 0083 9A         680            subb    a,r2
 0084 5000       681            jnc     L004007?
-0086            682   ;        D:\Coding\2026\291\lab5\src\lab5.c:132: while (!(TMR3CN0 & 0x80));  // Wait for overflow
+0086            682   ;        src/lab5.c:134: while (!(TMR3CN0 & 0x80));  // Wait for overflow
 0086            683   L004001?:
 0086 E591       684            mov     a,_TMR3CN0
-0088 30E780     685            jnb     acc.7,L004001?
-008B            686   ;        D:\Coding\2026\291\lab5\src\lab5.c:133: TMR3CN0 &= ~(0x80);         // Clear overflow indicator
+0088 30E730     685            jnb     acc.7,L004001?
+008B            686   ;        src/lab5.c:135: TMR3CN0 &= ~(0x80);         // Clear overflow indicator
 008B 53917F     687            anl     _TMR3CN0,#0x7F
-008E            688   ;        D:\Coding\2026\291\lab5\src\lab5.c:130: for (i = 0; i < us; i++)       // Count <us> overflows
+008E            688   ;        src/lab5.c:132: for (i = 0; i < us; i++)       // Count <us> overflows
 008E 0B         689            inc     r3
 008F 8000       690            sjmp    L004004?
 0091            691   L004007?:
-0091            692   ;        D:\Coding\2026\291\lab5\src\lab5.c:135: TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
+0091            692   ;        src/lab5.c:137: TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
 0091 759100     693            mov     _TMR3CN0,#0x00
 0094 22         694            ret
 0095            695   ;------------------------------------------------------------
@@ -699,14 +699,14 @@
 0095            699   ;j                         Allocated to registers r4 r5 
 0095            700   ;k                         Allocated to registers r6 
 0095            701   ;------------------------------------------------------------
-0095            702   ;        D:\Coding\2026\291\lab5\src\lab5.c:138: void waitms (unsigned int ms)
+0095            702   ;        src/lab5.c:140: void waitms (unsigned int ms)
 0095            703   ;        -----------------------------------------
 0095            704   ;         function waitms
 0095            705   ;        -----------------------------------------
 0095            706   _waitms:
 0095 AA82       707            mov     r2,dpl
 0097 AB83       708            mov     r3,dph
-0099            709   ;        D:\Coding\2026\291\lab5\src\lab5.c:142: for(j=0; j<ms; j++)
+0099            709   ;        src/lab5.c:144: for(j=0; j<ms; j++)
 0099 7C00       710            mov     r4,#0x00
 009B 7D00       711            mov     r5,#0x00
 009D            712   L005005?:
@@ -716,10 +716,10 @@
 00A0 ED         716            mov     a,r5
 00A1 9B         717            subb    a,r3
 00A2 5000       718            jnc     L005009?
-00A4            719   ;        D:\Coding\2026\291\lab5\src\lab5.c:143: for (k=0; k<4; k++) Timer3us(250);
+00A4            719   ;        src/lab5.c:145: for (k=0; k<4; k++) Timer3us(250);
 00A4 7E00       720            mov     r6,#0x00
 00A6            721   L005001?:
-00A6 BE04C0     722            cjne    r6,#0x04,L005018?
+00A6 BE0470     722            cjne    r6,#0x04,L005018?
 00A9            723   L005018?:
 00A9 5000       724            jnc     L005007?
 00AB 7582FA     725            mov     dpl,#0xFA
@@ -737,9 +737,9 @@
 00C5 0E         737            inc     r6
 00C6 8000       738            sjmp    L005001?
 00C8            739   L005007?:
-00C8            740   ;        D:\Coding\2026\291\lab5\src\lab5.c:142: for(j=0; j<ms; j++)
+00C8            740   ;        src/lab5.c:144: for(j=0; j<ms; j++)
 00C8 0C         741            inc     r4
-00C9 BC0000     742            cjne    r4,#0x00,L005005?
+00C9 BC00B0     742            cjne    r4,#0x00,L005005?
 00CC 0D         743            inc     r5
 00CD 8000       744            sjmp    L005005?
 00CF            745   L005009?:
@@ -751,88 +751,88 @@
 00D0            751   ;portno                    Allocated to registers r2 
 00D0            752   ;mask                      Allocated to registers r3 
 00D0            753   ;------------------------------------------------------------
-00D0            754   ;        D:\Coding\2026\291\lab5\src\lab5.c:148: void InitPinADC (unsigned char portno, unsigned char pinno)
+00D0            754   ;        src/lab5.c:150: void InitPinADC (unsigned char portno, unsigned char pinno)
 00D0            755   ;        -----------------------------------------
 00D0            756   ;         function InitPinADC
 00D0            757   ;        -----------------------------------------
 00D0            758   _InitPinADC:
 00D0 AA82       759            mov     r2,dpl
-00D2            760   ;        D:\Coding\2026\291\lab5\src\lab5.c:152: mask=1<<pinno;
-00D2 8550F0     761            mov     b,_InitPinADC_PARM_2
+00D2            760   ;        src/lab5.c:154: mask=1<<pinno;
+00D2 8500F0     761            mov     b,_InitPinADC_PARM_2
 00D5 05F0       762            inc     b
 00D7 7401       763            mov     a,#0x01
 00D9 8000       764            sjmp    L006013?
 00DB            765   L006011?:
 00DB 25E0       766            add     a,acc
 00DD            767   L006013?:
-00DD D5F0C0     768            djnz    b,L006011?
+00DD D5F070     768            djnz    b,L006011?
 00E0 FB         769            mov     r3,a
-00E1            770   ;        D:\Coding\2026\291\lab5\src\lab5.c:154: SFRPAGE = 0x20;
+00E1            770   ;        src/lab5.c:156: SFRPAGE = 0x20;
 00E1 75A720     771            mov     _SFRPAGE,#0x20
-00E4            772   ;        D:\Coding\2026\291\lab5\src\lab5.c:155: switch (portno)
-00E4 BA0000     773            cjne    r2,#0x00,L006014?
+00E4            772   ;        src/lab5.c:157: switch (portno)
+00E4 BA00B0     773            cjne    r2,#0x00,L006014?
 00E7 8000       774            sjmp    L006001?
 00E9            775   L006014?:
-00E9 BA0180     776            cjne    r2,#0x01,L006015?
+00E9 BA0130     776            cjne    r2,#0x01,L006015?
 00EC 8000       777            sjmp    L006002?
 00EE            778   L006015?:
-00EE            779   ;        D:\Coding\2026\291\lab5\src\lab5.c:157: case 0:
-00EE BA0200     780            cjne    r2,#0x02,L006005?
+00EE            779   ;        src/lab5.c:159: case 0:
+00EE BA02B0     780            cjne    r2,#0x02,L006005?
 00F1 8000       781            sjmp    L006003?
 00F3            782   L006001?:
-00F3            783   ;        D:\Coding\2026\291\lab5\src\lab5.c:158: P0MDIN &= (~mask); // Set pin as analog input
+00F3            783   ;        src/lab5.c:160: P0MDIN &= (~mask); // Set pin as analog input
 00F3 EB         784            mov     a,r3
 00F4 F4         785            cpl     a
 00F5 FA         786            mov     r2,a
 00F6 52F1       787            anl     _P0MDIN,a
-00F8            788   ;        D:\Coding\2026\291\lab5\src\lab5.c:159: P0SKIP |= mask; // Skip Crossbar decoding for this pin
+00F8            788   ;        src/lab5.c:161: P0SKIP |= mask; // Skip Crossbar decoding for this pin
 00F8 EB         789            mov     a,r3
 00F9 42D4       790            orl     _P0SKIP,a
-00FB            791   ;        D:\Coding\2026\291\lab5\src\lab5.c:160: break;
-00FB            792   ;        D:\Coding\2026\291\lab5\src\lab5.c:161: case 1:
+00FB            791   ;        src/lab5.c:162: break;
+00FB            792   ;        src/lab5.c:163: case 1:
 00FB 8000       793            sjmp    L006005?
 00FD            794   L006002?:
-00FD            795   ;        D:\Coding\2026\291\lab5\src\lab5.c:162: P1MDIN &= (~mask); // Set pin as analog input
+00FD            795   ;        src/lab5.c:164: P1MDIN &= (~mask); // Set pin as analog input
 00FD EB         796            mov     a,r3
 00FE F4         797            cpl     a
 00FF FA         798            mov     r2,a
 0100 52F2       799            anl     _P1MDIN,a
-0102            800   ;        D:\Coding\2026\291\lab5\src\lab5.c:163: P1SKIP |= mask; // Skip Crossbar decoding for this pin
+0102            800   ;        src/lab5.c:165: P1SKIP |= mask; // Skip Crossbar decoding for this pin
 0102 EB         801            mov     a,r3
 0103 42D5       802            orl     _P1SKIP,a
-0105            803   ;        D:\Coding\2026\291\lab5\src\lab5.c:164: break;
-0105            804   ;        D:\Coding\2026\291\lab5\src\lab5.c:165: case 2:
+0105            803   ;        src/lab5.c:166: break;
+0105            804   ;        src/lab5.c:167: case 2:
 0105 8000       805            sjmp    L006005?
 0107            806   L006003?:
-0107            807   ;        D:\Coding\2026\291\lab5\src\lab5.c:166: P2MDIN &= (~mask); // Set pin as analog input
+0107            807   ;        src/lab5.c:168: P2MDIN &= (~mask); // Set pin as analog input
 0107 EB         808            mov     a,r3
 0108 F4         809            cpl     a
 0109 FA         810            mov     r2,a
 010A 52F3       811            anl     _P2MDIN,a
-010C            812   ;        D:\Coding\2026\291\lab5\src\lab5.c:167: P2SKIP |= mask; // Skip Crossbar decoding for this pin
+010C            812   ;        src/lab5.c:169: P2SKIP |= mask; // Skip Crossbar decoding for this pin
 010C EB         813            mov     a,r3
 010D 42CC       814            orl     _P2SKIP,a
-010F            815   ;        D:\Coding\2026\291\lab5\src\lab5.c:171: }
+010F            815   ;        src/lab5.c:173: }
 010F            816   L006005?:
-010F            817   ;        D:\Coding\2026\291\lab5\src\lab5.c:172: SFRPAGE = 0x00;
+010F            817   ;        src/lab5.c:174: SFRPAGE = 0x00;
 010F 75A700     818            mov     _SFRPAGE,#0x00
 0112 22         819            ret
 0113            820   ;------------------------------------------------------------
 0113            821   ;Allocation info for local variables in function 'TIMER0_Init'
 0113            822   ;------------------------------------------------------------
 0113            823   ;------------------------------------------------------------
-0113            824   ;        D:\Coding\2026\291\lab5\src\lab5.c:175: void TIMER0_Init(void)
+0113            824   ;        src/lab5.c:177: void TIMER0_Init(void)
 0113            825   ;        -----------------------------------------
 0113            826   ;         function TIMER0_Init
 0113            827   ;        -----------------------------------------
 0113            828   _TIMER0_Init:
-0113            829   ;        D:\Coding\2026\291\lab5\src\lab5.c:177: TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
+0113            829   ;        src/lab5.c:179: TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
 0113 5389F0     830            anl     _TMOD,#0xF0
-0116            831   ;        D:\Coding\2026\291\lab5\src\lab5.c:178: TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
+0116            831   ;        src/lab5.c:180: TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
 0116 438901     832            orl     _TMOD,#0x01
-0119            833   ;        D:\Coding\2026\291\lab5\src\lab5.c:179: CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
+0119            833   ;        src/lab5.c:181: CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
 0119 538EF8     834            anl     _CKCON0,#0xF8
-011C            835   ;        D:\Coding\2026\291\lab5\src\lab5.c:180: TR0=0; // Stop Timer/Counter 0
+011C            835   ;        src/lab5.c:182: TR0=0; // Stop Timer/Counter 0
 011C C28C       836            clr     _TR0
 011E 22         837            ret
 011F            838   ;------------------------------------------------------------
@@ -840,20 +840,20 @@
 011F            840   ;------------------------------------------------------------
 011F            841   ;pin                       Allocated to registers 
 011F            842   ;------------------------------------------------------------
-011F            843   ;        D:\Coding\2026\291\lab5\src\lab5.c:183: unsigned int ADC_at_Pin(unsigned char pin)
+011F            843   ;        src/lab5.c:185: unsigned int ADC_at_Pin(unsigned char pin)
 011F            844   ;        -----------------------------------------
 011F            845   ;         function ADC_at_Pin
 011F            846   ;        -----------------------------------------
 011F            847   _ADC_at_Pin:
 011F 8582BB     848            mov     _ADC0MX,dpl
-0122            849   ;        D:\Coding\2026\291\lab5\src\lab5.c:186: ADINT = 0;
+0122            849   ;        src/lab5.c:188: ADINT = 0;
 0122 C2ED       850            clr     _ADINT
-0124            851   ;        D:\Coding\2026\291\lab5\src\lab5.c:187: ADBUSY = 1;     // Convert voltage at the pin
+0124            851   ;        src/lab5.c:189: ADBUSY = 1;     // Convert voltage at the pin
 0124 D2EC       852            setb    _ADBUSY
-0126            853   ;        D:\Coding\2026\291\lab5\src\lab5.c:188: while (!ADINT); // Wait for conversion to complete
+0126            853   ;        src/lab5.c:190: while (!ADINT); // Wait for conversion to complete
 0126            854   L008001?:
-0126 30ED80     855            jnb     _ADINT,L008001?
-0129            856   ;        D:\Coding\2026\291\lab5\src\lab5.c:189: return (ADC0);
+0126 30ED30     855            jnb     _ADINT,L008001?
+0129            856   ;        src/lab5.c:191: return (ADC0);
 0129 85BD82     857            mov     dpl,_ADC0
 012C 85BE83     858            mov     dph,(_ADC0 >> 8)
 012F 22         859            ret
@@ -862,12 +862,12 @@
 0130            862   ;------------------------------------------------------------
 0130            863   ;pin                       Allocated to registers r2 
 0130            864   ;------------------------------------------------------------
-0130            865   ;        D:\Coding\2026\291\lab5\src\lab5.c:192: float Volts_at_Pin(unsigned char pin)
+0130            865   ;        src/lab5.c:194: float Volts_at_Pin(unsigned char pin)
 0130            866   ;        -----------------------------------------
 0130            867   ;         function Volts_at_Pin
 0130            868   ;        -----------------------------------------
 0130            869   _Volts_at_Pin:
-0130            870   ;        D:\Coding\2026\291\lab5\src\lab5.c:194: return ((ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111);
+0130            870   ;        src/lab5.c:196: return ((ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111);
 0130 120000     871            lcall   _ADC_at_Pin
 0133 120000     872            lcall   ___uint2fs
 0136 AA82       873            mov     r2,dpl
@@ -918,48 +918,48 @@
 018B            918   ;Allocation info for local variables in function 'init_pin_input'
 018B            919   ;------------------------------------------------------------
 018B            920   ;------------------------------------------------------------
-018B            921   ;        D:\Coding\2026\291\lab5\src\lab5.c:198: void init_pin_input(void){
+018B            921   ;        src/lab5.c:200: void init_pin_input(void){
 018B            922   ;        -----------------------------------------
 018B            923   ;         function init_pin_input
 018B            924   ;        -----------------------------------------
 018B            925   _init_pin_input:
-018B            926   ;        D:\Coding\2026\291\lab5\src\lab5.c:199: P2MDIN |= 0b_0000_1100; // enable p2.2 and p2.3 to be input pin
+018B            926   ;        src/lab5.c:201: P2MDIN |= 0b_0000_1100; // enable p2.2 and p2.3 to be input pin
 018B 43F30C     927            orl     _P2MDIN,#0x0C
-018E            928   ;        D:\Coding\2026\291\lab5\src\lab5.c:200: P2MDOUT &= 0b_1111_0011; // disable p2.2 and p2.3 from output pin 
+018E            928   ;        src/lab5.c:202: P2MDOUT &= 0b_1111_0011; // disable p2.2 and p2.3 from output pin 
 018E 53A6F3     929            anl     _P2MDOUT,#0xF3
-0191            930   ;        D:\Coding\2026\291\lab5\src\lab5.c:201: P2SKIP |= 0b_0000_1100;
+0191            930   ;        src/lab5.c:203: P2SKIP |= 0b_0000_1100;
 0191 43CC0C     931            orl     _P2SKIP,#0x0C
-0194            932   ;        D:\Coding\2026\291\lab5\src\lab5.c:202: XBR2 |= 0x40;
+0194            932   ;        src/lab5.c:204: XBR2 |= 0x40;
 0194 43E340     933            orl     _XBR2,#0x40
 0197 22         934            ret
 0198            935   ;------------------------------------------------------------
 0198            936   ;Allocation info for local variables in function 'read_ripple_voltage'
 0198            937   ;------------------------------------------------------------
-0198            938   ;pin                       Allocated with name '_read_ripple_voltage_pin_1_62'
+0198            938   ;pin                       Allocated with name '_read_ripple_voltage_pin_1_76'
 0198            939   ;sample_count              Allocated to registers r7 
-0198            940   ;voltage_sum               Allocated with name '_read_ripple_voltage_voltage_sum_1_63'
+0198            940   ;voltage_sum               Allocated with name '_read_ripple_voltage_voltage_sum_1_77'
 0198            941   ;------------------------------------------------------------
-0198            942   ;        D:\Coding\2026\291\lab5\src\lab5.c:206: float read_ripple_voltage(unsigned char pin){
+0198            942   ;        src/lab5.c:208: float read_ripple_voltage(unsigned char pin){
 0198            943   ;        -----------------------------------------
 0198            944   ;         function read_ripple_voltage
 0198            945   ;        -----------------------------------------
 0198            946   _read_ripple_voltage:
-0198 858220     947            mov     _read_ripple_voltage_pin_1_62,dpl
-019B            948   ;        D:\Coding\2026\291\lab5\src\lab5.c:208: float voltage_sum = 0;
-019B 758000     949            mov     _read_ripple_voltage_voltage_sum_1_63,#0x00
-019E 758100     950            mov     (_read_ripple_voltage_voltage_sum_1_63 + 1),#0x00
-01A1 758200     951            mov     (_read_ripple_voltage_voltage_sum_1_63 + 2),#0x00
-01A4 758300     952            mov     (_read_ripple_voltage_voltage_sum_1_63 + 3),#0x00
-01A7            953   ;        D:\Coding\2026\291\lab5\src\lab5.c:210: while(sample_count < 32){
+0198 8582D0     947            mov     _read_ripple_voltage_pin_1_76,dpl
+019B            948   ;        src/lab5.c:210: float voltage_sum = 0;
+019B 753000     949            mov     _read_ripple_voltage_voltage_sum_1_77,#0x00
+019E 753100     950            mov     (_read_ripple_voltage_voltage_sum_1_77 + 1),#0x00
+01A1 753200     951            mov     (_read_ripple_voltage_voltage_sum_1_77 + 2),#0x00
+01A4 753300     952            mov     (_read_ripple_voltage_voltage_sum_1_77 + 3),#0x00
+01A7            953   ;        src/lab5.c:212: while(sample_count < 32){
 01A7 7F00       954            mov     r7,#0x00
 01A9            955   L011001?:
-01A9 BF2000     956            cjne    r7,#0x20,L011009?
+01A9 BF20B0     956            cjne    r7,#0x20,L011009?
 01AC            957   L011009?:
 01AC 4000       958            jc      L011010?
 01AE 020000     959            ljmp    L011003?
 01B1            960   L011010?:
-01B1            961   ;        D:\Coding\2026\291\lab5\src\lab5.c:211: voltage_sum += (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
-01B1 852082     962            mov     dpl,_read_ripple_voltage_pin_1_62
+01B1            961   ;        src/lab5.c:213: voltage_sum += (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
+01B1 85D082     962            mov     dpl,_read_ripple_voltage_pin_1_76
 01B4 C007       963            push    ar7
 01B6 120000     964            lcall   _ADC_at_Pin
 01B9 120000     965            lcall   ___uint2fs
@@ -1006,29 +1006,29 @@
 020B C003      1006            push    ar3
 020D C004      1007            push    ar4
 020F C005      1008            push    ar5
-0211 858082    1009            mov     dpl,_read_ripple_voltage_voltage_sum_1_63
-0214 858183    1010            mov     dph,(_read_ripple_voltage_voltage_sum_1_63 + 1)
-0217 8582F0    1011            mov     b,(_read_ripple_voltage_voltage_sum_1_63 + 2)
-021A E583      1012            mov     a,(_read_ripple_voltage_voltage_sum_1_63 + 3)
+0211 853082    1009            mov     dpl,_read_ripple_voltage_voltage_sum_1_77
+0214 853183    1010            mov     dph,(_read_ripple_voltage_voltage_sum_1_77 + 1)
+0217 8532F0    1011            mov     b,(_read_ripple_voltage_voltage_sum_1_77 + 2)
+021A E533      1012            mov     a,(_read_ripple_voltage_voltage_sum_1_77 + 3)
 021C 120000    1013            lcall   ___fsadd
-021F 858280    1014            mov     _read_ripple_voltage_voltage_sum_1_63,dpl
-0222 858381    1015            mov     (_read_ripple_voltage_voltage_sum_1_63 + 1),dph
-0225 85F082    1016            mov     (_read_ripple_voltage_voltage_sum_1_63 + 2),b
-0228 F583      1017            mov     (_read_ripple_voltage_voltage_sum_1_63 + 3),a
+021F 858230    1014            mov     _read_ripple_voltage_voltage_sum_1_77,dpl
+0222 858331    1015            mov     (_read_ripple_voltage_voltage_sum_1_77 + 1),dph
+0225 85F032    1016            mov     (_read_ripple_voltage_voltage_sum_1_77 + 2),b
+0228 F533      1017            mov     (_read_ripple_voltage_voltage_sum_1_77 + 3),a
 022A E581      1018            mov     a,sp
 022C 24FC      1019            add     a,#0xfc
 022E F581      1020            mov     sp,a
 0230 D007      1021            pop     ar7
-0232           1022   ;        D:\Coding\2026\291\lab5\src\lab5.c:212: sample_count++;
+0232           1022   ;        src/lab5.c:214: sample_count++;
 0232 0F        1023            inc     r7
-0233           1024   ;        D:\Coding\2026\291\lab5\src\lab5.c:213: waitms(1);
+0233           1024   ;        src/lab5.c:215: waitms(1);
 0233 900001    1025            mov     dptr,#0x0001
 0236 C007      1026            push    ar7
 0238 120000    1027            lcall   _waitms
 023B D007      1028            pop     ar7
 023D 020000    1029            ljmp    L011001?
 0240           1030   L011003?:
-0240           1031   ;        D:\Coding\2026\291\lab5\src\lab5.c:216: return voltage_sum / sample_count;
+0240           1031   ;        src/lab5.c:218: return voltage_sum / sample_count;
 0240 8F82      1032            mov     dpl,r7
 0242 120000    1033            lcall   ___uchar2fs
 0245 AA82      1034            mov     r2,dpl
@@ -1039,10 +1039,10 @@
 024E C003      1039            push    ar3
 0250 C004      1040            push    ar4
 0252 C005      1041            push    ar5
-0254 858082    1042            mov     dpl,_read_ripple_voltage_voltage_sum_1_63
-0257 858183    1043            mov     dph,(_read_ripple_voltage_voltage_sum_1_63 + 1)
-025A 8582F0    1044            mov     b,(_read_ripple_voltage_voltage_sum_1_63 + 2)
-025D E583      1045            mov     a,(_read_ripple_voltage_voltage_sum_1_63 + 3)
+0254 853082    1042            mov     dpl,_read_ripple_voltage_voltage_sum_1_77
+0257 853183    1043            mov     dph,(_read_ripple_voltage_voltage_sum_1_77 + 1)
+025A 8532F0    1044            mov     b,(_read_ripple_voltage_voltage_sum_1_77 + 2)
+025D E533      1045            mov     a,(_read_ripple_voltage_voltage_sum_1_77 + 3)
 025F 120000    1046            lcall   ___fsdiv
 0262 AA82      1047            mov     r2,dpl
 0264 AB83      1048            mov     r3,dph
@@ -1061,32 +1061,32 @@
 0277           1061   ;------------------------------------------------------------
 0277           1062   ;time_us                   Allocated to registers r2 r3 
 0277           1063   ;------------------------------------------------------------
-0277           1064   ;        D:\Coding\2026\291\lab5\src\lab5.c:221: unsigned int measure_period(void){
+0277           1064   ;        src/lab5.c:223: unsigned int measure_period(void){
 0277           1065   ;        -----------------------------------------
 0277           1066   ;         function measure_period
 0277           1067   ;        -----------------------------------------
 0277           1068   _measure_period:
-0277           1069   ;        D:\Coding\2026\291\lab5\src\lab5.c:224: CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
+0277           1069   ;        src/lab5.c:226: CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
 0277 538EF8    1070            anl     _CKCON0,#0xF8
-027A           1071   ;        D:\Coding\2026\291\lab5\src\lab5.c:225: TR0 = 0;
+027A           1071   ;        src/lab5.c:227: TR0 = 0;
 027A C28C      1072            clr     _TR0
-027C           1073   ;        D:\Coding\2026\291\lab5\src\lab5.c:226: TH0 = 0; TL0 = 0; // Reset timer
+027C           1073   ;        src/lab5.c:228: TH0 = 0; TL0 = 0; // Reset timer
 027C 758C00    1074            mov     _TH0,#0x00
 027F 758A00    1075            mov     _TL0,#0x00
-0282           1076   ;        D:\Coding\2026\291\lab5\src\lab5.c:227: while(P2_2 == 1); // Wait for the signal to be 0
+0282           1076   ;        src/lab5.c:229: while(P2_2 == 1); // Wait for the signal to be 0
 0282           1077   L012001?:
-0282 20A240    1078            jb      _P2_2,L012001?
-0285           1079   ;        D:\Coding\2026\291\lab5\src\lab5.c:228: while(P2_2 == 0); // Wait for the signal to be 1
+0282 20A2F0    1078            jb      _P2_2,L012001?
+0285           1079   ;        src/lab5.c:230: while(P2_2 == 0); // Wait for the signal to be 1
 0285           1080   L012004?:
-0285 30A280    1081            jnb     _P2_2,L012004?
-0288           1082   ;        D:\Coding\2026\291\lab5\src\lab5.c:229: TR0 = 1; // Start timing
+0285 30A230    1081            jnb     _P2_2,L012004?
+0288           1082   ;        src/lab5.c:231: TR0 = 1; // Start timing
 0288 D28C      1083            setb    _TR0
-028A           1084   ;        D:\Coding\2026\291\lab5\src\lab5.c:230: while(P2_2 == 1); // Wait for the signal to be 0
+028A           1084   ;        src/lab5.c:232: while(P2_2 == 1); // Wait for the signal to be 0
 028A           1085   L012007?:
-028A 20A2C0    1086            jb      _P2_2,L012007?
-028D           1087   ;        D:\Coding\2026\291\lab5\src\lab5.c:231: TR0 = 0; // Stop timer 0
+028A 20A270    1086            jb      _P2_2,L012007?
+028D           1087   ;        src/lab5.c:233: TR0 = 0; // Stop timer 0
 028D C28C      1088            clr     _TR0
-028F           1089   ;        D:\Coding\2026\291\lab5\src\lab5.c:234: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U);
+028F           1089   ;        src/lab5.c:236: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U);
 028F AB8C      1090            mov     r3,_TH0
 0291 7A00      1091            mov     r2,#0x00
 0293 AC8A      1092            mov     r4,_TL0
@@ -1103,23 +1103,23 @@
 02A5 120000    1103            lcall   __divuint
 02A8 AA82      1104            mov     r2,dpl
 02AA AB83      1105            mov     r3,dph
-02AC           1106   ;        D:\Coding\2026\291\lab5\src\lab5.c:236: if(time_us < 100){
+02AC           1106   ;        src/lab5.c:238: if(time_us < 100){
 02AC C3        1107            clr     c
 02AD EA        1108            mov     a,r2
 02AE 9464      1109            subb    a,#0x64
 02B0 EB        1110            mov     a,r3
 02B1 9400      1111            subb    a,#0x00
 02B3 5000      1112            jnc     L012011?
-02B5           1113   ;        D:\Coding\2026\291\lab5\src\lab5.c:237: time_us = last_accept_frequency;
-02B5 AA10      1114            mov     r2,_last_accept_frequency
-02B7 AB11      1115            mov     r3,(_last_accept_frequency + 1)
+02B5           1113   ;        src/lab5.c:239: time_us = last_accept_frequency;
+02B5 AAC0      1114            mov     r2,_last_accept_frequency
+02B7 ABC1      1115            mov     r3,(_last_accept_frequency + 1)
 02B9 8000      1116            sjmp    L012012?
 02BB           1117   L012011?:
-02BB           1118   ;        D:\Coding\2026\291\lab5\src\lab5.c:240: last_accept_frequency = time_us;
-02BB 8A10      1119            mov     _last_accept_frequency,r2
-02BD 8B11      1120            mov     (_last_accept_frequency + 1),r3
+02BB           1118   ;        src/lab5.c:242: last_accept_frequency = time_us;
+02BB 8AC0      1119            mov     _last_accept_frequency,r2
+02BD 8BC1      1120            mov     (_last_accept_frequency + 1),r3
 02BF           1121   L012012?:
-02BF           1122   ;        D:\Coding\2026\291\lab5\src\lab5.c:242: return time_us; 
+02BF           1122   ;        src/lab5.c:244: return time_us; 
 02BF 8A82      1123            mov     dpl,r2
 02C1 8B83      1124            mov     dph,r3
 02C3 22        1125            ret
@@ -1128,37 +1128,37 @@
 02C4           1128   ;------------------------------------------------------------
 02C4           1129   ;time_us                   Allocated to registers r2 r3 
 02C4           1130   ;------------------------------------------------------------
-02C4           1131   ;        D:\Coding\2026\291\lab5\src\lab5.c:249: unsigned int measure_zero_cross_time(void){
+02C4           1131   ;        src/lab5.c:251: unsigned int measure_zero_cross_time(void){
 02C4           1132   ;        -----------------------------------------
 02C4           1133   ;         function measure_zero_cross_time
 02C4           1134   ;        -----------------------------------------
 02C4           1135   _measure_zero_cross_time:
-02C4           1136   ;        D:\Coding\2026\291\lab5\src\lab5.c:252: CKCON0&=0b_1111_1010;  // Timer 0 uses sysclk/48
+02C4           1136   ;        src/lab5.c:254: CKCON0&=0b_1111_1010;  // Timer 0 uses sysclk/48
 02C4 538EFA    1137            anl     _CKCON0,#0xFA
-02C7           1138   ;        D:\Coding\2026\291\lab5\src\lab5.c:253: CKCON0|=0b_0000_0010;
+02C7           1138   ;        src/lab5.c:255: CKCON0|=0b_0000_0010;
 02C7 438E02    1139            orl     _CKCON0,#0x02
-02CA           1140   ;        D:\Coding\2026\291\lab5\src\lab5.c:255: TR0 = 0;
+02CA           1140   ;        src/lab5.c:257: TR0 = 0;
 02CA C28C      1141            clr     _TR0
-02CC           1142   ;        D:\Coding\2026\291\lab5\src\lab5.c:256: TH0 = 0; TL0 = 0; // Reset timer
+02CC           1142   ;        src/lab5.c:258: TH0 = 0; TL0 = 0; // Reset timer
 02CC 758C00    1143            mov     _TH0,#0x00
 02CF 758A00    1144            mov     _TL0,#0x00
-02D2           1145   ;        D:\Coding\2026\291\lab5\src\lab5.c:257: while(P2_2 == 1); // Wait for p2.2 to be 0
+02D2           1145   ;        src/lab5.c:259: while(P2_2 == 1); // Wait for p2.2 to be 0
 02D2           1146   L013001?:
-02D2 20A210    1147            jb      _P2_2,L013001?
-02D5           1148   ;        D:\Coding\2026\291\lab5\src\lab5.c:258: while(P2_2 == 0); // Wait for p2.2 to be 1
+02D2 20A2C0    1147            jb      _P2_2,L013001?
+02D5           1148   ;        src/lab5.c:260: while(P2_2 == 0); // Wait for p2.2 to be 1
 02D5           1149   L013004?:
-02D5 30A250    1150            jnb     _P2_2,L013004?
-02D8           1151   ;        D:\Coding\2026\291\lab5\src\lab5.c:259: TR0 = 1;
+02D5 30A200    1150            jnb     _P2_2,L013004?
+02D8           1151   ;        src/lab5.c:261: TR0 = 1;
 02D8 D28C      1152            setb    _TR0
-02DA           1153   ;        D:\Coding\2026\291\lab5\src\lab5.c:261: while(P2_3 == 1); // Wait for p2.3 to be 1
+02DA           1153   ;        src/lab5.c:263: while(P2_3 == 1); // Wait for p2.3 to be 1
 02DA           1154   L013007?:
-02DA 20A390    1155            jb      _P2_3,L013007?
-02DD           1156   ;        D:\Coding\2026\291\lab5\src\lab5.c:262: while(P2_3 == 0); // Wait for p2.3 to be 0
+02DA 20A340    1155            jb      _P2_3,L013007?
+02DD           1156   ;        src/lab5.c:264: while(P2_3 == 0); // Wait for p2.3 to be 0
 02DD           1157   L013010?:
-02DD 30A3D0    1158            jnb     _P2_3,L013010?
-02E0           1159   ;        D:\Coding\2026\291\lab5\src\lab5.c:263: TR0 = 0;
+02DD 30A380    1158            jnb     _P2_3,L013010?
+02E0           1159   ;        src/lab5.c:265: TR0 = 0;
 02E0 C28C      1160            clr     _TR0
-02E2           1161   ;        D:\Coding\2026\291\lab5\src\lab5.c:265: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
+02E2           1161   ;        src/lab5.c:267: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
 02E2 AB8C      1162            mov     r3,_TH0
 02E4 7A00      1163            mov     r2,#0x00
 02E6 AC8A      1164            mov     r4,_TL0
@@ -1180,7 +1180,7 @@
 0302 CA        1180            xch     a,r2
 0303 33        1181            rlc     a
 0304 FB        1182            mov     r3,a
-0305           1183   ;        D:\Coding\2026\291\lab5\src\lab5.c:266: printf("%u\n", (TH0*0x100+TL0));
+0305           1183   ;        src/lab5.c:268: printf("%u\n", (TH0*0x100+TL0));
 0305 AD8C      1184            mov     r5,_TH0
 0307 7C00      1185            mov     r4,#0x00
 0309 AE8A      1186            mov     r6,_TL0
@@ -1195,9 +1195,9 @@
 0315 C003      1195            push    ar3
 0317 C004      1196            push    ar4
 0319 C005      1197            push    ar5
-031B 7410      1198            mov     a,#__str_0
+031B 74C0      1198            mov     a,#__str_0
 031D C0E0      1199            push    acc
-031F 74BE      1200            mov     a,#(__str_0 >> 8)
+031F 74BD      1200            mov     a,#(__str_0 >> 8)
 0321 C0E0      1201            push    acc
 0323 7480      1202            mov     a,#0x80
 0325 C0E0      1203            push    acc
@@ -1207,28 +1207,28 @@
 032E F581      1207            mov     sp,a
 0330 D003      1208            pop     ar3
 0332 D002      1209            pop     ar2
-0334           1210   ;        D:\Coding\2026\291\lab5\src\lab5.c:268: return time_us;
+0334           1210   ;        src/lab5.c:270: return time_us;
 0334 8A82      1211            mov     dpl,r2
 0336 8B83      1212            mov     dph,r3
 0338 22        1213            ret
 0339           1214   ;------------------------------------------------------------
 0339           1215   ;Allocation info for local variables in function 'main'
 0339           1216   ;------------------------------------------------------------
-0339           1217   ;v1                        Allocated with name '_main_v1_1_72'
+0339           1217   ;v1                        Allocated with name '_main_v1_1_86'
 0339           1218   ;v2                        Allocated to registers 
 0339           1219   ;period                    Allocated to registers 
 0339           1220   ;frequency                 Allocated to registers 
 0339           1221   ;------------------------------------------------------------
-0339           1222   ;        D:\Coding\2026\291\lab5\src\lab5.c:271: void main(void){
+0339           1222   ;        src/lab5.c:273: void main(void){
 0339           1223   ;        -----------------------------------------
 0339           1224   ;         function main
 0339           1225   ;        -----------------------------------------
 0339           1226   _main:
-0339           1227   ;        D:\Coding\2026\291\lab5\src\lab5.c:278: waitms(500);
+0339           1227   ;        src/lab5.c:280: waitms(500);
 0339 9001F4    1228            mov     dptr,#0x01F4
 033C 120000    1229            lcall   _waitms
-033F           1230   ;        D:\Coding\2026\291\lab5\src\lab5.c:279: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-033F 7490      1231            mov     a,#__str_1
+033F           1230   ;        src/lab5.c:281: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+033F 7440      1231            mov     a,#__str_1
 0341 C0E0      1232            push    acc
 0343 74BE      1233            mov     a,#(__str_1 >> 8)
 0345 C0E0      1234            push    acc
@@ -1238,27 +1238,27 @@
 034E 1581      1238            dec     sp
 0350 1581      1239            dec     sp
 0352 1581      1240            dec     sp
-0354           1241   ;        D:\Coding\2026\291\lab5\src\lab5.c:283: __FILE__, __DATE__, __TIME__);
-0354           1242   ;        D:\Coding\2026\291\lab5\src\lab5.c:282: "Compiled: %s, %s\n\n",
-0354 74D0      1243            mov     a,#__str_5
+0354           1241   ;        src/lab5.c:285: __FILE__, __DATE__, __TIME__);
+0354           1242   ;        src/lab5.c:284: "Compiled: %s, %s\n\n",
+0354 7480      1243            mov     a,#__str_5
 0356 C0E0      1244            push    acc
 0358 74BE      1245            mov     a,#(__str_5 >> 8)
 035A C0E0      1246            push    acc
 035C 7480      1247            mov     a,#0x80
 035E C0E0      1248            push    acc
-0360 7410      1249            mov     a,#__str_4
+0360 74C0      1249            mov     a,#__str_4
 0362 C0E0      1250            push    acc
-0364 74BF      1251            mov     a,#(__str_4 >> 8)
+0364 74BE      1251            mov     a,#(__str_4 >> 8)
 0366 C0E0      1252            push    acc
 0368 7480      1253            mov     a,#0x80
 036A C0E0      1254            push    acc
-036C 7450      1255            mov     a,#__str_3
+036C 7400      1255            mov     a,#__str_3
 036E C0E0      1256            push    acc
 0370 74BF      1257            mov     a,#(__str_3 >> 8)
 0372 C0E0      1258            push    acc
 0374 7480      1259            mov     a,#0x80
 0376 C0E0      1260            push    acc
-0378 7490      1261            mov     a,#__str_2
+0378 7440      1261            mov     a,#__str_2
 037A C0E0      1262            push    acc
 037C 74BF      1263            mov     a,#(__str_2 >> 8)
 037E C0E0      1264            push    acc
@@ -1268,30 +1268,30 @@
 0387 E581      1268            mov     a,sp
 0389 24F4      1269            add     a,#0xf4
 038B F581      1270            mov     sp,a
-038D           1271   ;        D:\Coding\2026\291\lab5\src\lab5.c:286: InitPinADC(1, 6);
-038D 755006    1272            mov     _InitPinADC_PARM_2,#0x06
+038D           1271   ;        src/lab5.c:288: InitPinADC(1, 6);
+038D 750006    1272            mov     _InitPinADC_PARM_2,#0x06
 0390 758201    1273            mov     dpl,#0x01
 0393 120000    1274            lcall   _InitPinADC
-0396           1275   ;        D:\Coding\2026\291\lab5\src\lab5.c:287: InitPinADC(2, 1);
-0396 755001    1276            mov     _InitPinADC_PARM_2,#0x01
+0396           1275   ;        src/lab5.c:289: InitPinADC(2, 1);
+0396 750001    1276            mov     _InitPinADC_PARM_2,#0x01
 0399 758202    1277            mov     dpl,#0x02
 039C 120000    1278            lcall   _InitPinADC
-039F           1279   ;        D:\Coding\2026\291\lab5\src\lab5.c:288: InitADC();
+039F           1279   ;        src/lab5.c:290: InitADC();
 039F 120000    1280            lcall   _InitADC
-03A2           1281   ;        D:\Coding\2026\291\lab5\src\lab5.c:289: TIMER0_Init();
+03A2           1281   ;        src/lab5.c:291: TIMER0_Init();
 03A2 120000    1282            lcall   _TIMER0_Init
-03A5           1283   ;        D:\Coding\2026\291\lab5\src\lab5.c:290: init_pin_input();
+03A5           1283   ;        src/lab5.c:292: init_pin_input();
 03A5 120000    1284            lcall   _init_pin_input
-03A8           1285   ;        D:\Coding\2026\291\lab5\src\lab5.c:292: while(1){
+03A8           1285   ;        src/lab5.c:294: while(1){
 03A8           1286   L014002?:
-03A8           1287   ;        D:\Coding\2026\291\lab5\src\lab5.c:293: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
+03A8           1287   ;        src/lab5.c:295: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
 03A8 75820E    1288            mov     dpl,#0x0E
 03AB 120000    1289            lcall   _read_ripple_voltage
-03AE           1290   ;        D:\Coding\2026\291\lab5\src\lab5.c:299: period = measure_period();
+03AE           1290   ;        src/lab5.c:301: period = measure_period();
 03AE 120000    1291            lcall   _measure_period
-03B1           1292   ;        D:\Coding\2026\291\lab5\src\lab5.c:303: measure_zero_cross_time();
+03B1           1292   ;        src/lab5.c:305: measure_zero_cross_time();
 03B1 120000    1293            lcall   _measure_zero_cross_time
-03B4           1294   ;        D:\Coding\2026\291\lab5\src\lab5.c:304: waitms(500);
+03B4           1294   ;        src/lab5.c:306: waitms(500);
 03B4 9001F4    1295            mov     dptr,#0x01F4
 03B7 120000    1296            lcall   _waitms
 03BA 8000      1297            sjmp    L014002?
@@ -1322,32 +1322,20 @@
 0028 0A        1318            db 0x0A
 0029 00        1319            db 0x00
 002A           1320   __str_3:
-002A 443A      1321            db 'D:'
-002C 5C        1322            db 0x5C
-002D 436F6469  1323            db 'Coding'
-     6E67
-0033 5C        1324            db 0x5C
-0034 32303236  1325            db '2026'
-0038 5C        1326            db 0x5C
-0039 323931    1327            db '291'
-003C 5C        1328            db 0x5C
-003D 6C616235  1329            db 'lab5'
-0041 5C        1330            db 0x5C
-0042 737263    1331            db 'src'
-0045 5C        1332            db 0x5C
-0046 6C616235  1333            db 'lab5.c'
+002A 7372632F  1321            db 'src/lab5.c'
+     6C616235
      2E63
-004C 00        1334            db 0x00
-004D           1335   __str_4:
-004D 4D617220  1336            db 'Mar  2 2026'
+0034 00        1322            db 0x00
+0035           1323   __str_4:
+0035 4D617220  1324            db 'Mar  2 2026'
      20322032
      303236
-0058 00        1337            db 0x00
-0059           1338   __str_5:
-0059 31333A31  1339            db '13:13:27'
-     333A3237
-0061 00        1340            db 0x00
-0062           1341   
-0003           1342            CSEG
-0003           1343   
-0003           1344   end
+0040 00        1325            db 0x00
+0041           1326   __str_5:
+0041 31333A32  1327            db '13:28:41'
+     383A3431
+0049 00        1328            db 0x00
+004A           1329   
+0003           1330            CSEG
+0003           1331   
+0003           1332   end

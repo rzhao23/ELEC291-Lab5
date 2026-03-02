@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <EFM8LB1.h>
+#include "uart.h"
+#include "cmd.h"
 
 #define SYSCLK 72000000L
 #define BAUDRATE 115200L

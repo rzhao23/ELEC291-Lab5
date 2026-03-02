@@ -1,5 +1,5 @@
 <MODULE>
-lab5
+build/lab5
 </MODULE>
 
 <OPTC51>
@@ -11,7 +11,7 @@ R_GSINIT,code,0000,NO
 R_BSEG,bit,0000,NO
 R_XSEG,xdata,0000,NO
 BIT_BANK,data,0000,OV
-R_CONST,code,0062,NO
+R_CONST,code,004A,NO
 rbank0,data,0000,OV
 R_PSEG,xdata,0000,NO
 R_DINIT,code,0005,NO
@@ -39,7 +39,7 @@ L005009?,R_CSEG,00CF,0000
 L005007?,R_CSEG,00C8,0000
 L005005?,R_CSEG,009D,0000
 L005001?,R_CSEG,00A6,0000
-_read_ripple_voltage_voltage_sum_1_63,R_DSEG,0003,0004
+_read_ripple_voltage_voltage_sum_1_77,R_DSEG,0003,0004
 L012012?,R_CSEG,02BF,0000
 L012011?,R_CSEG,02BB,0000
 L006005?,R_CSEG,010F,0000
@@ -52,8 +52,8 @@ __str_0,R_CONST,0000,0000
 __str_1,R_CONST,0004,0000
 __str_2,R_CONST,0009,0000
 __str_3,R_CONST,002A,0000
-__str_4,R_CONST,004D,0000
-__str_5,R_CONST,0059,0000
+__str_4,R_CONST,0035,0000
+__str_5,R_CONST,0041,0000
 L011003?,R_CSEG,0240,0000
 L011001?,R_CSEG,01A9,0000
 L008001?,R_CSEG,0126,0000
@@ -64,7 +64,7 @@ L013007?,R_CSEG,02DA,0000
 L013004?,R_CSEG,02D5,0000
 L013001?,R_CSEG,02D2,0000
 L005018?,R_CSEG,00A9,0000
-_read_ripple_voltage_pin_1_62,R_DSEG,0002,0001
+_read_ripple_voltage_pin_1_76,R_DSEG,0002,0001
 L014002?,R_CSEG,03A8,0000
 </LOCALS>
 
@@ -320,16 +320,16 @@ ED
 43 CC 0C
 43 E3 40
 22
-85 82 data8(_read_ripple_voltage_pin_1_62;)
-75 data8(_read_ripple_voltage_voltage_sum_1_63;) 00
-75 data8(_read_ripple_voltage_voltage_sum_1_63;0x0001;+;) 00
-75 data8(_read_ripple_voltage_voltage_sum_1_63;0x0002;+;) 00
-75 data8(_read_ripple_voltage_voltage_sum_1_63;0x0003;+;) 00
+85 82 data8(_read_ripple_voltage_pin_1_76;)
+75 data8(_read_ripple_voltage_voltage_sum_1_77;) 00
+75 data8(_read_ripple_voltage_voltage_sum_1_77;0x0001;+;) 00
+75 data8(_read_ripple_voltage_voltage_sum_1_77;0x0002;+;) 00
+75 data8(_read_ripple_voltage_voltage_sum_1_77;0x0003;+;) 00
 7F 00
 BF 20 rel3(L011009?;)
 40 rel2(L011010?;)
 02 addr16(L011003?;)  
-85 data8(_read_ripple_voltage_pin_1_62;) 82
+85 data8(_read_ripple_voltage_pin_1_76;) 82
 C0 07
 12 addr16(_ADC_at_Pin;)  
 12 addr16(___uint2fs;)  
@@ -376,15 +376,15 @@ C0 02
 C0 03
 C0 04
 C0 05
-85 data8(_read_ripple_voltage_voltage_sum_1_63;) 82
-85 data8(_read_ripple_voltage_voltage_sum_1_63;0x0001;+;) 83
-85 data8(_read_ripple_voltage_voltage_sum_1_63;0x0002;+;) F0
-E5 data8(_read_ripple_voltage_voltage_sum_1_63;0x0003;+;)
+85 data8(_read_ripple_voltage_voltage_sum_1_77;) 82
+85 data8(_read_ripple_voltage_voltage_sum_1_77;0x0001;+;) 83
+85 data8(_read_ripple_voltage_voltage_sum_1_77;0x0002;+;) F0
+E5 data8(_read_ripple_voltage_voltage_sum_1_77;0x0003;+;)
 12 addr16(___fsadd;)  
-85 82 data8(_read_ripple_voltage_voltage_sum_1_63;)
-85 83 data8(_read_ripple_voltage_voltage_sum_1_63;0x0001;+;)
-85 F0 data8(_read_ripple_voltage_voltage_sum_1_63;0x0002;+;)
-F5 data8(_read_ripple_voltage_voltage_sum_1_63;0x0003;+;)
+85 82 data8(_read_ripple_voltage_voltage_sum_1_77;)
+85 83 data8(_read_ripple_voltage_voltage_sum_1_77;0x0001;+;)
+85 F0 data8(_read_ripple_voltage_voltage_sum_1_77;0x0002;+;)
+F5 data8(_read_ripple_voltage_voltage_sum_1_77;0x0003;+;)
 E5 81
 24 FC
 F5 81
@@ -405,10 +405,10 @@ C0 02
 C0 03
 C0 04
 C0 05
-85 data8(_read_ripple_voltage_voltage_sum_1_63;) 82
-85 data8(_read_ripple_voltage_voltage_sum_1_63;0x0001;+;) 83
-85 data8(_read_ripple_voltage_voltage_sum_1_63;0x0002;+;) F0
-E5 data8(_read_ripple_voltage_voltage_sum_1_63;0x0003;+;)
+85 data8(_read_ripple_voltage_voltage_sum_1_77;) 82
+85 data8(_read_ripple_voltage_voltage_sum_1_77;0x0001;+;) 83
+85 data8(_read_ripple_voltage_voltage_sum_1_77;0x0002;+;) F0
+E5 data8(_read_ripple_voltage_voltage_sum_1_77;0x0003;+;)
 12 addr16(___fsdiv;)  
 AA 82
 AB 83
@@ -601,23 +601,11 @@ F5 81
 0A
 0A
 00
-44 3A 
-5C
-43 6F 64 69 6E 67 
-5C
-32 30 32 36 
-5C
-32 39 31 
-5C
-6C 61 62 35 
-5C
-73 72 63 
-5C
-6C 61 62 35 2E 63 
+73 72 63 2F 6C 61 62 35 2E 63 
 00
 4D 61 72 20 20 32 20 32 30 32 36 
 00
-31 33 3A 31 33 3A 32 37 
+31 33 3A 32 38 3A 34 31 
 00
 </CODE>
 

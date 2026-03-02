@@ -1,0 +1,1226 @@
+0000              1   ;--------------------------------------------------------
+0000              2   ; File Created by C51
+0000              3   ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
+0000              4   ; This file was generated Mon Mar 02 13:32:45 2026
+0000              5   ;--------------------------------------------------------
+                  5   $name cmd
+                  6   $optc51 --model-small
+0000              8            R_DSEG    segment data
+0000              9            R_CSEG    segment code
+0000             10            R_BSEG    segment bit
+0000             11            R_XSEG    segment xdata
+0000             12            R_PSEG    segment xdata
+0000             13            R_ISEG    segment idata
+0000             14            R_OSEG    segment data overlay
+0000             15            BIT_BANK  segment data overlay
+0000             16            R_HOME    segment code
+0000             17            R_GSINIT  segment code
+0000             18            R_IXSEG   segment xdata
+0000             19            R_CONST   segment code
+0000             20            R_XINIT   segment code
+0000             21            R_DINIT   segment code
+0000             22   
+0000             23   ;--------------------------------------------------------
+0000             24   ; Public variables in this module
+0000             25   ;--------------------------------------------------------
+0000             26            public _cli_cmd_count
+0000             27            public _cli_commands
+0000             28            public _cmd_help
+0000             29            public _cmd_kill
+0000             30            public _cmd_read
+0000             31            public _cmd_mode
+0000             32            public _cmd_round
+0000             33            public _cmd_info
+0000             34            public _cmd_reset
+0000             35            public _cli_parse_and_dispatch
+0000             36   ;--------------------------------------------------------
+0000             37   ; Special Function Registers
+0000             38   ;--------------------------------------------------------
+0000             39   _ACC            DATA 0xe0
+0000             40   _ADC0ASAH       DATA 0xb6
+0000             41   _ADC0ASAL       DATA 0xb5
+0000             42   _ADC0ASCF       DATA 0xa1
+0000             43   _ADC0ASCT       DATA 0xc7
+0000             44   _ADC0CF0        DATA 0xbc
+0000             45   _ADC0CF1        DATA 0xb9
+0000             46   _ADC0CF2        DATA 0xdf
+0000             47   _ADC0CN0        DATA 0xe8
+0000             48   _ADC0CN1        DATA 0xb2
+0000             49   _ADC0CN2        DATA 0xb3
+0000             50   _ADC0GTH        DATA 0xc4
+0000             51   _ADC0GTL        DATA 0xc3
+0000             52   _ADC0H          DATA 0xbe
+0000             53   _ADC0L          DATA 0xbd
+0000             54   _ADC0LTH        DATA 0xc6
+0000             55   _ADC0LTL        DATA 0xc5
+0000             56   _ADC0MX         DATA 0xbb
+0000             57   _B              DATA 0xf0
+0000             58   _CKCON0         DATA 0x8e
+0000             59   _CKCON1         DATA 0xa6
+0000             60   _CLEN0          DATA 0xc6
+0000             61   _CLIE0          DATA 0xc7
+0000             62   _CLIF0          DATA 0xe8
+0000             63   _CLKSEL         DATA 0xa9
+0000             64   _CLOUT0         DATA 0xd1
+0000             65   _CLU0CF         DATA 0xb1
+0000             66   _CLU0FN         DATA 0xaf
+0000             67   _CLU0MX         DATA 0x84
+0000             68   _CLU1CF         DATA 0xb3
+0000             69   _CLU1FN         DATA 0xb2
+0000             70   _CLU1MX         DATA 0x85
+0000             71   _CLU2CF         DATA 0xb6
+0000             72   _CLU2FN         DATA 0xb5
+0000             73   _CLU2MX         DATA 0x91
+0000             74   _CLU3CF         DATA 0xbf
+0000             75   _CLU3FN         DATA 0xbe
+0000             76   _CLU3MX         DATA 0xae
+0000             77   _CMP0CN0        DATA 0x9b
+0000             78   _CMP0CN1        DATA 0x99
+0000             79   _CMP0MD         DATA 0x9d
+0000             80   _CMP0MX         DATA 0x9f
+0000             81   _CMP1CN0        DATA 0xbf
+0000             82   _CMP1CN1        DATA 0xac
+0000             83   _CMP1MD         DATA 0xab
+0000             84   _CMP1MX         DATA 0xaa
+0000             85   _CRC0CN0        DATA 0xce
+0000             86   _CRC0CN1        DATA 0x86
+0000             87   _CRC0CNT        DATA 0xd3
+0000             88   _CRC0DAT        DATA 0xcb
+0000             89   _CRC0FLIP       DATA 0xcf
+0000             90   _CRC0IN         DATA 0xca
+0000             91   _CRC0ST         DATA 0xd2
+0000             92   _DAC0CF0        DATA 0x91
+0000             93   _DAC0CF1        DATA 0x92
+0000             94   _DAC0H          DATA 0x85
+0000             95   _DAC0L          DATA 0x84
+0000             96   _DAC1CF0        DATA 0x93
+0000             97   _DAC1CF1        DATA 0x94
+0000             98   _DAC1H          DATA 0x8a
+0000             99   _DAC1L          DATA 0x89
+0000            100   _DAC2CF0        DATA 0x95
+0000            101   _DAC2CF1        DATA 0x96
+0000            102   _DAC2H          DATA 0x8c
+0000            103   _DAC2L          DATA 0x8b
+0000            104   _DAC3CF0        DATA 0x9a
+0000            105   _DAC3CF1        DATA 0x9c
+0000            106   _DAC3H          DATA 0x8e
+0000            107   _DAC3L          DATA 0x8d
+0000            108   _DACGCF0        DATA 0x88
+0000            109   _DACGCF1        DATA 0x98
+0000            110   _DACGCF2        DATA 0xa2
+0000            111   _DERIVID        DATA 0xad
+0000            112   _DEVICEID       DATA 0xb5
+0000            113   _DPH            DATA 0x83
+0000            114   _DPL            DATA 0x82
+0000            115   _EIE1           DATA 0xe6
+0000            116   _EIE2           DATA 0xf3
+0000            117   _EIP1           DATA 0xbb
+0000            118   _EIP1H          DATA 0xee
+0000            119   _EIP2           DATA 0xed
+0000            120   _EIP2H          DATA 0xf6
+0000            121   _EMI0CN         DATA 0xe7
+0000            122   _FLKEY          DATA 0xb7
+0000            123   _HFO0CAL        DATA 0xc7
+0000            124   _HFO1CAL        DATA 0xd6
+0000            125   _HFOCN          DATA 0xef
+0000            126   _I2C0ADM        DATA 0xff
+0000            127   _I2C0CN0        DATA 0xba
+0000            128   _I2C0DIN        DATA 0xbc
+0000            129   _I2C0DOUT       DATA 0xbb
+0000            130   _I2C0FCN0       DATA 0xad
+0000            131   _I2C0FCN1       DATA 0xab
+0000            132   _I2C0FCT        DATA 0xf5
+0000            133   _I2C0SLAD       DATA 0xbd
+0000            134   _I2C0STAT       DATA 0xb9
+0000            135   _IE             DATA 0xa8
+0000            136   _IP             DATA 0xb8
+0000            137   _IPH            DATA 0xf2
+0000            138   _IT01CF         DATA 0xe4
+0000            139   _LFO0CN         DATA 0xb1
+0000            140   _P0             DATA 0x80
+0000            141   _P0MASK         DATA 0xfe
+0000            142   _P0MAT          DATA 0xfd
+0000            143   _P0MDIN         DATA 0xf1
+0000            144   _P0MDOUT        DATA 0xa4
+0000            145   _P0SKIP         DATA 0xd4
+0000            146   _P1             DATA 0x90
+0000            147   _P1MASK         DATA 0xee
+0000            148   _P1MAT          DATA 0xed
+0000            149   _P1MDIN         DATA 0xf2
+0000            150   _P1MDOUT        DATA 0xa5
+0000            151   _P1SKIP         DATA 0xd5
+0000            152   _P2             DATA 0xa0
+0000            153   _P2MASK         DATA 0xfc
+0000            154   _P2MAT          DATA 0xfb
+0000            155   _P2MDIN         DATA 0xf3
+0000            156   _P2MDOUT        DATA 0xa6
+0000            157   _P2SKIP         DATA 0xcc
+0000            158   _P3             DATA 0xb0
+0000            159   _P3MDIN         DATA 0xf4
+0000            160   _P3MDOUT        DATA 0x9c
+0000            161   _PCA0CENT       DATA 0x9e
+0000            162   _PCA0CLR        DATA 0x9c
+0000            163   _PCA0CN0        DATA 0xd8
+0000            164   _PCA0CPH0       DATA 0xfc
+0000            165   _PCA0CPH1       DATA 0xea
+0000            166   _PCA0CPH2       DATA 0xec
+0000            167   _PCA0CPH3       DATA 0xf5
+0000            168   _PCA0CPH4       DATA 0x85
+0000            169   _PCA0CPH5       DATA 0xde
+0000            170   _PCA0CPL0       DATA 0xfb
+0000            171   _PCA0CPL1       DATA 0xe9
+0000            172   _PCA0CPL2       DATA 0xeb
+0000            173   _PCA0CPL3       DATA 0xf4
+0000            174   _PCA0CPL4       DATA 0x84
+0000            175   _PCA0CPL5       DATA 0xdd
+0000            176   _PCA0CPM0       DATA 0xda
+0000            177   _PCA0CPM1       DATA 0xdb
+0000            178   _PCA0CPM2       DATA 0xdc
+0000            179   _PCA0CPM3       DATA 0xae
+0000            180   _PCA0CPM4       DATA 0xaf
+0000            181   _PCA0CPM5       DATA 0xcc
+0000            182   _PCA0H          DATA 0xfa
+0000            183   _PCA0L          DATA 0xf9
+0000            184   _PCA0MD         DATA 0xd9
+0000            185   _PCA0POL        DATA 0x96
+0000            186   _PCA0PWM        DATA 0xf7
+0000            187   _PCON0          DATA 0x87
+0000            188   _PCON1          DATA 0xcd
+0000            189   _PFE0CN         DATA 0xc1
+0000            190   _PRTDRV         DATA 0xf6
+0000            191   _PSCTL          DATA 0x8f
+0000            192   _PSTAT0         DATA 0xaa
+0000            193   _PSW            DATA 0xd0
+0000            194   _REF0CN         DATA 0xd1
+0000            195   _REG0CN         DATA 0xc9
+0000            196   _REVID          DATA 0xb6
+0000            197   _RSTSRC         DATA 0xef
+0000            198   _SBCON1         DATA 0x94
+0000            199   _SBRLH1         DATA 0x96
+0000            200   _SBRLL1         DATA 0x95
+0000            201   _SBUF           DATA 0x99
+0000            202   _SBUF0          DATA 0x99
+0000            203   _SBUF1          DATA 0x92
+0000            204   _SCON           DATA 0x98
+0000            205   _SCON0          DATA 0x98
+0000            206   _SCON1          DATA 0xc8
+0000            207   _SFRPAGE        DATA 0xa7
+0000            208   _SFRPGCN        DATA 0xbc
+0000            209   _SFRSTACK       DATA 0xd7
+0000            210   _SMB0ADM        DATA 0xd6
+0000            211   _SMB0ADR        DATA 0xd7
+0000            212   _SMB0CF         DATA 0xc1
+0000            213   _SMB0CN0        DATA 0xc0
+0000            214   _SMB0DAT        DATA 0xc2
+0000            215   _SMB0FCN0       DATA 0xc3
+0000            216   _SMB0FCN1       DATA 0xc4
+0000            217   _SMB0FCT        DATA 0xef
+0000            218   _SMB0RXLN       DATA 0xc5
+0000            219   _SMB0TC         DATA 0xac
+0000            220   _SMOD1          DATA 0x93
+0000            221   _SP             DATA 0x81
+0000            222   _SPI0CFG        DATA 0xa1
+0000            223   _SPI0CKR        DATA 0xa2
+0000            224   _SPI0CN0        DATA 0xf8
+0000            225   _SPI0DAT        DATA 0xa3
+0000            226   _SPI0FCN0       DATA 0x9a
+0000            227   _SPI0FCN1       DATA 0x9b
+0000            228   _SPI0FCT        DATA 0xf7
+0000            229   _SPI0PCF        DATA 0xdf
+0000            230   _TCON           DATA 0x88
+0000            231   _TH0            DATA 0x8c
+0000            232   _TH1            DATA 0x8d
+0000            233   _TL0            DATA 0x8a
+0000            234   _TL1            DATA 0x8b
+0000            235   _TMOD           DATA 0x89
+0000            236   _TMR2CN0        DATA 0xc8
+0000            237   _TMR2CN1        DATA 0xfd
+0000            238   _TMR2H          DATA 0xcf
+0000            239   _TMR2L          DATA 0xce
+0000            240   _TMR2RLH        DATA 0xcb
+0000            241   _TMR2RLL        DATA 0xca
+0000            242   _TMR3CN0        DATA 0x91
+0000            243   _TMR3CN1        DATA 0xfe
+0000            244   _TMR3H          DATA 0x95
+0000            245   _TMR3L          DATA 0x94
+0000            246   _TMR3RLH        DATA 0x93
+0000            247   _TMR3RLL        DATA 0x92
+0000            248   _TMR4CN0        DATA 0x98
+0000            249   _TMR4CN1        DATA 0xff
+0000            250   _TMR4H          DATA 0xa5
+0000            251   _TMR4L          DATA 0xa4
+0000            252   _TMR4RLH        DATA 0xa3
+0000            253   _TMR4RLL        DATA 0xa2
+0000            254   _TMR5CN0        DATA 0xc0
+0000            255   _TMR5CN1        DATA 0xf1
+0000            256   _TMR5H          DATA 0xd5
+0000            257   _TMR5L          DATA 0xd4
+0000            258   _TMR5RLH        DATA 0xd3
+0000            259   _TMR5RLL        DATA 0xd2
+0000            260   _UART0PCF       DATA 0xd9
+0000            261   _UART1FCN0      DATA 0x9d
+0000            262   _UART1FCN1      DATA 0xd8
+0000            263   _UART1FCT       DATA 0xfa
+0000            264   _UART1LIN       DATA 0x9e
+0000            265   _UART1PCF       DATA 0xda
+0000            266   _VDM0CN         DATA 0xff
+0000            267   _WDTCN          DATA 0x97
+0000            268   _XBR0           DATA 0xe1
+0000            269   _XBR1           DATA 0xe2
+0000            270   _XBR2           DATA 0xe3
+0000            271   _XOSC0CN        DATA 0x86
+0000            272   _DPTR           DATA 0x8382
+0000            273   _TMR2RL         DATA 0xcbca
+0000            274   _TMR3RL         DATA 0x9392
+0000            275   _TMR4RL         DATA 0xa3a2
+0000            276   _TMR5RL         DATA 0xd3d2
+0000            277   _TMR0           DATA 0x8c8a
+0000            278   _TMR1           DATA 0x8d8b
+0000            279   _TMR2           DATA 0xcfce
+0000            280   _TMR3           DATA 0x9594
+0000            281   _TMR4           DATA 0xa5a4
+0000            282   _TMR5           DATA 0xd5d4
+0000            283   _SBRL1          DATA 0x9695
+0000            284   _PCA0           DATA 0xfaf9
+0000            285   _PCA0CP0        DATA 0xfcfb
+0000            286   _PCA0CP1        DATA 0xeae9
+0000            287   _PCA0CP2        DATA 0xeceb
+0000            288   _PCA0CP3        DATA 0xf5f4
+0000            289   _PCA0CP4        DATA 0x8584
+0000            290   _PCA0CP5        DATA 0xdedd
+0000            291   _ADC0ASA        DATA 0xb6b5
+0000            292   _ADC0GT         DATA 0xc4c3
+0000            293   _ADC0           DATA 0xbebd
+0000            294   _ADC0LT         DATA 0xc6c5
+0000            295   _DAC0           DATA 0x8584
+0000            296   _DAC1           DATA 0x8a89
+0000            297   _DAC2           DATA 0x8c8b
+0000            298   _DAC3           DATA 0x8e8d
+0000            299   ;--------------------------------------------------------
+0000            300   ; special function bits
+0000            301   ;--------------------------------------------------------
+0000            302   _ACC_0          BIT 0xe0
+0000            303   _ACC_1          BIT 0xe1
+0000            304   _ACC_2          BIT 0xe2
+0000            305   _ACC_3          BIT 0xe3
+0000            306   _ACC_4          BIT 0xe4
+0000            307   _ACC_5          BIT 0xe5
+0000            308   _ACC_6          BIT 0xe6
+0000            309   _ACC_7          BIT 0xe7
+0000            310   _TEMPE          BIT 0xe8
+0000            311   _ADGN0          BIT 0xe9
+0000            312   _ADGN1          BIT 0xea
+0000            313   _ADWINT         BIT 0xeb
+0000            314   _ADBUSY         BIT 0xec
+0000            315   _ADINT          BIT 0xed
+0000            316   _IPOEN          BIT 0xee
+0000            317   _ADEN           BIT 0xef
+0000            318   _B_0            BIT 0xf0
+0000            319   _B_1            BIT 0xf1
+0000            320   _B_2            BIT 0xf2
+0000            321   _B_3            BIT 0xf3
+0000            322   _B_4            BIT 0xf4
+0000            323   _B_5            BIT 0xf5
+0000            324   _B_6            BIT 0xf6
+0000            325   _B_7            BIT 0xf7
+0000            326   _C0FIF          BIT 0xe8
+0000            327   _C0RIF          BIT 0xe9
+0000            328   _C1FIF          BIT 0xea
+0000            329   _C1RIF          BIT 0xeb
+0000            330   _C2FIF          BIT 0xec
+0000            331   _C2RIF          BIT 0xed
+0000            332   _C3FIF          BIT 0xee
+0000            333   _C3RIF          BIT 0xef
+0000            334   _D1SRC0         BIT 0x88
+0000            335   _D1SRC1         BIT 0x89
+0000            336   _D1AMEN         BIT 0x8a
+0000            337   _D01REFSL       BIT 0x8b
+0000            338   _D3SRC0         BIT 0x8c
+0000            339   _D3SRC1         BIT 0x8d
+0000            340   _D3AMEN         BIT 0x8e
+0000            341   _D23REFSL       BIT 0x8f
+0000            342   _D0UDIS         BIT 0x98
+0000            343   _D1UDIS         BIT 0x99
+0000            344   _D2UDIS         BIT 0x9a
+0000            345   _D3UDIS         BIT 0x9b
+0000            346   _EX0            BIT 0xa8
+0000            347   _ET0            BIT 0xa9
+0000            348   _EX1            BIT 0xaa
+0000            349   _ET1            BIT 0xab
+0000            350   _ES0            BIT 0xac
+0000            351   _ET2            BIT 0xad
+0000            352   _ESPI0          BIT 0xae
+0000            353   _EA             BIT 0xaf
+0000            354   _PX0            BIT 0xb8
+0000            355   _PT0            BIT 0xb9
+0000            356   _PX1            BIT 0xba
+0000            357   _PT1            BIT 0xbb
+0000            358   _PS0            BIT 0xbc
+0000            359   _PT2            BIT 0xbd
+0000            360   _PSPI0          BIT 0xbe
+0000            361   _P0_0           BIT 0x80
+0000            362   _P0_1           BIT 0x81
+0000            363   _P0_2           BIT 0x82
+0000            364   _P0_3           BIT 0x83
+0000            365   _P0_4           BIT 0x84
+0000            366   _P0_5           BIT 0x85
+0000            367   _P0_6           BIT 0x86
+0000            368   _P0_7           BIT 0x87
+0000            369   _P1_0           BIT 0x90
+0000            370   _P1_1           BIT 0x91
+0000            371   _P1_2           BIT 0x92
+0000            372   _P1_3           BIT 0x93
+0000            373   _P1_4           BIT 0x94
+0000            374   _P1_5           BIT 0x95
+0000            375   _P1_6           BIT 0x96
+0000            376   _P1_7           BIT 0x97
+0000            377   _P2_0           BIT 0xa0
+0000            378   _P2_1           BIT 0xa1
+0000            379   _P2_2           BIT 0xa2
+0000            380   _P2_3           BIT 0xa3
+0000            381   _P2_4           BIT 0xa4
+0000            382   _P2_5           BIT 0xa5
+0000            383   _P2_6           BIT 0xa6
+0000            384   _P3_0           BIT 0xb0
+0000            385   _P3_1           BIT 0xb1
+0000            386   _P3_2           BIT 0xb2
+0000            387   _P3_3           BIT 0xb3
+0000            388   _P3_4           BIT 0xb4
+0000            389   _P3_7           BIT 0xb7
+0000            390   _CCF0           BIT 0xd8
+0000            391   _CCF1           BIT 0xd9
+0000            392   _CCF2           BIT 0xda
+0000            393   _CCF3           BIT 0xdb
+0000            394   _CCF4           BIT 0xdc
+0000            395   _CCF5           BIT 0xdd
+0000            396   _CR             BIT 0xde
+0000            397   _CF             BIT 0xdf
+0000            398   _PARITY         BIT 0xd0
+0000            399   _F1             BIT 0xd1
+0000            400   _OV             BIT 0xd2
+0000            401   _RS0            BIT 0xd3
+0000            402   _RS1            BIT 0xd4
+0000            403   _F0             BIT 0xd5
+0000            404   _AC             BIT 0xd6
+0000            405   _CY             BIT 0xd7
+0000            406   _RI             BIT 0x98
+0000            407   _TI             BIT 0x99
+0000            408   _RB8            BIT 0x9a
+0000            409   _TB8            BIT 0x9b
+0000            410   _REN            BIT 0x9c
+0000            411   _CE             BIT 0x9d
+0000            412   _SMODE          BIT 0x9e
+0000            413   _RI1            BIT 0xc8
+0000            414   _TI1            BIT 0xc9
+0000            415   _RBX1           BIT 0xca
+0000            416   _TBX1           BIT 0xcb
+0000            417   _REN1           BIT 0xcc
+0000            418   _PERR1          BIT 0xcd
+0000            419   _OVR1           BIT 0xce
+0000            420   _SI             BIT 0xc0
+0000            421   _ACK            BIT 0xc1
+0000            422   _ARBLOST        BIT 0xc2
+0000            423   _ACKRQ          BIT 0xc3
+0000            424   _STO            BIT 0xc4
+0000            425   _STA            BIT 0xc5
+0000            426   _TXMODE         BIT 0xc6
+0000            427   _MASTER         BIT 0xc7
+0000            428   _SPIEN          BIT 0xf8
+0000            429   _TXNF           BIT 0xf9
+0000            430   _NSSMD0         BIT 0xfa
+0000            431   _NSSMD1         BIT 0xfb
+0000            432   _RXOVRN         BIT 0xfc
+0000            433   _MODF           BIT 0xfd
+0000            434   _WCOL           BIT 0xfe
+0000            435   _SPIF           BIT 0xff
+0000            436   _IT0            BIT 0x88
+0000            437   _IE0            BIT 0x89
+0000            438   _IT1            BIT 0x8a
+0000            439   _IE1            BIT 0x8b
+0000            440   _TR0            BIT 0x8c
+0000            441   _TF0            BIT 0x8d
+0000            442   _TR1            BIT 0x8e
+0000            443   _TF1            BIT 0x8f
+0000            444   _T2XCLK0        BIT 0xc8
+0000            445   _T2XCLK1        BIT 0xc9
+0000            446   _TR2            BIT 0xca
+0000            447   _T2SPLIT        BIT 0xcb
+0000            448   _TF2CEN         BIT 0xcc
+0000            449   _TF2LEN         BIT 0xcd
+0000            450   _TF2L           BIT 0xce
+0000            451   _TF2H           BIT 0xcf
+0000            452   _T4XCLK0        BIT 0x98
+0000            453   _T4XCLK1        BIT 0x99
+0000            454   _TR4            BIT 0x9a
+0000            455   _T4SPLIT        BIT 0x9b
+0000            456   _TF4CEN         BIT 0x9c
+0000            457   _TF4LEN         BIT 0x9d
+0000            458   _TF4L           BIT 0x9e
+0000            459   _TF4H           BIT 0x9f
+0000            460   _T5XCLK0        BIT 0xc0
+0000            461   _T5XCLK1        BIT 0xc1
+0000            462   _TR5            BIT 0xc2
+0000            463   _T5SPLIT        BIT 0xc3
+0000            464   _TF5CEN         BIT 0xc4
+0000            465   _TF5LEN         BIT 0xc5
+0000            466   _TF5L           BIT 0xc6
+0000            467   _TF5H           BIT 0xc7
+0000            468   _RIE            BIT 0xd8
+0000            469   _RXTO0          BIT 0xd9
+0000            470   _RXTO1          BIT 0xda
+0000            471   _RFRQ           BIT 0xdb
+0000            472   _TIE            BIT 0xdc
+0000            473   _TXHOLD         BIT 0xdd
+0000            474   _TXNF1          BIT 0xde
+0000            475   _TFRQ           BIT 0xdf
+0000            476   ;--------------------------------------------------------
+0000            477   ; overlayable register banks
+0000            478   ;--------------------------------------------------------
+0000            479            rbank0 segment data overlay
+0000            480   ;--------------------------------------------------------
+0000            481   ; internal ram data
+0000            482   ;--------------------------------------------------------
+0000            483            rseg R_DSEG
+0000            484   _cli_parse_and_dispatch_input_1_55:
+0000            485            ds 3
+0003            486   _cli_parse_and_dispatch_in_arg_1_56:
+0003            487            ds 1
+0004            488   ;--------------------------------------------------------
+0004            489   ; overlayable items in internal ram 
+0004            490   ;--------------------------------------------------------
+0000            491            rseg R_OSEG
+0000            492   ;--------------------------------------------------------
+0000            493   ; indirectly addressable internal ram data
+0000            494   ;--------------------------------------------------------
+0000            495            rseg R_ISEG
+0000            496   ;--------------------------------------------------------
+0000            497   ; absolute internal ram data
+0000            498   ;--------------------------------------------------------
+0000            499            DSEG
+0000            500   ;--------------------------------------------------------
+0000            501   ; bit data
+0000            502   ;--------------------------------------------------------
+0000            503            rseg R_BSEG
+0000            504   ;--------------------------------------------------------
+0000            505   ; paged external ram data
+0000            506   ;--------------------------------------------------------
+0000            507            rseg R_PSEG
+0000            508   ;--------------------------------------------------------
+0000            509   ; external ram data
+0000            510   ;--------------------------------------------------------
+0000            511            rseg R_XSEG
+0000            512   _cli_parse_and_dispatch_argv_1_56:
+0000            513            ds 24
+0018            514   ;--------------------------------------------------------
+0018            515   ; absolute external ram data
+0018            516   ;--------------------------------------------------------
+0000            517            XSEG
+0000            518   ;--------------------------------------------------------
+0000            519   ; external initialized ram data
+0000            520   ;--------------------------------------------------------
+0000            521            rseg R_IXSEG
+0000            522            rseg R_HOME
+0000            523            rseg R_GSINIT
+0000            524            rseg R_CSEG
+0000            525   ;--------------------------------------------------------
+0000            526   ; Interrupt vectors
+0000            527   ;--------------------------------------------------------
+0000            528   ;--------------------------------------------------------
+0000            529   ; global & static initialisations
+0000            530   ;--------------------------------------------------------
+0000            531            rseg R_HOME
+0000            532            rseg R_GSINIT
+0000            533            rseg R_GSINIT
+0000            534   ;--------------------------------------------------------
+0000            535   ; data variables initialization
+0000            536   ;--------------------------------------------------------
+0000            537            rseg R_DINIT
+0000            538            ; The linker places a 'ret' at the end of segment R_DINIT.
+0000            539   ;--------------------------------------------------------
+0000            540   ; code
+0000            541   ;--------------------------------------------------------
+0000            542            rseg R_CSEG
+0000            543   ;------------------------------------------------------------
+0000            544   ;Allocation info for local variables in function 'cmd_help'
+0000            545   ;------------------------------------------------------------
+0000            546   ;argv                      Allocated to stack - offset -5
+0000            547   ;argc                      Allocated to registers 
+0000            548   ;i                         Allocated to registers r2 
+0000            549   ;------------------------------------------------------------
+0000            550   ;        src/cmd.c:7: void cmd_help(unsigned char argc, char *argv[]) reentrant {
+0000            551   ;        -----------------------------------------
+0000            552   ;         function cmd_help
+0000            553   ;        -----------------------------------------
+0000            554   _cmd_help:
+0000            555            using   0
+0000 C000       556            push    _bp
+0002 858100     557            mov     _bp,sp
+0005            558   ;        src/cmd.c:9: UART_send_string("Available commands:\r\n");
+0005 90B1E0     559            mov     dptr,#__str_0
+0008 75F080     560            mov     b,#0x80
+000B 120000     561            lcall   _UART_send_string
+000E            562   ;        src/cmd.c:10: for (i = 0; i < cli_cmd_count; i++)
+000E 7A00       563            mov     r2,#0x00
+0010            564   L002001?:
+0010 9040F0     565            mov     dptr,#_cli_cmd_count
+0013 E4         566            clr     a
+0014 93         567            movc    a,@a+dptr
+0015 FB         568            mov     r3,a
+0016 C3         569            clr     c
+0017 EA         570            mov     a,r2
+0018 9B         571            subb    a,r3
+0019 4000       572            jc      L002010?
+001B 020000     573            ljmp    L002005?
+001E            574   L002010?:
+001E            575   ;        src/cmd.c:12: UART_send_string("  ");
+001E 90B370     576            mov     dptr,#__str_1
+0021 75F080     577            mov     b,#0x80
+0024 C002       578            push    ar2
+0026 120000     579            lcall   _UART_send_string
+0029 D002       580            pop     ar2
+002B            581   ;        src/cmd.c:13: UART_send_string(cli_commands[i].name);
+002B EA         582            mov     a,r2
+002C 75F00B     583            mov     b,#0x0B
+002F A4         584            mul     ab
+0030 FB         585            mov     r3,a
+0031 ACF0       586            mov     r4,b
+0033 2430       587            add     a,#_cli_commands
+0035 FD         588            mov     r5,a
+0036 EC         589            mov     a,r4
+0037 3441       590            addc    a,#(_cli_commands >> 8)
+0039 FE         591            mov     r6,a
+003A 8D82       592            mov     dpl,r5
+003C 8E83       593            mov     dph,r6
+003E A3         594            inc     dptr
+003F A3         595            inc     dptr
+0040 A3         596            inc     dptr
+0041 E4         597            clr     a
+0042 93         598            movc    a,@a+dptr
+0043 FD         599            mov     r5,a
+0044 A3         600            inc     dptr
+0045 E4         601            clr     a
+0046 93         602            movc    a,@a+dptr
+0047 FE         603            mov     r6,a
+0048 A3         604            inc     dptr
+0049 E4         605            clr     a
+004A 93         606            movc    a,@a+dptr
+004B FF         607            mov     r7,a
+004C 8D82       608            mov     dpl,r5
+004E 8E83       609            mov     dph,r6
+0050 8FF0       610            mov     b,r7
+0052 C002       611            push    ar2
+0054 C003       612            push    ar3
+0056 C004       613            push    ar4
+0058 120000     614            lcall   _UART_send_string
+005B            615   ;        src/cmd.c:14: UART_send_string(" - ");
+005B 90B430     616            mov     dptr,#__str_2
+005E 75F080     617            mov     b,#0x80
+0061 120000     618            lcall   _UART_send_string
+0064 D004       619            pop     ar4
+0066 D003       620            pop     ar3
+0068            621   ;        src/cmd.c:15: UART_send_string(cli_commands[i].help);
+0068 EB         622            mov     a,r3
+0069 2430       623            add     a,#_cli_commands
+006B FB         624            mov     r3,a
+006C EC         625            mov     a,r4
+006D 3441       626            addc    a,#(_cli_commands >> 8)
+006F FC         627            mov     r4,a
+0070 7406       628            mov     a,#0x06
+0072 2B         629            add     a,r3
+0073 F582       630            mov     dpl,a
+0075 E4         631            clr     a
+0076 3C         632            addc    a,r4
+0077 F583       633            mov     dph,a
+0079 E4         634            clr     a
+007A 93         635            movc    a,@a+dptr
+007B FB         636            mov     r3,a
+007C A3         637            inc     dptr
+007D E4         638            clr     a
+007E 93         639            movc    a,@a+dptr
+007F FC         640            mov     r4,a
+0080 A3         641            inc     dptr
+0081 E4         642            clr     a
+0082 93         643            movc    a,@a+dptr
+0083 FD         644            mov     r5,a
+0084 8B82       645            mov     dpl,r3
+0086 8C83       646            mov     dph,r4
+0088 8DF0       647            mov     b,r5
+008A 120000     648            lcall   _UART_send_string
+008D            649   ;        src/cmd.c:16: UART_send_string("\n");
+008D 90B470     650            mov     dptr,#__str_3
+0090 75F080     651            mov     b,#0x80
+0093 120000     652            lcall   _UART_send_string
+0096 D002       653            pop     ar2
+0098            654   ;        src/cmd.c:10: for (i = 0; i < cli_cmd_count; i++)
+0098 0A         655            inc     r2
+0099 020000     656            ljmp    L002001?
+009C            657   L002005?:
+009C D000       658            pop     _bp
+009E 22         659            ret
+009F            660   ;------------------------------------------------------------
+009F            661   ;Allocation info for local variables in function 'cmd_kill'
+009F            662   ;------------------------------------------------------------
+009F            663   ;argv                      Allocated to stack - offset -5
+009F            664   ;argc                      Allocated to registers 
+009F            665   ;------------------------------------------------------------
+009F            666   ;        src/cmd.c:20: void cmd_kill(unsigned char argc, char *argv[]) reentrant {
+009F            667   ;        -----------------------------------------
+009F            668   ;         function cmd_kill
+009F            669   ;        -----------------------------------------
+009F            670   _cmd_kill:
+009F C000       671            push    _bp
+00A1 858100     672            mov     _bp,sp
+00A4            673   ;        src/cmd.c:22: }
+00A4 D000       674            pop     _bp
+00A6 22         675            ret
+00A7            676   ;------------------------------------------------------------
+00A7            677   ;Allocation info for local variables in function 'cmd_read'
+00A7            678   ;------------------------------------------------------------
+00A7            679   ;argv                      Allocated to stack - offset -5
+00A7            680   ;argc                      Allocated to registers 
+00A7            681   ;------------------------------------------------------------
+00A7            682   ;        src/cmd.c:24: void cmd_read(unsigned char argc, char *argv[]) reentrant {
+00A7            683   ;        -----------------------------------------
+00A7            684   ;         function cmd_read
+00A7            685   ;        -----------------------------------------
+00A7            686   _cmd_read:
+00A7 C000       687            push    _bp
+00A9 858100     688            mov     _bp,sp
+00AC            689   ;        src/cmd.c:26: }
+00AC D000       690            pop     _bp
+00AE 22         691            ret
+00AF            692   ;------------------------------------------------------------
+00AF            693   ;Allocation info for local variables in function 'cmd_mode'
+00AF            694   ;------------------------------------------------------------
+00AF            695   ;argv                      Allocated to stack - offset -5
+00AF            696   ;argc                      Allocated to registers 
+00AF            697   ;------------------------------------------------------------
+00AF            698   ;        src/cmd.c:28: void cmd_mode(unsigned char argc, char *argv[]) __reentrant {
+00AF            699   ;        -----------------------------------------
+00AF            700   ;         function cmd_mode
+00AF            701   ;        -----------------------------------------
+00AF            702   _cmd_mode:
+00AF C000       703            push    _bp
+00B1 858100     704            mov     _bp,sp
+00B4            705   ;        src/cmd.c:30: }
+00B4 D000       706            pop     _bp
+00B6 22         707            ret
+00B7            708   ;------------------------------------------------------------
+00B7            709   ;Allocation info for local variables in function 'cmd_round'
+00B7            710   ;------------------------------------------------------------
+00B7            711   ;argv                      Allocated to stack - offset -5
+00B7            712   ;argc                      Allocated to registers 
+00B7            713   ;------------------------------------------------------------
+00B7            714   ;        src/cmd.c:32: void cmd_round(unsigned char argc, char *argv[]) reentrant {
+00B7            715   ;        -----------------------------------------
+00B7            716   ;         function cmd_round
+00B7            717   ;        -----------------------------------------
+00B7            718   _cmd_round:
+00B7 C000       719            push    _bp
+00B9 858100     720            mov     _bp,sp
+00BC            721   ;        src/cmd.c:34: }
+00BC D000       722            pop     _bp
+00BE 22         723            ret
+00BF            724   ;------------------------------------------------------------
+00BF            725   ;Allocation info for local variables in function 'cmd_info'
+00BF            726   ;------------------------------------------------------------
+00BF            727   ;argv                      Allocated to stack - offset -5
+00BF            728   ;argc                      Allocated to registers 
+00BF            729   ;------------------------------------------------------------
+00BF            730   ;        src/cmd.c:36: void cmd_info(unsigned char argc, char *argv[]) reentrant {
+00BF            731   ;        -----------------------------------------
+00BF            732   ;         function cmd_info
+00BF            733   ;        -----------------------------------------
+00BF            734   _cmd_info:
+00BF C000       735            push    _bp
+00C1 858100     736            mov     _bp,sp
+00C4            737   ;        src/cmd.c:37: UART_send_string("EFM8 Frequency measurement using Timer/Counter 0.\r\n");
+00C4 90B4B0     738            mov     dptr,#__str_4
+00C7 75F080     739            mov     b,#0x80
+00CA 120000     740            lcall   _UART_send_string
+00CD            741   ;        src/cmd.c:38: UART_send_string("File: ");
+00CD 90B4F0     742            mov     dptr,#__str_5
+00D0 75F080     743            mov     b,#0x80
+00D3 120000     744            lcall   _UART_send_string
+00D6            745   ;        src/cmd.c:39: UART_send_string(__FILE__);
+00D6 90B530     746            mov     dptr,#__str_6
+00D9 75F080     747            mov     b,#0x80
+00DC 120000     748            lcall   _UART_send_string
+00DF            749   ;        src/cmd.c:40: UART_send_string("\r\nCompiled: ");
+00DF 90B570     750            mov     dptr,#__str_7
+00E2 75F080     751            mov     b,#0x80
+00E5 120000     752            lcall   _UART_send_string
+00E8            753   ;        src/cmd.c:41: UART_send_string(__DATE__);
+00E8 90B5B0     754            mov     dptr,#__str_8
+00EB 75F080     755            mov     b,#0x80
+00EE 120000     756            lcall   _UART_send_string
+00F1            757   ;        src/cmd.c:42: UART_send_string(", ");
+00F1 90B5F0     758            mov     dptr,#__str_9
+00F4 75F080     759            mov     b,#0x80
+00F7 120000     760            lcall   _UART_send_string
+00FA            761   ;        src/cmd.c:43: UART_send_string(__TIME__);
+00FA 90B630     762            mov     dptr,#__str_10
+00FD 75F080     763            mov     b,#0x80
+0100 120000     764            lcall   _UART_send_string
+0103            765   ;        src/cmd.c:44: UART_send_string("\r\n");
+0103 90B670     766            mov     dptr,#__str_11
+0106 75F080     767            mov     b,#0x80
+0109 120000     768            lcall   _UART_send_string
+010C            769   ;        src/cmd.c:45: return;
+010C D000       770            pop     _bp
+010E 22         771            ret
+010F            772   ;------------------------------------------------------------
+010F            773   ;Allocation info for local variables in function 'cmd_reset'
+010F            774   ;------------------------------------------------------------
+010F            775   ;argv                      Allocated to stack - offset -5
+010F            776   ;argc                      Allocated to registers 
+010F            777   ;------------------------------------------------------------
+010F            778   ;        src/cmd.c:48: void cmd_reset(unsigned char argc, char *argv[]) reentrant {
+010F            779   ;        -----------------------------------------
+010F            780   ;         function cmd_reset
+010F            781   ;        -----------------------------------------
+010F            782   _cmd_reset:
+010F C000       783            push    _bp
+0111 858100     784            mov     _bp,sp
+0114            785   ;        src/cmd.c:49: UART_send_string("System Resetting...");
+0114 90B6B0     786            mov     dptr,#__str_12
+0117 75F080     787            mov     b,#0x80
+011A 120000     788            lcall   _UART_send_string
+011D            789   ;        src/cmd.c:50: RSTSRC = 0x10;
+011D 75EF10     790            mov     _RSTSRC,#0x10
+0120 D000       791            pop     _bp
+0122 22         792            ret
+0123            793   ;------------------------------------------------------------
+0123            794   ;Allocation info for local variables in function 'cli_parse_and_dispatch'
+0123            795   ;------------------------------------------------------------
+0123            796   ;input                     Allocated with name '_cli_parse_and_dispatch_input_1_55'
+0123            797   ;argc                      Allocated to registers r5 
+0123            798   ;i                         Allocated to registers r0 
+0123            799   ;in_arg                    Allocated with name '_cli_parse_and_dispatch_in_arg_1_56'
+0123            800   ;argv                      Allocated with name '_cli_parse_and_dispatch_argv_1_56'
+0123            801   ;------------------------------------------------------------
+0123            802   ;        src/cmd.c:65: void cli_parse_and_dispatch(char *input) {
+0123            803   ;        -----------------------------------------
+0123            804   ;         function cli_parse_and_dispatch
+0123            805   ;        -----------------------------------------
+0123            806   _cli_parse_and_dispatch:
+0123 858260     807            mov     _cli_parse_and_dispatch_input_1_55,dpl
+0126 858361     808            mov     (_cli_parse_and_dispatch_input_1_55 + 1),dph
+0129 85F062     809            mov     (_cli_parse_and_dispatch_input_1_55 + 2),b
+012C            810   ;        src/cmd.c:66: unsigned char argc = 0;
+012C 7D00       811            mov     r5,#0x00
+012E            812   ;        src/cmd.c:69: char in_arg = 0;
+012E 75C000     813            mov     _cli_parse_and_dispatch_in_arg_1_56,#0x00
+0131            814   ;        src/cmd.c:71: for (i = 0; input[i] != '\0'; i++) {
+0131 7F00       815            mov     r7,#0x00
+0133 7800       816            mov     r0,#0x00
+0135            817   L009012?:
+0135 E8         818            mov     a,r0
+0136 2560       819            add     a,_cli_parse_and_dispatch_input_1_55
+0138 F9         820            mov     r1,a
+0139 E4         821            clr     a
+013A 3561       822            addc    a,(_cli_parse_and_dispatch_input_1_55 + 1)
+013C FE         823            mov     r6,a
+013D AA62       824            mov     r2,(_cli_parse_and_dispatch_input_1_55 + 2)
+013F 8982       825            mov     dpl,r1
+0141 8E83       826            mov     dph,r6
+0143 8AF0       827            mov     b,r2
+0145 120000     828            lcall   __gptrget
+0148 FB         829            mov     r3,a
+0149 6000       830            jz      L009031?
+014B            831   ;        src/cmd.c:72: if (input[i] == ' ') {
+014B BB20B0     832            cjne    r3,#0x20,L009006?
+014E            833   ;        src/cmd.c:73: input[i] = '\0';
+014E 8982       834            mov     dpl,r1
+0150 8E83       835            mov     dph,r6
+0152 8AF0       836            mov     b,r2
+0154 E4         837            clr     a
+0155 120000     838            lcall   __gptrput
+0158            839   ;        src/cmd.c:74: in_arg = 0;
+0158 75C000     840            mov     _cli_parse_and_dispatch_in_arg_1_56,#0x00
+015B 8000       841            sjmp    L009014?
+015D            842   L009006?:
+015D            843   ;        src/cmd.c:76: else if (!in_arg) {
+015D E5C0       844            mov     a,_cli_parse_and_dispatch_in_arg_1_56
+015F 7000       845            jnz     L009014?
+0161            846   ;        src/cmd.c:77: if (argc < 8) {
+0161 BF0870     847            cjne    r7,#0x08,L009036?
+0164            848   L009036?:
+0164 5000       849            jnc     L009002?
+0166            850   ;        src/cmd.c:78: argv[argc++] = &input[i];
+0166 8F03       851            mov     ar3,r7
+0168 0F         852            inc     r7
+0169 8F05       853            mov     ar5,r7
+016B EB         854            mov     a,r3
+016C 75F003     855            mov     b,#0x03
+016F A4         856            mul     ab
+0170 2420       857            add     a,#_cli_parse_and_dispatch_argv_1_56
+0172 F582       858            mov     dpl,a
+0174 E4         859            clr     a
+0175 34B1       860            addc    a,#(_cli_parse_and_dispatch_argv_1_56 >> 8)
+0177 F583       861            mov     dph,a
+0179 E9         862            mov     a,r1
+017A F0         863            movx    @dptr,a
+017B A3         864            inc     dptr
+017C EE         865            mov     a,r6
+017D F0         866            movx    @dptr,a
+017E A3         867            inc     dptr
+017F EA         868            mov     a,r2
+0180 F0         869            movx    @dptr,a
+0181            870   L009002?:
+0181            871   ;        src/cmd.c:80: in_arg = 1;
+0181 75C001     872            mov     _cli_parse_and_dispatch_in_arg_1_56,#0x01
+0184            873   L009014?:
+0184            874   ;        src/cmd.c:71: for (i = 0; input[i] != '\0'; i++) {
+0184 08         875            inc     r0
+0185 8000       876            sjmp    L009012?
+0187            877   L009031?:
+0187            878   ;        src/cmd.c:84: if (argc == 0) return;
+0187 EF         879            mov     a,r7
+0188 FD         880            mov     r5,a
+0189 7000       881            jnz     L009030?
+018B 22         882            ret
+018C            883   ;        src/cmd.c:86: for (i = 0; i < cli_cmd_count; i++) {
+018C            884   L009030?:
+018C 7A00       885            mov     r2,#0x00
+018E            886   L009016?:
+018E 9040F0     887            mov     dptr,#_cli_cmd_count
+0191 E4         888            clr     a
+0192 93         889            movc    a,@a+dptr
+0193 FB         890            mov     r3,a
+0194 C3         891            clr     c
+0195 EA         892            mov     a,r2
+0196 9B         893            subb    a,r3
+0197 4000       894            jc      L009039?
+0199 020000     895            ljmp    L009019?
+019C            896   L009039?:
+019C            897   ;        src/cmd.c:87: if (strcmp(argv[0], cli_commands[i].name) == 0)
+019C 90B120     898            mov     dptr,#_cli_parse_and_dispatch_argv_1_56
+019F E0         899            movx    a,@dptr
+01A0 FB         900            mov     r3,a
+01A1 A3         901            inc     dptr
+01A2 E0         902            movx    a,@dptr
+01A3 FC         903            mov     r4,a
+01A4 A3         904            inc     dptr
+01A5 E0         905            movx    a,@dptr
+01A6 FE         906            mov     r6,a
+01A7 EA         907            mov     a,r2
+01A8 75F00B     908            mov     b,#0x0B
+01AB A4         909            mul     ab
+01AC FF         910            mov     r7,a
+01AD 2430       911            add     a,#_cli_commands
+01AF F8         912            mov     r0,a
+01B0 E4         913            clr     a
+01B1 3441       914            addc    a,#(_cli_commands >> 8)
+01B3 F9         915            mov     r1,a
+01B4 8882       916            mov     dpl,r0
+01B6 8983       917            mov     dph,r1
+01B8 A3         918            inc     dptr
+01B9 A3         919            inc     dptr
+01BA A3         920            inc     dptr
+01BB E4         921            clr     a
+01BC 93         922            movc    a,@a+dptr
+01BD F500       923            mov     _strcmp_PARM_2,a
+01BF A3         924            inc     dptr
+01C0 E4         925            clr     a
+01C1 93         926            movc    a,@a+dptr
+01C2 F501       927            mov     (_strcmp_PARM_2 + 1),a
+01C4 A3         928            inc     dptr
+01C5 E4         929            clr     a
+01C6 93         930            movc    a,@a+dptr
+01C7 F502       931            mov     (_strcmp_PARM_2 + 2),a
+01C9 8B82       932            mov     dpl,r3
+01CB 8C83       933            mov     dph,r4
+01CD 8EF0       934            mov     b,r6
+01CF C002       935            push    ar2
+01D1 C005       936            push    ar5
+01D3 C007       937            push    ar7
+01D5 120000     938            lcall   _strcmp
+01D8 E582       939            mov     a,dpl
+01DA 8583F0     940            mov     b,dph
+01DD D007       941            pop     ar7
+01DF D005       942            pop     ar5
+01E1 D002       943            pop     ar2
+01E3 45F0       944            orl     a,b
+01E5 7000       945            jnz     L009018?
+01E7            946   ;        src/cmd.c:89: cli_commands[i].handler(argc, argv);
+01E7 EF         947            mov     a,r7
+01E8 2430       948            add     a,#_cli_commands
+01EA FF         949            mov     r7,a
+01EB E4         950            clr     a
+01EC 3441       951            addc    a,#(_cli_commands >> 8)
+01EE FB         952            mov     r3,a
+01EF 7409       953            mov     a,#0x09
+01F1 2F         954            add     a,r7
+01F2 F582       955            mov     dpl,a
+01F4 E4         956            clr     a
+01F5 3B         957            addc    a,r3
+01F6 F583       958            mov     dph,a
+01F8 E4         959            clr     a
+01F9 93         960            movc    a,@a+dptr
+01FA FB         961            mov     r3,a
+01FB A3         962            inc     dptr
+01FC E4         963            clr     a
+01FD 93         964            movc    a,@a+dptr
+01FE FC         965            mov     r4,a
+01FF C003       966            push    ar3
+0201 C004       967            push    ar4
+0203 7420       968            mov     a,#_cli_parse_and_dispatch_argv_1_56
+0205 C0E0       969            push    acc
+0207 74B1       970            mov     a,#(_cli_parse_and_dispatch_argv_1_56 >> 8)
+0209 C0E0       971            push    acc
+020B E4         972            clr     a
+020C C0E0       973            push    acc
+020E 74F0       974            mov     a,#L009041?
+0210 C0E0       975            push    acc
+0212 74BA       976            mov     a,#(L009041? >> 8)
+0214 C0E0       977            push    acc
+0216 C003       978            push    ar3
+0218 C004       979            push    ar4
+021A 8D82       980            mov     dpl,r5
+021C 22         981            ret
+021D            982   L009041?:
+021D 1581       983            dec     sp
+021F 1581       984            dec     sp
+0221 1581       985            dec     sp
+0223 D004       986            pop     ar4
+0225 D003       987            pop     ar3
+0227            988   ;        src/cmd.c:90: return;
+0227 22         989            ret
+0228            990   L009018?:
+0228            991   ;        src/cmd.c:86: for (i = 0; i < cli_cmd_count; i++) {
+0228 0A         992            inc     r2
+0229 020000     993            ljmp    L009016?
+022C            994   L009019?:
+022C            995   ;        src/cmd.c:93: UART_send_string("Unknown command: ");
+022C 90BB30     996            mov     dptr,#__str_13
+022F 75F080     997            mov     b,#0x80
+0232 120000     998            lcall   _UART_send_string
+0235            999   ;        src/cmd.c:94: UART_send_string(argv[1]);
+0235 90B123    1000            mov     dptr,#(_cli_parse_and_dispatch_argv_1_56 + 0x0003)
+0238 E0        1001            movx    a,@dptr
+0239 FA        1002            mov     r2,a
+023A A3        1003            inc     dptr
+023B E0        1004            movx    a,@dptr
+023C FB        1005            mov     r3,a
+023D A3        1006            inc     dptr
+023E E0        1007            movx    a,@dptr
+023F FC        1008            mov     r4,a
+0240 8A82      1009            mov     dpl,r2
+0242 8B83      1010            mov     dph,r3
+0244 8CF0      1011            mov     b,r4
+0246 120000    1012            lcall   _UART_send_string
+0249           1013   ;        src/cmd.c:95: UART_send_string("\n");
+0249 90B470    1014            mov     dptr,#__str_3
+024C 75F080    1015            mov     b,#0x80
+024F 020000    1016            ljmp    _UART_send_string
+0252           1017            rseg R_CSEG
+0252           1018   
+0000           1019            rseg R_XINIT
+0000           1020   
+0000           1021            rseg R_CONST
+0000           1022   __str_0:
+0000 41766169  1023            db 'Available commands:'
+     6C61626C
+     6520636F
+     6D6D616E
+     64733A
+0013 0D        1024            db 0x0D
+0014 0A        1025            db 0x0A
+0015 00        1026            db 0x00
+0016           1027   __str_1:
+0016 2020      1028            db '  '
+0018 00        1029            db 0x00
+0019           1030   __str_2:
+0019 202D20    1031            db ' - '
+001C 00        1032            db 0x00
+001D           1033   __str_3:
+001D 0A        1034            db 0x0A
+001E 00        1035            db 0x00
+001F           1036   __str_4:
+001F 45464D38  1037            db 'EFM8 Frequency measurement using Timer/Counter 0.'
+     20467265
+     7175656E
+     6379206D
+     65617375
+     72656D65
+     6E742075
+     73696E67
+     2054696D
+     65722F43
+     6F756E74
+     65722030
+     2E
+0050 0D        1038            db 0x0D
+0051 0A        1039            db 0x0A
+0052 00        1040            db 0x00
+0053           1041   __str_5:
+0053 46696C65  1042            db 'File: '
+     3A20
+0059 00        1043            db 0x00
+005A           1044   __str_6:
+005A 7372632F  1045            db 'src/cmd.c'
+     636D642E
+     63
+0063 00        1046            db 0x00
+0064           1047   __str_7:
+0064 0D        1048            db 0x0D
+0065 0A        1049            db 0x0A
+0066 436F6D70  1050            db 'Compiled: '
+     696C6564
+     3A20
+0070 00        1051            db 0x00
+0071           1052   __str_8:
+0071 4D617220  1053            db 'Mar  2 2026'
+     20322032
+     303236
+007C 00        1054            db 0x00
+007D           1055   __str_9:
+007D 2C20      1056            db ', '
+007F 00        1057            db 0x00
+0080           1058   __str_10:
+0080 31333A33  1059            db '13:32:45'
+     323A3435
+0088 00        1060            db 0x00
+0089           1061   __str_11:
+0089 0D        1062            db 0x0D
+008A 0A        1063            db 0x0A
+008B 00        1064            db 0x00
+008C           1065   __str_12:
+008C 53797374  1066            db 'System Resetting...'
+     656D2052
+     65736574
+     74696E67
+     2E2E2E
+009F 00        1067            db 0x00
+00A0           1068   _cli_commands:
+00A0 70BB80    1069            db _str_14,(_str_14 >> 8),0x80
+00A3 B0BB80    1070            db _str_15,(_str_15 >> 8),0x80
+00A6 F0BB80    1071            db _str_16,(_str_16 >> 8),0x80
+00A9 7041      1072            db _cmd_help,(_cmd_help >> 8)
+00AB 30BC80    1073            db _str_17,(_str_17 >> 8),0x80
+00AE 70BC80    1074            db _str_18,(_str_18 >> 8),0x80
+00B1 B0BC80    1075            db _str_19,(_str_19 >> 8),0x80
+00B4 B041      1076            db _cmd_kill,(_cmd_kill >> 8)
+00B6 F0BC80    1077            db _str_20,(_str_20 >> 8),0x80
+00B9 30BD80    1078            db _str_21,(_str_21 >> 8),0x80
+00BC 70BD80    1079            db _str_22,(_str_22 >> 8),0x80
+00BF F041      1080            db _cmd_read,(_cmd_read >> 8)
+00C1 B0BD80    1081            db _str_23,(_str_23 >> 8),0x80
+00C4 F0BD80    1082            db _str_24,(_str_24 >> 8),0x80
+00C7 30BE80    1083            db _str_25,(_str_25 >> 8),0x80
+00CA 3042      1084            db _cmd_mode,(_cmd_mode >> 8)
+00CC 70BE80    1085            db _str_26,(_str_26 >> 8),0x80
+00CF B0BE80    1086            db _str_27,(_str_27 >> 8),0x80
+00D2 F0BE80    1087            db _str_28,(_str_28 >> 8),0x80
+00D5 7042      1088            db _cmd_round,(_cmd_round >> 8)
+00D7 30BF80    1089            db _str_29,(_str_29 >> 8),0x80
+00DA 70BF80    1090            db _str_30,(_str_30 >> 8),0x80
+00DD B0BF80    1091            db _str_31,(_str_31 >> 8),0x80
+00E0 B042      1092            db _cmd_info,(_cmd_info >> 8)
+00E2 F0BF80    1093            db _str_32,(_str_32 >> 8),0x80
+00E5 30C080    1094            db _str_33,(_str_33 >> 8),0x80
+00E8 70C080    1095            db _str_34,(_str_34 >> 8),0x80
+00EB F042      1096            db _cmd_reset,(_cmd_reset >> 8)
+00ED           1097   _cli_cmd_count:
+00ED 07        1098            db 0x07         ; 7
+00EE           1099   __str_13:
+00EE 556E6B6E  1100            db 'Unknown command: '
+     6F776E20
+     636F6D6D
+     616E643A
+     20
+00FF 00        1101            db 0x00
+0100           1102   _str_14:
+0100 7469626F  1103            db 'tibo'
+0104 00        1104            db 0x00
+0105           1105   _str_15:
+0105 2D2D6865  1106            db '--help'
+     6C70
+010B 00        1107            db 0x00
+010C           1108   _str_16:
+010C 53686F77  1109            db 'Show all commands'
+     20616C6C
+     20636F6D
+     6D616E64
+     73
+011D 00        1110            db 0x00
+011E           1111   _str_17:
+011E 7469626F  1112            db 'tibo'
+0122 00        1113            db 0x00
+0123           1114   _str_18:
+0123 4B        1115            db 'K'
+0124 00        1116            db 0x00
+0125           1117   _str_19:
+0125 53746F70  1118            db 'Stop Read C/L'
+     20526561
+     6420432F
+     4C
+0132 00        1119            db 0x00
+0133           1120   _str_20:
+0133 7469626F  1121            db 'tibo'
+0137 00        1122            db 0x00
+0138           1123   _str_21:
+0138 52        1124            db 'R'
+0139 00        1125            db 0x00
+013A           1126   _str_22:
+013A 53746172  1127            db 'Start Read C/L'
+     74205265
+     61642043
+     2F4C
+0148 00        1128            db 0x00
+0149           1129   _str_23:
+0149 7469626F  1130            db 'tibo'
+014D 00        1131            db 0x00
+014E           1132   _str_24:
+014E 2D6D6F64  1133            db '-mode'
+     65
+0153 00        1134            db 0x00
+0154           1135   _str_25:
+0154 4D656173  1136            db 'Measure C or L'
+     75726520
+     43206F72
+     204C
+0162 00        1137            db 0x00
+0163           1138   _str_26:
+0163 7469626F  1139            db 'tibo'
+0167 00        1140            db 0x00
+0168           1141   _str_27:
+0168 2D726F75  1142            db '-round'
+     6E64
+016E 00        1143            db 0x00
+016F           1144   _str_28:
+016F 526F756E  1145            db 'Round fragile'
+     64206672
+     6167696C
+     65
+017C 00        1146            db 0x00
+017D           1147   _str_29:
+017D 7469626F  1148            db 'tibo'
+0181 00        1149            db 0x00
+0182           1150   _str_30:
+0182 696E666F  1151            db 'info'
+0186 00        1152            db 0x00
+0187           1153   _str_31:
+0187 53686F77  1154            db 'Show device info'
+     20646576
+     69636520
+     696E666F
+0197 00        1155            db 0x00
+0198           1156   _str_32:
+0198 7469626F  1157            db 'tibo'
+019C 00        1158            db 0x00
+019D           1159   _str_33:
+019D 2D2D7265  1160            db '--reset'
+     736574
+01A4 00        1161            db 0x00
+01A5           1162   _str_34:
+01A5 52657365  1163            db 'Reset the System'
+     74207468
+     65205379
+     7374656D
+01B5 00        1164            db 0x00
+01B6           1165   
+0000           1166            CSEG
+0000           1167   
+0000           1168   end

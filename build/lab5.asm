@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Mon Mar 02 13:13:27 2026
+; This file was generated Mon Mar 02 13:28:41 2026
 ;--------------------------------------------------------
 $name lab5
 $optc51 --model-small
@@ -488,9 +488,9 @@ _TFRQ           BIT 0xdf
 	rseg R_DSEG
 _last_accept_frequency:
 	ds 2
-_read_ripple_voltage_pin_1_62:
+_read_ripple_voltage_pin_1_76:
 	ds 1
-_read_ripple_voltage_voltage_sum_1_63:
+_read_ripple_voltage_voltage_sum_1_77:
 	ds 4
 ;--------------------------------------------------------
 ; overlayable items in internal ram 
@@ -546,7 +546,7 @@ _InitPinADC_PARM_2:
 ; data variables initialization
 ;--------------------------------------------------------
 	rseg R_DINIT
-;	D:\Coding\2026\291\lab5\src\lab5.c:9: unsigned int last_accept_frequency = 0;
+;	src/lab5.c:11: unsigned int last_accept_frequency = 0;
 	clr	a
 	mov	_last_accept_frequency,a
 	mov	(_last_accept_frequency + 1),a
@@ -559,95 +559,95 @@ _InitPinADC_PARM_2:
 ;Allocation info for local variables in function '_c51_external_startup'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:11: char _c51_external_startup (void)
+;	src/lab5.c:13: char _c51_external_startup (void)
 ;	-----------------------------------------
 ;	 function _c51_external_startup
 ;	-----------------------------------------
 __c51_external_startup:
 	using	0
-;	D:\Coding\2026\291\lab5\src\lab5.c:14: SFRPAGE = 0x00;
+;	src/lab5.c:16: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:15: WDTCN = 0xDE; //First key
+;	src/lab5.c:17: WDTCN = 0xDE; //First key
 	mov	_WDTCN,#0xDE
-;	D:\Coding\2026\291\lab5\src\lab5.c:16: WDTCN = 0xAD; //Second key
+;	src/lab5.c:18: WDTCN = 0xAD; //Second key
 	mov	_WDTCN,#0xAD
-;	D:\Coding\2026\291\lab5\src\lab5.c:18: VDM0CN=0x80;       // enable VDD monitor
+;	src/lab5.c:20: VDM0CN=0x80;       // enable VDD monitor
 	mov	_VDM0CN,#0x80
-;	D:\Coding\2026\291\lab5\src\lab5.c:19: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
+;	src/lab5.c:21: RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
 	mov	_RSTSRC,#0x06
-;	D:\Coding\2026\291\lab5\src\lab5.c:26: SFRPAGE = 0x10;
+;	src/lab5.c:28: SFRPAGE = 0x10;
 	mov	_SFRPAGE,#0x10
-;	D:\Coding\2026\291\lab5\src\lab5.c:27: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
+;	src/lab5.c:29: PFE0CN  = 0x20; // SYSCLK < 75 MHz.
 	mov	_PFE0CN,#0x20
-;	D:\Coding\2026\291\lab5\src\lab5.c:28: SFRPAGE = 0x00;
+;	src/lab5.c:30: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:49: CLKSEL = 0x00;
+;	src/lab5.c:51: CLKSEL = 0x00;
 	mov	_CLKSEL,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:50: CLKSEL = 0x00;
+;	src/lab5.c:52: CLKSEL = 0x00;
 	mov	_CLKSEL,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:51: while ((CLKSEL & 0x80) == 0);
+;	src/lab5.c:53: while ((CLKSEL & 0x80) == 0);
 L002001?:
 	mov	a,_CLKSEL
 	jnb	acc.7,L002001?
-;	D:\Coding\2026\291\lab5\src\lab5.c:52: CLKSEL = 0x03;
+;	src/lab5.c:54: CLKSEL = 0x03;
 	mov	_CLKSEL,#0x03
-;	D:\Coding\2026\291\lab5\src\lab5.c:53: CLKSEL = 0x03;
+;	src/lab5.c:55: CLKSEL = 0x03;
 	mov	_CLKSEL,#0x03
-;	D:\Coding\2026\291\lab5\src\lab5.c:54: while ((CLKSEL & 0x80) == 0);
+;	src/lab5.c:56: while ((CLKSEL & 0x80) == 0);
 L002004?:
 	mov	a,_CLKSEL
 	jnb	acc.7,L002004?
-;	D:\Coding\2026\291\lab5\src\lab5.c:59: P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
+;	src/lab5.c:61: P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
 	orl	_P0MDOUT,#0x10
-;	D:\Coding\2026\291\lab5\src\lab5.c:60: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
+;	src/lab5.c:62: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
 	mov	_XBR0,#0x01
-;	D:\Coding\2026\291\lab5\src\lab5.c:61: XBR1     = 0X00;
+;	src/lab5.c:63: XBR1     = 0X00;
 	mov	_XBR1,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:62: XBR2     = 0x40; // Enable crossbar and weak pull-ups
+;	src/lab5.c:64: XBR2     = 0x40; // Enable crossbar and weak pull-ups
 	mov	_XBR2,#0x40
-;	D:\Coding\2026\291\lab5\src\lab5.c:68: SCON0 = 0x10;
+;	src/lab5.c:70: SCON0 = 0x10;
 	mov	_SCON0,#0x10
-;	D:\Coding\2026\291\lab5\src\lab5.c:69: TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
+;	src/lab5.c:71: TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
 	mov	_TH1,#0xE6
-;	D:\Coding\2026\291\lab5\src\lab5.c:70: TL1 = TH1;      // Init Timer1
+;	src/lab5.c:72: TL1 = TH1;      // Init Timer1
 	mov	_TL1,_TH1
-;	D:\Coding\2026\291\lab5\src\lab5.c:71: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
+;	src/lab5.c:73: TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
 	anl	_TMOD,#0x0F
-;	D:\Coding\2026\291\lab5\src\lab5.c:72: TMOD |=  0x20;                       
+;	src/lab5.c:74: TMOD |=  0x20;                       
 	orl	_TMOD,#0x20
-;	D:\Coding\2026\291\lab5\src\lab5.c:73: TR1 = 1; // START Timer1
+;	src/lab5.c:75: TR1 = 1; // START Timer1
 	setb	_TR1
-;	D:\Coding\2026\291\lab5\src\lab5.c:74: TI = 1;  // Indicate TX0 ready
+;	src/lab5.c:76: TI = 1;  // Indicate TX0 ready
 	setb	_TI
-;	D:\Coding\2026\291\lab5\src\lab5.c:76: return 0;
+;	src/lab5.c:78: return 0;
 	mov	dpl,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'InitADC'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:79: void InitADC (void)
+;	src/lab5.c:81: void InitADC (void)
 ;	-----------------------------------------
 ;	 function InitADC
 ;	-----------------------------------------
 _InitADC:
-;	D:\Coding\2026\291\lab5\src\lab5.c:81: SFRPAGE = 0x00;
+;	src/lab5.c:83: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:82: ADEN=0; // Disable ADC
+;	src/lab5.c:84: ADEN=0; // Disable ADC
 	clr	_ADEN
-;	D:\Coding\2026\291\lab5\src\lab5.c:87: (0x0 << 0) ; // Accumulate n conversions: 0x0: 1, 0x1:4, 0x2:8, 0x3:16, 0x4:32
+;	src/lab5.c:89: (0x0 << 0) ; // Accumulate n conversions: 0x0: 1, 0x1:4, 0x2:8, 0x3:16, 0x4:32
 	mov	_ADC0CN1,#0x80
-;	D:\Coding\2026\291\lab5\src\lab5.c:91: (0x0 << 2); // 0:SYSCLK ADCCLK = SYSCLK. 1:HFOSC0 ADCCLK = HFOSC0.
+;	src/lab5.c:93: (0x0 << 2); // 0:SYSCLK ADCCLK = SYSCLK. 1:HFOSC0 ADCCLK = HFOSC0.
 	mov	_ADC0CF0,#0x20
-;	D:\Coding\2026\291\lab5\src\lab5.c:95: (0x1E << 0); // Conversion Tracking Time. Tadtk = ADTK / (Fsarclk)
+;	src/lab5.c:97: (0x1E << 0); // Conversion Tracking Time. Tadtk = ADTK / (Fsarclk)
 	mov	_ADC0CF1,#0x1E
-;	D:\Coding\2026\291\lab5\src\lab5.c:104: (0x0 << 0) ; // TEMPE. 0: Disable the Temperature Sensor. 1: Enable the Temperature Sensor.
+;	src/lab5.c:106: (0x0 << 0) ; // TEMPE. 0: Disable the Temperature Sensor. 1: Enable the Temperature Sensor.
 	mov	_ADC0CN0,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:109: (0x1F << 0); // ADPWR. Power Up Delay Time. Tpwrtime = ((4 * (ADPWR + 1)) + 2) / (Fadcclk)
+;	src/lab5.c:111: (0x1F << 0); // ADPWR. Power Up Delay Time. Tpwrtime = ((4 * (ADPWR + 1)) + 2) / (Fadcclk)
 	mov	_ADC0CF2,#0x3F
-;	D:\Coding\2026\291\lab5\src\lab5.c:113: (0x0 << 0) ; // ADCM. 0x0: ADBUSY, 0x1: TIMER0, 0x2: TIMER2, 0x3: TIMER3, 0x4: CNVSTR, 0x5: CEX5, 0x6: TIMER4, 0x7: TIMER5, 0x8: CLU0, 0x9: CLU1, 0xA: CLU2, 0xB: CLU3
+;	src/lab5.c:115: (0x0 << 0) ; // ADCM. 0x0: ADBUSY, 0x1: TIMER0, 0x2: TIMER2, 0x3: TIMER3, 0x4: CNVSTR, 0x5: CEX5, 0x6: TIMER4, 0x7: TIMER5, 0x8: CLU0, 0x9: CLU1, 0xA: CLU2, 0xB: CLU3
 	mov	_ADC0CN2,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:115: ADEN=1; // Enable ADC
+;	src/lab5.c:117: ADEN=1; // Enable ADC
 	setb	_ADEN
 	ret
 ;------------------------------------------------------------
@@ -656,40 +656,40 @@ _InitADC:
 ;us                        Allocated to registers r2 
 ;i                         Allocated to registers r3 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:119: void Timer3us(unsigned char us)
+;	src/lab5.c:121: void Timer3us(unsigned char us)
 ;	-----------------------------------------
 ;	 function Timer3us
 ;	-----------------------------------------
 _Timer3us:
 	mov	r2,dpl
-;	D:\Coding\2026\291\lab5\src\lab5.c:124: CKCON0|=0b_0100_0000;
+;	src/lab5.c:126: CKCON0|=0b_0100_0000;
 	orl	_CKCON0,#0x40
-;	D:\Coding\2026\291\lab5\src\lab5.c:126: TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
+;	src/lab5.c:128: TMR3RL = (-(SYSCLK)/1000000L); // Set Timer3 to overflow in 1us.
 	mov	_TMR3RL,#0xB8
 	mov	(_TMR3RL >> 8),#0xFF
-;	D:\Coding\2026\291\lab5\src\lab5.c:127: TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
+;	src/lab5.c:129: TMR3 = TMR3RL;                 // Initialize Timer3 for first overflow
 	mov	_TMR3,_TMR3RL
 	mov	(_TMR3 >> 8),(_TMR3RL >> 8)
-;	D:\Coding\2026\291\lab5\src\lab5.c:129: TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
+;	src/lab5.c:131: TMR3CN0 = 0x04;                 // Sart Timer3 and clear overflow flag
 	mov	_TMR3CN0,#0x04
-;	D:\Coding\2026\291\lab5\src\lab5.c:130: for (i = 0; i < us; i++)       // Count <us> overflows
+;	src/lab5.c:132: for (i = 0; i < us; i++)       // Count <us> overflows
 	mov	r3,#0x00
 L004004?:
 	clr	c
 	mov	a,r3
 	subb	a,r2
 	jnc	L004007?
-;	D:\Coding\2026\291\lab5\src\lab5.c:132: while (!(TMR3CN0 & 0x80));  // Wait for overflow
+;	src/lab5.c:134: while (!(TMR3CN0 & 0x80));  // Wait for overflow
 L004001?:
 	mov	a,_TMR3CN0
 	jnb	acc.7,L004001?
-;	D:\Coding\2026\291\lab5\src\lab5.c:133: TMR3CN0 &= ~(0x80);         // Clear overflow indicator
+;	src/lab5.c:135: TMR3CN0 &= ~(0x80);         // Clear overflow indicator
 	anl	_TMR3CN0,#0x7F
-;	D:\Coding\2026\291\lab5\src\lab5.c:130: for (i = 0; i < us; i++)       // Count <us> overflows
+;	src/lab5.c:132: for (i = 0; i < us; i++)       // Count <us> overflows
 	inc	r3
 	sjmp	L004004?
 L004007?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:135: TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
+;	src/lab5.c:137: TMR3CN0 = 0 ;                   // Stop Timer3 and clear overflow flag
 	mov	_TMR3CN0,#0x00
 	ret
 ;------------------------------------------------------------
@@ -699,14 +699,14 @@ L004007?:
 ;j                         Allocated to registers r4 r5 
 ;k                         Allocated to registers r6 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:138: void waitms (unsigned int ms)
+;	src/lab5.c:140: void waitms (unsigned int ms)
 ;	-----------------------------------------
 ;	 function waitms
 ;	-----------------------------------------
 _waitms:
 	mov	r2,dpl
 	mov	r3,dph
-;	D:\Coding\2026\291\lab5\src\lab5.c:142: for(j=0; j<ms; j++)
+;	src/lab5.c:144: for(j=0; j<ms; j++)
 	mov	r4,#0x00
 	mov	r5,#0x00
 L005005?:
@@ -716,7 +716,7 @@ L005005?:
 	mov	a,r5
 	subb	a,r3
 	jnc	L005009?
-;	D:\Coding\2026\291\lab5\src\lab5.c:143: for (k=0; k<4; k++) Timer3us(250);
+;	src/lab5.c:145: for (k=0; k<4; k++) Timer3us(250);
 	mov	r6,#0x00
 L005001?:
 	cjne	r6,#0x04,L005018?
@@ -737,7 +737,7 @@ L005018?:
 	inc	r6
 	sjmp	L005001?
 L005007?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:142: for(j=0; j<ms; j++)
+;	src/lab5.c:144: for(j=0; j<ms; j++)
 	inc	r4
 	cjne	r4,#0x00,L005005?
 	inc	r5
@@ -751,13 +751,13 @@ L005009?:
 ;portno                    Allocated to registers r2 
 ;mask                      Allocated to registers r3 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:148: void InitPinADC (unsigned char portno, unsigned char pinno)
+;	src/lab5.c:150: void InitPinADC (unsigned char portno, unsigned char pinno)
 ;	-----------------------------------------
 ;	 function InitPinADC
 ;	-----------------------------------------
 _InitPinADC:
 	mov	r2,dpl
-;	D:\Coding\2026\291\lab5\src\lab5.c:152: mask=1<<pinno;
+;	src/lab5.c:154: mask=1<<pinno;
 	mov	b,_InitPinADC_PARM_2
 	inc	b
 	mov	a,#0x01
@@ -767,72 +767,72 @@ L006011?:
 L006013?:
 	djnz	b,L006011?
 	mov	r3,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:154: SFRPAGE = 0x20;
+;	src/lab5.c:156: SFRPAGE = 0x20;
 	mov	_SFRPAGE,#0x20
-;	D:\Coding\2026\291\lab5\src\lab5.c:155: switch (portno)
+;	src/lab5.c:157: switch (portno)
 	cjne	r2,#0x00,L006014?
 	sjmp	L006001?
 L006014?:
 	cjne	r2,#0x01,L006015?
 	sjmp	L006002?
 L006015?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:157: case 0:
+;	src/lab5.c:159: case 0:
 	cjne	r2,#0x02,L006005?
 	sjmp	L006003?
 L006001?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:158: P0MDIN &= (~mask); // Set pin as analog input
+;	src/lab5.c:160: P0MDIN &= (~mask); // Set pin as analog input
 	mov	a,r3
 	cpl	a
 	mov	r2,a
 	anl	_P0MDIN,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:159: P0SKIP |= mask; // Skip Crossbar decoding for this pin
+;	src/lab5.c:161: P0SKIP |= mask; // Skip Crossbar decoding for this pin
 	mov	a,r3
 	orl	_P0SKIP,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:160: break;
-;	D:\Coding\2026\291\lab5\src\lab5.c:161: case 1:
+;	src/lab5.c:162: break;
+;	src/lab5.c:163: case 1:
 	sjmp	L006005?
 L006002?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:162: P1MDIN &= (~mask); // Set pin as analog input
+;	src/lab5.c:164: P1MDIN &= (~mask); // Set pin as analog input
 	mov	a,r3
 	cpl	a
 	mov	r2,a
 	anl	_P1MDIN,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:163: P1SKIP |= mask; // Skip Crossbar decoding for this pin
+;	src/lab5.c:165: P1SKIP |= mask; // Skip Crossbar decoding for this pin
 	mov	a,r3
 	orl	_P1SKIP,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:164: break;
-;	D:\Coding\2026\291\lab5\src\lab5.c:165: case 2:
+;	src/lab5.c:166: break;
+;	src/lab5.c:167: case 2:
 	sjmp	L006005?
 L006003?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:166: P2MDIN &= (~mask); // Set pin as analog input
+;	src/lab5.c:168: P2MDIN &= (~mask); // Set pin as analog input
 	mov	a,r3
 	cpl	a
 	mov	r2,a
 	anl	_P2MDIN,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:167: P2SKIP |= mask; // Skip Crossbar decoding for this pin
+;	src/lab5.c:169: P2SKIP |= mask; // Skip Crossbar decoding for this pin
 	mov	a,r3
 	orl	_P2SKIP,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:171: }
+;	src/lab5.c:173: }
 L006005?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:172: SFRPAGE = 0x00;
+;	src/lab5.c:174: SFRPAGE = 0x00;
 	mov	_SFRPAGE,#0x00
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'TIMER0_Init'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:175: void TIMER0_Init(void)
+;	src/lab5.c:177: void TIMER0_Init(void)
 ;	-----------------------------------------
 ;	 function TIMER0_Init
 ;	-----------------------------------------
 _TIMER0_Init:
-;	D:\Coding\2026\291\lab5\src\lab5.c:177: TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
+;	src/lab5.c:179: TMOD&=0b_1111_0000; // Set the bits of Timer/Counter 0 to zero
 	anl	_TMOD,#0xF0
-;	D:\Coding\2026\291\lab5\src\lab5.c:178: TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
+;	src/lab5.c:180: TMOD|=0b_0000_0001; // Timer/Counter 0 used as a 16-bit timer
 	orl	_TMOD,#0x01
-;	D:\Coding\2026\291\lab5\src\lab5.c:179: CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
+;	src/lab5.c:181: CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
 	anl	_CKCON0,#0xF8
-;	D:\Coding\2026\291\lab5\src\lab5.c:180: TR0=0; // Stop Timer/Counter 0
+;	src/lab5.c:182: TR0=0; // Stop Timer/Counter 0
 	clr	_TR0
 	ret
 ;------------------------------------------------------------
@@ -840,20 +840,20 @@ _TIMER0_Init:
 ;------------------------------------------------------------
 ;pin                       Allocated to registers 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:183: unsigned int ADC_at_Pin(unsigned char pin)
+;	src/lab5.c:185: unsigned int ADC_at_Pin(unsigned char pin)
 ;	-----------------------------------------
 ;	 function ADC_at_Pin
 ;	-----------------------------------------
 _ADC_at_Pin:
 	mov	_ADC0MX,dpl
-;	D:\Coding\2026\291\lab5\src\lab5.c:186: ADINT = 0;
+;	src/lab5.c:188: ADINT = 0;
 	clr	_ADINT
-;	D:\Coding\2026\291\lab5\src\lab5.c:187: ADBUSY = 1;     // Convert voltage at the pin
+;	src/lab5.c:189: ADBUSY = 1;     // Convert voltage at the pin
 	setb	_ADBUSY
-;	D:\Coding\2026\291\lab5\src\lab5.c:188: while (!ADINT); // Wait for conversion to complete
+;	src/lab5.c:190: while (!ADINT); // Wait for conversion to complete
 L008001?:
 	jnb	_ADINT,L008001?
-;	D:\Coding\2026\291\lab5\src\lab5.c:189: return (ADC0);
+;	src/lab5.c:191: return (ADC0);
 	mov	dpl,_ADC0
 	mov	dph,(_ADC0 >> 8)
 	ret
@@ -862,12 +862,12 @@ L008001?:
 ;------------------------------------------------------------
 ;pin                       Allocated to registers r2 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:192: float Volts_at_Pin(unsigned char pin)
+;	src/lab5.c:194: float Volts_at_Pin(unsigned char pin)
 ;	-----------------------------------------
 ;	 function Volts_at_Pin
 ;	-----------------------------------------
 _Volts_at_Pin:
-;	D:\Coding\2026\291\lab5\src\lab5.c:194: return ((ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111);
+;	src/lab5.c:196: return ((ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111);
 	lcall	_ADC_at_Pin
 	lcall	___uint2fs
 	mov	r2,dpl
@@ -918,39 +918,39 @@ _Volts_at_Pin:
 ;Allocation info for local variables in function 'init_pin_input'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:198: void init_pin_input(void){
+;	src/lab5.c:200: void init_pin_input(void){
 ;	-----------------------------------------
 ;	 function init_pin_input
 ;	-----------------------------------------
 _init_pin_input:
-;	D:\Coding\2026\291\lab5\src\lab5.c:199: P2MDIN |= 0b_0000_1100; // enable p2.2 and p2.3 to be input pin
+;	src/lab5.c:201: P2MDIN |= 0b_0000_1100; // enable p2.2 and p2.3 to be input pin
 	orl	_P2MDIN,#0x0C
-;	D:\Coding\2026\291\lab5\src\lab5.c:200: P2MDOUT &= 0b_1111_0011; // disable p2.2 and p2.3 from output pin 
+;	src/lab5.c:202: P2MDOUT &= 0b_1111_0011; // disable p2.2 and p2.3 from output pin 
 	anl	_P2MDOUT,#0xF3
-;	D:\Coding\2026\291\lab5\src\lab5.c:201: P2SKIP |= 0b_0000_1100;
+;	src/lab5.c:203: P2SKIP |= 0b_0000_1100;
 	orl	_P2SKIP,#0x0C
-;	D:\Coding\2026\291\lab5\src\lab5.c:202: XBR2 |= 0x40;
+;	src/lab5.c:204: XBR2 |= 0x40;
 	orl	_XBR2,#0x40
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'read_ripple_voltage'
 ;------------------------------------------------------------
-;pin                       Allocated with name '_read_ripple_voltage_pin_1_62'
+;pin                       Allocated with name '_read_ripple_voltage_pin_1_76'
 ;sample_count              Allocated to registers r7 
-;voltage_sum               Allocated with name '_read_ripple_voltage_voltage_sum_1_63'
+;voltage_sum               Allocated with name '_read_ripple_voltage_voltage_sum_1_77'
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:206: float read_ripple_voltage(unsigned char pin){
+;	src/lab5.c:208: float read_ripple_voltage(unsigned char pin){
 ;	-----------------------------------------
 ;	 function read_ripple_voltage
 ;	-----------------------------------------
 _read_ripple_voltage:
-	mov	_read_ripple_voltage_pin_1_62,dpl
-;	D:\Coding\2026\291\lab5\src\lab5.c:208: float voltage_sum = 0;
-	mov	_read_ripple_voltage_voltage_sum_1_63,#0x00
-	mov	(_read_ripple_voltage_voltage_sum_1_63 + 1),#0x00
-	mov	(_read_ripple_voltage_voltage_sum_1_63 + 2),#0x00
-	mov	(_read_ripple_voltage_voltage_sum_1_63 + 3),#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:210: while(sample_count < 32){
+	mov	_read_ripple_voltage_pin_1_76,dpl
+;	src/lab5.c:210: float voltage_sum = 0;
+	mov	_read_ripple_voltage_voltage_sum_1_77,#0x00
+	mov	(_read_ripple_voltage_voltage_sum_1_77 + 1),#0x00
+	mov	(_read_ripple_voltage_voltage_sum_1_77 + 2),#0x00
+	mov	(_read_ripple_voltage_voltage_sum_1_77 + 3),#0x00
+;	src/lab5.c:212: while(sample_count < 32){
 	mov	r7,#0x00
 L011001?:
 	cjne	r7,#0x20,L011009?
@@ -958,8 +958,8 @@ L011009?:
 	jc	L011010?
 	ljmp	L011003?
 L011010?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:211: voltage_sum += (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
-	mov	dpl,_read_ripple_voltage_pin_1_62
+;	src/lab5.c:213: voltage_sum += (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
+	mov	dpl,_read_ripple_voltage_pin_1_76
 	push	ar7
 	lcall	_ADC_at_Pin
 	lcall	___uint2fs
@@ -1006,29 +1006,29 @@ L011010?:
 	push	ar3
 	push	ar4
 	push	ar5
-	mov	dpl,_read_ripple_voltage_voltage_sum_1_63
-	mov	dph,(_read_ripple_voltage_voltage_sum_1_63 + 1)
-	mov	b,(_read_ripple_voltage_voltage_sum_1_63 + 2)
-	mov	a,(_read_ripple_voltage_voltage_sum_1_63 + 3)
+	mov	dpl,_read_ripple_voltage_voltage_sum_1_77
+	mov	dph,(_read_ripple_voltage_voltage_sum_1_77 + 1)
+	mov	b,(_read_ripple_voltage_voltage_sum_1_77 + 2)
+	mov	a,(_read_ripple_voltage_voltage_sum_1_77 + 3)
 	lcall	___fsadd
-	mov	_read_ripple_voltage_voltage_sum_1_63,dpl
-	mov	(_read_ripple_voltage_voltage_sum_1_63 + 1),dph
-	mov	(_read_ripple_voltage_voltage_sum_1_63 + 2),b
-	mov	(_read_ripple_voltage_voltage_sum_1_63 + 3),a
+	mov	_read_ripple_voltage_voltage_sum_1_77,dpl
+	mov	(_read_ripple_voltage_voltage_sum_1_77 + 1),dph
+	mov	(_read_ripple_voltage_voltage_sum_1_77 + 2),b
+	mov	(_read_ripple_voltage_voltage_sum_1_77 + 3),a
 	mov	a,sp
 	add	a,#0xfc
 	mov	sp,a
 	pop	ar7
-;	D:\Coding\2026\291\lab5\src\lab5.c:212: sample_count++;
+;	src/lab5.c:214: sample_count++;
 	inc	r7
-;	D:\Coding\2026\291\lab5\src\lab5.c:213: waitms(1);
+;	src/lab5.c:215: waitms(1);
 	mov	dptr,#0x0001
 	push	ar7
 	lcall	_waitms
 	pop	ar7
 	ljmp	L011001?
 L011003?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:216: return voltage_sum / sample_count;
+;	src/lab5.c:218: return voltage_sum / sample_count;
 	mov	dpl,r7
 	lcall	___uchar2fs
 	mov	r2,dpl
@@ -1039,10 +1039,10 @@ L011003?:
 	push	ar3
 	push	ar4
 	push	ar5
-	mov	dpl,_read_ripple_voltage_voltage_sum_1_63
-	mov	dph,(_read_ripple_voltage_voltage_sum_1_63 + 1)
-	mov	b,(_read_ripple_voltage_voltage_sum_1_63 + 2)
-	mov	a,(_read_ripple_voltage_voltage_sum_1_63 + 3)
+	mov	dpl,_read_ripple_voltage_voltage_sum_1_77
+	mov	dph,(_read_ripple_voltage_voltage_sum_1_77 + 1)
+	mov	b,(_read_ripple_voltage_voltage_sum_1_77 + 2)
+	mov	a,(_read_ripple_voltage_voltage_sum_1_77 + 3)
 	lcall	___fsdiv
 	mov	r2,dpl
 	mov	r3,dph
@@ -1061,32 +1061,32 @@ L011003?:
 ;------------------------------------------------------------
 ;time_us                   Allocated to registers r2 r3 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:221: unsigned int measure_period(void){
+;	src/lab5.c:223: unsigned int measure_period(void){
 ;	-----------------------------------------
 ;	 function measure_period
 ;	-----------------------------------------
 _measure_period:
-;	D:\Coding\2026\291\lab5\src\lab5.c:224: CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
+;	src/lab5.c:226: CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
 	anl	_CKCON0,#0xF8
-;	D:\Coding\2026\291\lab5\src\lab5.c:225: TR0 = 0;
+;	src/lab5.c:227: TR0 = 0;
 	clr	_TR0
-;	D:\Coding\2026\291\lab5\src\lab5.c:226: TH0 = 0; TL0 = 0; // Reset timer
+;	src/lab5.c:228: TH0 = 0; TL0 = 0; // Reset timer
 	mov	_TH0,#0x00
 	mov	_TL0,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:227: while(P2_2 == 1); // Wait for the signal to be 0
+;	src/lab5.c:229: while(P2_2 == 1); // Wait for the signal to be 0
 L012001?:
 	jb	_P2_2,L012001?
-;	D:\Coding\2026\291\lab5\src\lab5.c:228: while(P2_2 == 0); // Wait for the signal to be 1
+;	src/lab5.c:230: while(P2_2 == 0); // Wait for the signal to be 1
 L012004?:
 	jnb	_P2_2,L012004?
-;	D:\Coding\2026\291\lab5\src\lab5.c:229: TR0 = 1; // Start timing
+;	src/lab5.c:231: TR0 = 1; // Start timing
 	setb	_TR0
-;	D:\Coding\2026\291\lab5\src\lab5.c:230: while(P2_2 == 1); // Wait for the signal to be 0
+;	src/lab5.c:232: while(P2_2 == 1); // Wait for the signal to be 0
 L012007?:
 	jb	_P2_2,L012007?
-;	D:\Coding\2026\291\lab5\src\lab5.c:231: TR0 = 0; // Stop timer 0
+;	src/lab5.c:233: TR0 = 0; // Stop timer 0
 	clr	_TR0
-;	D:\Coding\2026\291\lab5\src\lab5.c:234: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U);
+;	src/lab5.c:236: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U);
 	mov	r3,_TH0
 	mov	r2,#0x00
 	mov	r4,_TL0
@@ -1103,23 +1103,23 @@ L012007?:
 	lcall	__divuint
 	mov	r2,dpl
 	mov	r3,dph
-;	D:\Coding\2026\291\lab5\src\lab5.c:236: if(time_us < 100){
+;	src/lab5.c:238: if(time_us < 100){
 	clr	c
 	mov	a,r2
 	subb	a,#0x64
 	mov	a,r3
 	subb	a,#0x00
 	jnc	L012011?
-;	D:\Coding\2026\291\lab5\src\lab5.c:237: time_us = last_accept_frequency;
+;	src/lab5.c:239: time_us = last_accept_frequency;
 	mov	r2,_last_accept_frequency
 	mov	r3,(_last_accept_frequency + 1)
 	sjmp	L012012?
 L012011?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:240: last_accept_frequency = time_us;
+;	src/lab5.c:242: last_accept_frequency = time_us;
 	mov	_last_accept_frequency,r2
 	mov	(_last_accept_frequency + 1),r3
 L012012?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:242: return time_us; 
+;	src/lab5.c:244: return time_us; 
 	mov	dpl,r2
 	mov	dph,r3
 	ret
@@ -1128,37 +1128,37 @@ L012012?:
 ;------------------------------------------------------------
 ;time_us                   Allocated to registers r2 r3 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:249: unsigned int measure_zero_cross_time(void){
+;	src/lab5.c:251: unsigned int measure_zero_cross_time(void){
 ;	-----------------------------------------
 ;	 function measure_zero_cross_time
 ;	-----------------------------------------
 _measure_zero_cross_time:
-;	D:\Coding\2026\291\lab5\src\lab5.c:252: CKCON0&=0b_1111_1010;  // Timer 0 uses sysclk/48
+;	src/lab5.c:254: CKCON0&=0b_1111_1010;  // Timer 0 uses sysclk/48
 	anl	_CKCON0,#0xFA
-;	D:\Coding\2026\291\lab5\src\lab5.c:253: CKCON0|=0b_0000_0010;
+;	src/lab5.c:255: CKCON0|=0b_0000_0010;
 	orl	_CKCON0,#0x02
-;	D:\Coding\2026\291\lab5\src\lab5.c:255: TR0 = 0;
+;	src/lab5.c:257: TR0 = 0;
 	clr	_TR0
-;	D:\Coding\2026\291\lab5\src\lab5.c:256: TH0 = 0; TL0 = 0; // Reset timer
+;	src/lab5.c:258: TH0 = 0; TL0 = 0; // Reset timer
 	mov	_TH0,#0x00
 	mov	_TL0,#0x00
-;	D:\Coding\2026\291\lab5\src\lab5.c:257: while(P2_2 == 1); // Wait for p2.2 to be 0
+;	src/lab5.c:259: while(P2_2 == 1); // Wait for p2.2 to be 0
 L013001?:
 	jb	_P2_2,L013001?
-;	D:\Coding\2026\291\lab5\src\lab5.c:258: while(P2_2 == 0); // Wait for p2.2 to be 1
+;	src/lab5.c:260: while(P2_2 == 0); // Wait for p2.2 to be 1
 L013004?:
 	jnb	_P2_2,L013004?
-;	D:\Coding\2026\291\lab5\src\lab5.c:259: TR0 = 1;
+;	src/lab5.c:261: TR0 = 1;
 	setb	_TR0
-;	D:\Coding\2026\291\lab5\src\lab5.c:261: while(P2_3 == 1); // Wait for p2.3 to be 1
+;	src/lab5.c:263: while(P2_3 == 1); // Wait for p2.3 to be 1
 L013007?:
 	jb	_P2_3,L013007?
-;	D:\Coding\2026\291\lab5\src\lab5.c:262: while(P2_3 == 0); // Wait for p2.3 to be 0
+;	src/lab5.c:264: while(P2_3 == 0); // Wait for p2.3 to be 0
 L013010?:
 	jnb	_P2_3,L013010?
-;	D:\Coding\2026\291\lab5\src\lab5.c:263: TR0 = 0;
+;	src/lab5.c:265: TR0 = 0;
 	clr	_TR0
-;	D:\Coding\2026\291\lab5\src\lab5.c:265: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
+;	src/lab5.c:267: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
 	mov	r3,_TH0
 	mov	r2,#0x00
 	mov	r4,_TL0
@@ -1180,7 +1180,7 @@ L013010?:
 	xch	a,r2
 	rlc	a
 	mov	r3,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:266: printf("%u\n", (TH0*0x100+TL0));
+;	src/lab5.c:268: printf("%u\n", (TH0*0x100+TL0));
 	mov	r5,_TH0
 	mov	r4,#0x00
 	mov	r6,_TL0
@@ -1207,27 +1207,27 @@ L013010?:
 	mov	sp,a
 	pop	ar3
 	pop	ar2
-;	D:\Coding\2026\291\lab5\src\lab5.c:268: return time_us;
+;	src/lab5.c:270: return time_us;
 	mov	dpl,r2
 	mov	dph,r3
 	ret
 ;------------------------------------------------------------
 ;Allocation info for local variables in function 'main'
 ;------------------------------------------------------------
-;v1                        Allocated with name '_main_v1_1_72'
+;v1                        Allocated with name '_main_v1_1_86'
 ;v2                        Allocated to registers 
 ;period                    Allocated to registers 
 ;frequency                 Allocated to registers 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\src\lab5.c:271: void main(void){
+;	src/lab5.c:273: void main(void){
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	D:\Coding\2026\291\lab5\src\lab5.c:278: waitms(500);
+;	src/lab5.c:280: waitms(500);
 	mov	dptr,#0x01F4
 	lcall	_waitms
-;	D:\Coding\2026\291\lab5\src\lab5.c:279: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+;	src/lab5.c:281: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
 	mov	a,#__str_1
 	push	acc
 	mov	a,#(__str_1 >> 8)
@@ -1238,8 +1238,8 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	D:\Coding\2026\291\lab5\src\lab5.c:283: __FILE__, __DATE__, __TIME__);
-;	D:\Coding\2026\291\lab5\src\lab5.c:282: "Compiled: %s, %s\n\n",
+;	src/lab5.c:285: __FILE__, __DATE__, __TIME__);
+;	src/lab5.c:284: "Compiled: %s, %s\n\n",
 	mov	a,#__str_5
 	push	acc
 	mov	a,#(__str_5 >> 8)
@@ -1268,30 +1268,30 @@ _main:
 	mov	a,sp
 	add	a,#0xf4
 	mov	sp,a
-;	D:\Coding\2026\291\lab5\src\lab5.c:286: InitPinADC(1, 6);
+;	src/lab5.c:288: InitPinADC(1, 6);
 	mov	_InitPinADC_PARM_2,#0x06
 	mov	dpl,#0x01
 	lcall	_InitPinADC
-;	D:\Coding\2026\291\lab5\src\lab5.c:287: InitPinADC(2, 1);
+;	src/lab5.c:289: InitPinADC(2, 1);
 	mov	_InitPinADC_PARM_2,#0x01
 	mov	dpl,#0x02
 	lcall	_InitPinADC
-;	D:\Coding\2026\291\lab5\src\lab5.c:288: InitADC();
+;	src/lab5.c:290: InitADC();
 	lcall	_InitADC
-;	D:\Coding\2026\291\lab5\src\lab5.c:289: TIMER0_Init();
+;	src/lab5.c:291: TIMER0_Init();
 	lcall	_TIMER0_Init
-;	D:\Coding\2026\291\lab5\src\lab5.c:290: init_pin_input();
+;	src/lab5.c:292: init_pin_input();
 	lcall	_init_pin_input
-;	D:\Coding\2026\291\lab5\src\lab5.c:292: while(1){
+;	src/lab5.c:294: while(1){
 L014002?:
-;	D:\Coding\2026\291\lab5\src\lab5.c:293: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
+;	src/lab5.c:295: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
 	mov	dpl,#0x0E
 	lcall	_read_ripple_voltage
-;	D:\Coding\2026\291\lab5\src\lab5.c:299: period = measure_period();
+;	src/lab5.c:301: period = measure_period();
 	lcall	_measure_period
-;	D:\Coding\2026\291\lab5\src\lab5.c:303: measure_zero_cross_time();
+;	src/lab5.c:305: measure_zero_cross_time();
 	lcall	_measure_zero_cross_time
-;	D:\Coding\2026\291\lab5\src\lab5.c:304: waitms(500);
+;	src/lab5.c:306: waitms(500);
 	mov	dptr,#0x01F4
 	lcall	_waitms
 	sjmp	L014002?
@@ -1318,25 +1318,13 @@ __str_2:
 	db 0x0A
 	db 0x00
 __str_3:
-	db 'D:'
-	db 0x5C
-	db 'Coding'
-	db 0x5C
-	db '2026'
-	db 0x5C
-	db '291'
-	db 0x5C
-	db 'lab5'
-	db 0x5C
-	db 'src'
-	db 0x5C
-	db 'lab5.c'
+	db 'src/lab5.c'
 	db 0x00
 __str_4:
 	db 'Mar  2 2026'
 	db 0x00
 __str_5:
-	db '13:13:27'
+	db '13:28:41'
 	db 0x00
 
 	CSEG

@@ -6,13 +6,24 @@
 #   l51      : .obj + .lib -> .hex (link)
 
 # Project settings
+# Try common Windows locations
+CROSSIDE_DIR := $(or \
+    $(wildcard C:/CrossIDE), \
+    $(wildcard D:/CrossIDE), \
+    $(wildcard E:/CrossIDE) \
+)
+
+ifeq ($(CROSSIDE_DIR),)
+    $(error CrossIDE not found. Set it manually: make CROSSIDE_DIR=C:/CrossIDE)
+endif
+
 SRC_DIR   = src
 INC_DIR   = inc
 BUILD_DIR = build
 TARGET    = main
 
 # Tool paths (CrossIDE Call51 toolchain)
-CALL51_DIR = D:/CrossIDE/CrossIDE/Call51
+CALL51_DIR = $(CROSSIDE_DIR)/Call51
 C51        = $(CALL51_DIR)/Bin/c51.exe
 L51        = $(CALL51_DIR)/Bin/l51.exe
 
