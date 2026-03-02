@@ -220,7 +220,8 @@ float read_ripple_voltage(unsigned char pin){
 // measure from p2.2
 unsigned int measure_period(void){
     unsigned int time_us;    
-
+	
+	CKCON0&=0b_1111_1000;  // Timer 0 uses sysclk/12
     TR0 = 0;
     TH0 = 0; TL0 = 0; // Reset timer
     while(P2_2 == 1); // Wait for the signal to be 0
@@ -248,19 +249,22 @@ unsigned int measure_period(void){
 unsigned int measure_zero_cross_time(void){
     unsigned int time_us;
 
+	CKCON0&=0b_1111_1010;  // Timer 0 uses sysclk/48
+	CKCON0|=0b_0000_0010;
+	// ps. sysclk/48 will lose timing accuracy
     TR0 = 0;
     TH0 = 0; TL0 = 0; // Reset timer
-    while(P2_2 == 1); // Wait for signal to be 0
-    while(P2_2 == 0); // Wait for signal to be 1
+    while(P2_2 == 1); // Wait for p2.2 to be 0
+    while(P2_2 == 0); // Wait for p2.2 to be 1
     TR0 = 1;
 
     while(P2_3 == 1); // Wait for p2.3 to be 1
     while(P2_3 == 0); // Wait for p2.3 to be 0
     TR0 = 0;
 
-    time_us = ((unsigned int)(TH0*0x100+TL0) / 6U); // note: may overflow, i'm not sure
-    
-    printf("%u\n", time_us);
+    time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
+    printf("%u\n", (TH0*0x100+TL0));
+    //printf("%u\n", time_us);
     return time_us;
 }
 
@@ -295,6 +299,8 @@ void main(void){
         period = measure_period();
         frequency = 1000000 / period; // frequency in Hz
         //printf("f2 = %u\n\n",frequency);
+
+		measure_zero_cross_time();
         waitms(500);
     }
     
