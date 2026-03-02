@@ -1,11 +1,10 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Mon Mar 02 11:45:27 2026
+; This file was generated Mon Mar 02 12:25:14 2026
 ;--------------------------------------------------------
 $name lab5
 $optc51 --model-small
-$printf_float
 	R_DSEG    segment data
 	R_CSEG    segment code
 	R_BSEG    segment bit
@@ -26,6 +25,7 @@ $printf_float
 ;--------------------------------------------------------
 	public _InitPinADC_PARM_2
 	public _main
+	public _measure_zero_cross_time
 	public _measure_period
 	public _read_ripple_voltage
 	public _init_pin_input
@@ -1122,21 +1122,58 @@ L012012?:
 	mov	dph,r3
 	ret
 ;------------------------------------------------------------
-;Allocation info for local variables in function 'main'
+;Allocation info for local variables in function 'measure_zero_cross_time'
 ;------------------------------------------------------------
-;v1                        Allocated with name '_main_v1_1_70'
-;v2                        Allocated to registers r2 r3 r4 r5 
-;frequency                 Allocated to registers r2 r3 
+;time_us                   Allocated to registers r2 r3 
 ;------------------------------------------------------------
-;	D:\Coding\2026\291\lab5\lab5.c:245: void main(void){
+;	D:\Coding\2026\291\lab5\lab5.c:248: unsigned int measure_zero_cross_time(void){
 ;	-----------------------------------------
-;	 function main
+;	 function measure_zero_cross_time
 ;	-----------------------------------------
-_main:
-;	D:\Coding\2026\291\lab5\lab5.c:251: waitms(500);
-	mov	dptr,#0x01F4
-	lcall	_waitms
-;	D:\Coding\2026\291\lab5\lab5.c:252: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+_measure_zero_cross_time:
+;	D:\Coding\2026\291\lab5\lab5.c:251: TR0 = 0;
+	clr	_TR0
+;	D:\Coding\2026\291\lab5\lab5.c:252: TH0 = 0; TL0 = 0; // Reset timer
+	mov	_TH0,#0x00
+	mov	_TL0,#0x00
+;	D:\Coding\2026\291\lab5\lab5.c:253: while(P2_2 == 1); // Wait for signal to be 0
+L013001?:
+	jb	_P2_2,L013001?
+;	D:\Coding\2026\291\lab5\lab5.c:254: while(P2_2 == 0); // Wait for signal to be 1
+L013004?:
+	jnb	_P2_2,L013004?
+;	D:\Coding\2026\291\lab5\lab5.c:255: TR0 = 1;
+	setb	_TR0
+;	D:\Coding\2026\291\lab5\lab5.c:257: while(P2_3 == 1); // Wait for p2.3 to be 1
+L013007?:
+	jb	_P2_3,L013007?
+;	D:\Coding\2026\291\lab5\lab5.c:258: while(P2_3 == 0); // Wait for p2.3 to be 0
+L013010?:
+	jnb	_P2_3,L013010?
+;	D:\Coding\2026\291\lab5\lab5.c:259: TR0 = 0;
+	clr	_TR0
+;	D:\Coding\2026\291\lab5\lab5.c:261: time_us = ((unsigned int)(TH0*0x100+TL0) / 6U); // note: may overflow, i'm not sure
+	mov	r3,_TH0
+	mov	r2,#0x00
+	mov	r4,_TL0
+	mov	r5,#0x00
+	mov	a,r4
+	add	a,r2
+	mov	dpl,a
+	mov	a,r5
+	addc	a,r3
+	mov	dph,a
+	mov	__divuint_PARM_2,#0x06
+	clr	a
+	mov	(__divuint_PARM_2 + 1),a
+	lcall	__divuint
+	mov	r2,dpl
+	mov	r3,dph
+;	D:\Coding\2026\291\lab5\lab5.c:263: printf("%u\n", time_us);
+	push	ar2
+	push	ar3
+	push	ar2
+	push	ar3
 	mov	a,#__str_0
 	push	acc
 	mov	a,#(__str_0 >> 8)
@@ -1144,11 +1181,50 @@ _main:
 	mov	a,#0x80
 	push	acc
 	lcall	_printf
+	mov	a,sp
+	add	a,#0xfb
+	mov	sp,a
+	pop	ar3
+	pop	ar2
+;	D:\Coding\2026\291\lab5\lab5.c:264: return time_us;
+	mov	dpl,r2
+	mov	dph,r3
+	ret
+;------------------------------------------------------------
+;Allocation info for local variables in function 'main'
+;------------------------------------------------------------
+;v1                        Allocated with name '_main_v1_1_72'
+;v2                        Allocated to registers 
+;period                    Allocated to registers 
+;frequency                 Allocated to registers 
+;------------------------------------------------------------
+;	D:\Coding\2026\291\lab5\lab5.c:267: void main(void){
+;	-----------------------------------------
+;	 function main
+;	-----------------------------------------
+_main:
+;	D:\Coding\2026\291\lab5\lab5.c:274: waitms(500);
+	mov	dptr,#0x01F4
+	lcall	_waitms
+;	D:\Coding\2026\291\lab5\lab5.c:275: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+	mov	a,#__str_1
+	push	acc
+	mov	a,#(__str_1 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
+	lcall	_printf
 	dec	sp
 	dec	sp
 	dec	sp
-;	D:\Coding\2026\291\lab5\lab5.c:256: __FILE__, __DATE__, __TIME__);
-;	D:\Coding\2026\291\lab5\lab5.c:255: "Compiled: %s, %s\n\n",
+;	D:\Coding\2026\291\lab5\lab5.c:279: __FILE__, __DATE__, __TIME__);
+;	D:\Coding\2026\291\lab5\lab5.c:278: "Compiled: %s, %s\n\n",
+	mov	a,#__str_5
+	push	acc
+	mov	a,#(__str_5 >> 8)
+	push	acc
+	mov	a,#0x80
+	push	acc
 	mov	a,#__str_4
 	push	acc
 	mov	a,#(__str_4 >> 8)
@@ -1167,95 +1243,49 @@ _main:
 	push	acc
 	mov	a,#0x80
 	push	acc
-	mov	a,#__str_1
-	push	acc
-	mov	a,#(__str_1 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
 	lcall	_printf
 	mov	a,sp
 	add	a,#0xf4
 	mov	sp,a
-;	D:\Coding\2026\291\lab5\lab5.c:259: InitPinADC(1, 6);
+;	D:\Coding\2026\291\lab5\lab5.c:282: InitPinADC(1, 6);
 	mov	_InitPinADC_PARM_2,#0x06
 	mov	dpl,#0x01
 	lcall	_InitPinADC
-;	D:\Coding\2026\291\lab5\lab5.c:260: InitPinADC(2, 1);
+;	D:\Coding\2026\291\lab5\lab5.c:283: InitPinADC(2, 1);
 	mov	_InitPinADC_PARM_2,#0x01
 	mov	dpl,#0x02
 	lcall	_InitPinADC
-;	D:\Coding\2026\291\lab5\lab5.c:261: InitADC();
+;	D:\Coding\2026\291\lab5\lab5.c:284: InitADC();
 	lcall	_InitADC
-;	D:\Coding\2026\291\lab5\lab5.c:262: TIMER0_Init();
+;	D:\Coding\2026\291\lab5\lab5.c:285: TIMER0_Init();
 	lcall	_TIMER0_Init
-;	D:\Coding\2026\291\lab5\lab5.c:263: init_pin_input();
+;	D:\Coding\2026\291\lab5\lab5.c:286: init_pin_input();
 	lcall	_init_pin_input
-;	D:\Coding\2026\291\lab5\lab5.c:265: while(1){
-L013002?:
-;	D:\Coding\2026\291\lab5\lab5.c:266: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
+;	D:\Coding\2026\291\lab5\lab5.c:288: while(1){
+L014002?:
+;	D:\Coding\2026\291\lab5\lab5.c:289: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
 	mov	dpl,#0x0E
 	lcall	_read_ripple_voltage
-	mov	r2,dpl
-	mov	r3,dph
-	mov	r4,b
-	mov	r5,a
-;	D:\Coding\2026\291\lab5\lab5.c:267: printf("v2 = %.2f\n", v2);
-	push	ar2
-	push	ar3
-	push	ar4
-	push	ar5
-	mov	a,#__str_5
-	push	acc
-	mov	a,#(__str_5 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xf9
-	mov	sp,a
-;	D:\Coding\2026\291\lab5\lab5.c:273: frequency = 1000000 / measure_period(); // frequency in Hz
+;	D:\Coding\2026\291\lab5\lab5.c:295: period = measure_period();
 	lcall	_measure_period
-	mov	r2,dpl
-	mov	r3,dph
-	mov	__divslong_PARM_2,r2
-	mov	(__divslong_PARM_2 + 1),r3
-	mov	(__divslong_PARM_2 + 2),#0x00
-	mov	(__divslong_PARM_2 + 3),#0x00
-	mov	dptr,#0x4240
-	mov	b,#0x0F
-	clr	a
-	lcall	__divslong
-	mov	r2,dpl
-	mov	r3,dph
-;	D:\Coding\2026\291\lab5\lab5.c:274: printf("f2 = %u\n\n",frequency);
-	push	ar2
-	push	ar3
-	mov	a,#__str_6
-	push	acc
-	mov	a,#(__str_6 >> 8)
-	push	acc
-	mov	a,#0x80
-	push	acc
-	lcall	_printf
-	mov	a,sp
-	add	a,#0xfb
-	mov	sp,a
-;	D:\Coding\2026\291\lab5\lab5.c:275: waitms(500);
+;	D:\Coding\2026\291\lab5\lab5.c:298: waitms(500);
 	mov	dptr,#0x01F4
 	lcall	_waitms
-	sjmp	L013002?
+	sjmp	L014002?
 	rseg R_CSEG
 
 	rseg R_XINIT
 
 	rseg R_CONST
 __str_0:
+	db '%u'
+	db 0x0A
+	db 0x00
+__str_1:
 	db 0x1B
 	db '[2J'
 	db 0x00
-__str_1:
+__str_2:
 	db 'Lab5'
 	db 0x0A
 	db 'File: %s'
@@ -1264,7 +1294,7 @@ __str_1:
 	db 0x0A
 	db 0x0A
 	db 0x00
-__str_2:
+__str_3:
 	db 'D:'
 	db 0x5C
 	db 'Coding'
@@ -1277,20 +1307,11 @@ __str_2:
 	db 0x5C
 	db 'lab5.c'
 	db 0x00
-__str_3:
+__str_4:
 	db 'Mar  2 2026'
 	db 0x00
-__str_4:
-	db '11:45:27'
-	db 0x00
 __str_5:
-	db 'v2 = %.2f'
-	db 0x0A
-	db 0x00
-__str_6:
-	db 'f2 = %u'
-	db 0x0A
-	db 0x0A
+	db '12:25:14'
 	db 0x00
 
 	CSEG

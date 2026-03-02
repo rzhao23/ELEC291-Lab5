@@ -180,11 +180,6 @@ void TIMER0_Init(void)
 	TR0=0; // Stop Timer/Counter 0
 }
 
-void TIMER2_Init(void)
-{
-        
-}
-
 unsigned int ADC_at_Pin(unsigned char pin)
 {
 	ADC0MX = pin;   // Select input from pin
@@ -247,6 +242,28 @@ unsigned int measure_period(void){
     // Timer value after half period * 12 * 2 * 1000000 / sysclk to get period in us
 }
 
+// measure the zero cross time difference between two signals (p2.2 and p2.3)
+// use p2.2 as reference signal
+// return time in us
+unsigned int measure_zero_cross_time(void){
+    unsigned int time_us;
+
+    TR0 = 0;
+    TH0 = 0; TL0 = 0; // Reset timer
+    while(P2_2 == 1); // Wait for signal to be 0
+    while(P2_2 == 0); // Wait for signal to be 1
+    TR0 = 1;
+
+    while(P2_3 == 1); // Wait for p2.3 to be 1
+    while(P2_3 == 0); // Wait for p2.3 to be 0
+    TR0 = 0;
+
+    time_us = ((unsigned int)(TH0*0x100+TL0) / 6U); // note: may overflow, i'm not sure
+    
+    printf("%u\n", time_us);
+    return time_us;
+}
+
 void main(void){
     // Measured voltage variables
     float v1;
@@ -270,14 +287,14 @@ void main(void){
 
     while(1){
         v2 = read_ripple_voltage(QFP32_MUX_P2_1);
-        printf("v2 = %.2f\n", v2);
+        //printf("v2 = %.2f\n", v2);
         //waitms(500);
 
         //v1 = read_ripple_voltage(QFP32_MUX_P1_6);
         //printf("%d\n", P2_2);
         period = measure_period();
         frequency = 1000000 / period; // frequency in Hz
-        printf("f2 = %u\n\n",frequency);
+        //printf("f2 = %u\n\n",frequency);
         waitms(500);
     }
     
