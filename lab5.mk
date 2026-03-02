@@ -35,7 +35,7 @@ STD_LIB = $(CALL51_DIR)/LiB/Small
 LIBS = $(STD_LIB)/libint.lib \
        $(STD_LIB)/liblong.lib \
        $(STD_LIB)/libfloat.lib \
-       $(STD_LIB)/libc51.lib
+       $(STD_LIB)/libc51f.lib
 
 # Compiler flags
 CFLAGS = -I$(INC_DIR) -I$(STD_INC)

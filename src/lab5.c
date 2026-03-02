@@ -249,9 +249,11 @@ unsigned int measure_period(void){
 // use p2.2 as reference signal
 // return time in us
 unsigned int time_us_prev = 0;
+unsigned int time_us_candidate = 0;
 
 unsigned int measure_zero_cross_time(void){
     unsigned int time_us;
+	int diff;
 
 	CKCON0&=0b_1111_1010;  // Timer 0 uses sysclk/48
 	CKCON0|=0b_0000_0010;
@@ -265,22 +267,38 @@ unsigned int measure_zero_cross_time(void){
     while(P2_3 == 1); // Wait for p2.3 to be 1
     while(P2_3 == 0); // Wait for p2.3 to be 0
     TR0 = 0;
-<<<<<<< HEAD
-
-	CKCON0&=0b_1111_1000;
-
-    time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
-	time_us_prev = time_us;
-
-    //printf("%u\n", time_us);
-=======
 	
 	CKCON0 &= 0b_1111_1000; // Set Timer back to sysclk/12
     time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
     //printf("%u\n", (TH0*0x100+TL0));
-    printf("%u\n", time_us);
->>>>>>> d6ea3944cb115a9798bdf8a5564e942de8e07e51
-    return time_us;
+	if (time_us_prev == 0) {
+		time_us_prev = time_us;
+	}
+	else {
+		diff = time_us_prev - time_us;
+		if (diff < 0) diff = -diff ;
+
+		if (diff <= 10) {
+			time_us_candidate = 0;
+			time_us_prev = time_us;
+		}
+		else {
+			if (time_us_candidate != 0) {
+				int cdiff = (int)time_us - (int)time_us_candidate;
+				if (cdiff < 0) cdiff = -cdiff;
+				if (cdiff <= 10) {
+					time_us_prev = time_us;
+					time_us_candidate = 0;
+				}
+				else {
+					time_us_candidate = time_us;
+					return time_us_candidate;
+				}
+			}
+		}
+	}
+    printf("%u\n", time_us_prev);
+    return time_us_prev;
 }
 
 void main(void){
