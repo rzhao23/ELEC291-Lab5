@@ -1,7 +1,7 @@
 ;--------------------------------------------------------
 ; File Created by C51
 ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-; This file was generated Mon Mar 02 13:28:41 2026
+; This file was generated Mon Mar 02 13:47:29 2026
 ;--------------------------------------------------------
 $name lab5
 $optc51 --model-small
@@ -1158,7 +1158,9 @@ L013010?:
 	jnb	_P2_3,L013010?
 ;	src/lab5.c:265: TR0 = 0;
 	clr	_TR0
-;	src/lab5.c:267: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
+;	src/lab5.c:267: CKCON0 &= 0b_1111_1000; // Set Timer back to sysclk/12
+	anl	_CKCON0,#0xF8
+;	src/lab5.c:268: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
 	mov	r3,_TH0
 	mov	r2,#0x00
 	mov	r4,_TL0
@@ -1180,21 +1182,11 @@ L013010?:
 	xch	a,r2
 	rlc	a
 	mov	r3,a
-;	src/lab5.c:268: printf("%u\n", (TH0*0x100+TL0));
-	mov	r5,_TH0
-	mov	r4,#0x00
-	mov	r6,_TL0
-	mov	r7,#0x00
-	mov	a,r6
-	add	a,r4
-	mov	r4,a
-	mov	a,r7
-	addc	a,r5
-	mov	r5,a
+;	src/lab5.c:270: printf("%u\n", time_us);
 	push	ar2
 	push	ar3
-	push	ar4
-	push	ar5
+	push	ar2
+	push	ar3
 	mov	a,#__str_0
 	push	acc
 	mov	a,#(__str_0 >> 8)
@@ -1207,7 +1199,7 @@ L013010?:
 	mov	sp,a
 	pop	ar3
 	pop	ar2
-;	src/lab5.c:270: return time_us;
+;	src/lab5.c:271: return time_us;
 	mov	dpl,r2
 	mov	dph,r3
 	ret
@@ -1219,15 +1211,15 @@ L013010?:
 ;period                    Allocated to registers 
 ;frequency                 Allocated to registers 
 ;------------------------------------------------------------
-;	src/lab5.c:273: void main(void){
+;	src/lab5.c:274: void main(void){
 ;	-----------------------------------------
 ;	 function main
 ;	-----------------------------------------
 _main:
-;	src/lab5.c:280: waitms(500);
+;	src/lab5.c:281: waitms(500);
 	mov	dptr,#0x01F4
 	lcall	_waitms
-;	src/lab5.c:281: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+;	src/lab5.c:282: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
 	mov	a,#__str_1
 	push	acc
 	mov	a,#(__str_1 >> 8)
@@ -1238,8 +1230,8 @@ _main:
 	dec	sp
 	dec	sp
 	dec	sp
-;	src/lab5.c:285: __FILE__, __DATE__, __TIME__);
-;	src/lab5.c:284: "Compiled: %s, %s\n\n",
+;	src/lab5.c:286: __FILE__, __DATE__, __TIME__);
+;	src/lab5.c:285: "Compiled: %s, %s\n\n",
 	mov	a,#__str_5
 	push	acc
 	mov	a,#(__str_5 >> 8)
@@ -1268,30 +1260,30 @@ _main:
 	mov	a,sp
 	add	a,#0xf4
 	mov	sp,a
-;	src/lab5.c:288: InitPinADC(1, 6);
+;	src/lab5.c:289: InitPinADC(1, 6);
 	mov	_InitPinADC_PARM_2,#0x06
 	mov	dpl,#0x01
 	lcall	_InitPinADC
-;	src/lab5.c:289: InitPinADC(2, 1);
+;	src/lab5.c:290: InitPinADC(2, 1);
 	mov	_InitPinADC_PARM_2,#0x01
 	mov	dpl,#0x02
 	lcall	_InitPinADC
-;	src/lab5.c:290: InitADC();
+;	src/lab5.c:291: InitADC();
 	lcall	_InitADC
-;	src/lab5.c:291: TIMER0_Init();
+;	src/lab5.c:292: TIMER0_Init();
 	lcall	_TIMER0_Init
-;	src/lab5.c:292: init_pin_input();
+;	src/lab5.c:293: init_pin_input();
 	lcall	_init_pin_input
-;	src/lab5.c:294: while(1){
+;	src/lab5.c:295: while(1){
 L014002?:
-;	src/lab5.c:295: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
+;	src/lab5.c:296: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
 	mov	dpl,#0x0E
 	lcall	_read_ripple_voltage
-;	src/lab5.c:301: period = measure_period();
+;	src/lab5.c:302: period = measure_period();
 	lcall	_measure_period
-;	src/lab5.c:305: measure_zero_cross_time();
+;	src/lab5.c:306: measure_zero_cross_time();
 	lcall	_measure_zero_cross_time
-;	src/lab5.c:306: waitms(500);
+;	src/lab5.c:307: waitms(500);
 	mov	dptr,#0x01F4
 	lcall	_waitms
 	sjmp	L014002?
@@ -1324,7 +1316,7 @@ __str_4:
 	db 'Mar  2 2026'
 	db 0x00
 __str_5:
-	db '13:28:41'
+	db '13:47:29'
 	db 0x00
 
 	CSEG

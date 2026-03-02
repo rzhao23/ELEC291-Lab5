@@ -263,10 +263,11 @@ unsigned int measure_zero_cross_time(void){
     while(P2_3 == 1); // Wait for p2.3 to be 1
     while(P2_3 == 0); // Wait for p2.3 to be 0
     TR0 = 0;
-
+	
+	CKCON0 &= 0b_1111_1000; // Set Timer back to sysclk/12
     time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
-    printf("%u\n", (TH0*0x100+TL0));
-    //printf("%u\n", time_us);
+    //printf("%u\n", (TH0*0x100+TL0));
+    printf("%u\n", time_us);
     return time_us;
 }
 

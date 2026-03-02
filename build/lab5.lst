@@ -1,7 +1,7 @@
 0000              1   ;--------------------------------------------------------
 0000              2   ; File Created by C51
 0000              3   ; Version 1.0.0 #1170 (Feb 16 2022) (MSVC)
-0000              4   ; This file was generated Mon Mar 02 13:28:41 2026
+0000              4   ; This file was generated Mon Mar 02 13:47:29 2026
 0000              5   ;--------------------------------------------------------
                   5   $name lab5
                   6   $optc51 --model-small
@@ -548,8 +548,8 @@
 0000            548            rseg R_DINIT
 0000            549   ;        src/lab5.c:11: unsigned int last_accept_frequency = 0;
 0000 E4         550            clr     a
-0001 F5C0       551            mov     _last_accept_frequency,a
-0003 F5C1       552            mov     (_last_accept_frequency + 1),a
+0001 F538       551            mov     _last_accept_frequency,a
+0003 F539       552            mov     (_last_accept_frequency + 1),a
 0005            553            ; The linker places a 'ret' at the end of segment R_DINIT.
 0005            554   ;--------------------------------------------------------
 0005            555   ; code
@@ -588,7 +588,7 @@
 001E            588   ;        src/lab5.c:53: while ((CLKSEL & 0x80) == 0);
 001E            589   L002001?:
 001E E5A9       590            mov     a,_CLKSEL
-0020 30E7B0     591            jnb     acc.7,L002001?
+0020 30E730     591            jnb     acc.7,L002001?
 0023            592   ;        src/lab5.c:54: CLKSEL = 0x03;
 0023 75A903     593            mov     _CLKSEL,#0x03
 0026            594   ;        src/lab5.c:55: CLKSEL = 0x03;
@@ -596,7 +596,7 @@
 0029            596   ;        src/lab5.c:56: while ((CLKSEL & 0x80) == 0);
 0029            597   L002004?:
 0029 E5A9       598            mov     a,_CLKSEL
-002B 30E730     599            jnb     acc.7,L002004?
+002B 30E7B0     599            jnb     acc.7,L002004?
 002E            600   ;        src/lab5.c:61: P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output
 002E 43A410     601            orl     _P0MDOUT,#0x10
 0031            602   ;        src/lab5.c:62: XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)                     
@@ -682,7 +682,7 @@
 0086            682   ;        src/lab5.c:134: while (!(TMR3CN0 & 0x80));  // Wait for overflow
 0086            683   L004001?:
 0086 E591       684            mov     a,_TMR3CN0
-0088 30E730     685            jnb     acc.7,L004001?
+0088 30E7B0     685            jnb     acc.7,L004001?
 008B            686   ;        src/lab5.c:135: TMR3CN0 &= ~(0x80);         // Clear overflow indicator
 008B 53917F     687            anl     _TMR3CN0,#0x7F
 008E            688   ;        src/lab5.c:132: for (i = 0; i < us; i++)       // Count <us> overflows
@@ -719,7 +719,7 @@
 00A4            719   ;        src/lab5.c:145: for (k=0; k<4; k++) Timer3us(250);
 00A4 7E00       720            mov     r6,#0x00
 00A6            721   L005001?:
-00A6 BE0470     722            cjne    r6,#0x04,L005018?
+00A6 BE04F0     722            cjne    r6,#0x04,L005018?
 00A9            723   L005018?:
 00A9 5000       724            jnc     L005007?
 00AB 7582FA     725            mov     dpl,#0xFA
@@ -739,7 +739,7 @@
 00C8            739   L005007?:
 00C8            740   ;        src/lab5.c:144: for(j=0; j<ms; j++)
 00C8 0C         741            inc     r4
-00C9 BC00B0     742            cjne    r4,#0x00,L005005?
+00C9 BC0030     742            cjne    r4,#0x00,L005005?
 00CC 0D         743            inc     r5
 00CD 8000       744            sjmp    L005005?
 00CF            745   L005009?:
@@ -758,26 +758,26 @@
 00D0            758   _InitPinADC:
 00D0 AA82       759            mov     r2,dpl
 00D2            760   ;        src/lab5.c:154: mask=1<<pinno;
-00D2 8500F0     761            mov     b,_InitPinADC_PARM_2
+00D2 85C8F0     761            mov     b,_InitPinADC_PARM_2
 00D5 05F0       762            inc     b
 00D7 7401       763            mov     a,#0x01
 00D9 8000       764            sjmp    L006013?
 00DB            765   L006011?:
 00DB 25E0       766            add     a,acc
 00DD            767   L006013?:
-00DD D5F070     768            djnz    b,L006011?
+00DD D5F0F0     768            djnz    b,L006011?
 00E0 FB         769            mov     r3,a
 00E1            770   ;        src/lab5.c:156: SFRPAGE = 0x20;
 00E1 75A720     771            mov     _SFRPAGE,#0x20
 00E4            772   ;        src/lab5.c:157: switch (portno)
-00E4 BA00B0     773            cjne    r2,#0x00,L006014?
+00E4 BA0030     773            cjne    r2,#0x00,L006014?
 00E7 8000       774            sjmp    L006001?
 00E9            775   L006014?:
-00E9 BA0130     776            cjne    r2,#0x01,L006015?
+00E9 BA01B0     776            cjne    r2,#0x01,L006015?
 00EC 8000       777            sjmp    L006002?
 00EE            778   L006015?:
 00EE            779   ;        src/lab5.c:159: case 0:
-00EE BA02B0     780            cjne    r2,#0x02,L006005?
+00EE BA0230     780            cjne    r2,#0x02,L006005?
 00F1 8000       781            sjmp    L006003?
 00F3            782   L006001?:
 00F3            783   ;        src/lab5.c:160: P0MDIN &= (~mask); // Set pin as analog input
@@ -852,7 +852,7 @@
 0124 D2EC       852            setb    _ADBUSY
 0126            853   ;        src/lab5.c:190: while (!ADINT); // Wait for conversion to complete
 0126            854   L008001?:
-0126 30ED30     855            jnb     _ADINT,L008001?
+0126 30EDB0     855            jnb     _ADINT,L008001?
 0129            856   ;        src/lab5.c:191: return (ADC0);
 0129 85BD82     857            mov     dpl,_ADC0
 012C 85BE83     858            mov     dph,(_ADC0 >> 8)
@@ -944,22 +944,22 @@
 0198            944   ;         function read_ripple_voltage
 0198            945   ;        -----------------------------------------
 0198            946   _read_ripple_voltage:
-0198 8582D0     947            mov     _read_ripple_voltage_pin_1_76,dpl
+0198 858250     947            mov     _read_ripple_voltage_pin_1_76,dpl
 019B            948   ;        src/lab5.c:210: float voltage_sum = 0;
-019B 753000     949            mov     _read_ripple_voltage_voltage_sum_1_77,#0x00
-019E 753100     950            mov     (_read_ripple_voltage_voltage_sum_1_77 + 1),#0x00
-01A1 753200     951            mov     (_read_ripple_voltage_voltage_sum_1_77 + 2),#0x00
-01A4 753300     952            mov     (_read_ripple_voltage_voltage_sum_1_77 + 3),#0x00
+019B 75B000     949            mov     _read_ripple_voltage_voltage_sum_1_77,#0x00
+019E 75B100     950            mov     (_read_ripple_voltage_voltage_sum_1_77 + 1),#0x00
+01A1 75B200     951            mov     (_read_ripple_voltage_voltage_sum_1_77 + 2),#0x00
+01A4 75B300     952            mov     (_read_ripple_voltage_voltage_sum_1_77 + 3),#0x00
 01A7            953   ;        src/lab5.c:212: while(sample_count < 32){
 01A7 7F00       954            mov     r7,#0x00
 01A9            955   L011001?:
-01A9 BF20B0     956            cjne    r7,#0x20,L011009?
+01A9 BF2030     956            cjne    r7,#0x20,L011009?
 01AC            957   L011009?:
 01AC 4000       958            jc      L011010?
 01AE 020000     959            ljmp    L011003?
 01B1            960   L011010?:
 01B1            961   ;        src/lab5.c:213: voltage_sum += (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
-01B1 85D082     962            mov     dpl,_read_ripple_voltage_pin_1_76
+01B1 855082     962            mov     dpl,_read_ripple_voltage_pin_1_76
 01B4 C007       963            push    ar7
 01B6 120000     964            lcall   _ADC_at_Pin
 01B9 120000     965            lcall   ___uint2fs
@@ -1006,15 +1006,15 @@
 020B C003      1006            push    ar3
 020D C004      1007            push    ar4
 020F C005      1008            push    ar5
-0211 853082    1009            mov     dpl,_read_ripple_voltage_voltage_sum_1_77
-0214 853183    1010            mov     dph,(_read_ripple_voltage_voltage_sum_1_77 + 1)
-0217 8532F0    1011            mov     b,(_read_ripple_voltage_voltage_sum_1_77 + 2)
-021A E533      1012            mov     a,(_read_ripple_voltage_voltage_sum_1_77 + 3)
+0211 85B082    1009            mov     dpl,_read_ripple_voltage_voltage_sum_1_77
+0214 85B183    1010            mov     dph,(_read_ripple_voltage_voltage_sum_1_77 + 1)
+0217 85B2F0    1011            mov     b,(_read_ripple_voltage_voltage_sum_1_77 + 2)
+021A E5B3      1012            mov     a,(_read_ripple_voltage_voltage_sum_1_77 + 3)
 021C 120000    1013            lcall   ___fsadd
-021F 858230    1014            mov     _read_ripple_voltage_voltage_sum_1_77,dpl
-0222 858331    1015            mov     (_read_ripple_voltage_voltage_sum_1_77 + 1),dph
-0225 85F032    1016            mov     (_read_ripple_voltage_voltage_sum_1_77 + 2),b
-0228 F533      1017            mov     (_read_ripple_voltage_voltage_sum_1_77 + 3),a
+021F 8582B0    1014            mov     _read_ripple_voltage_voltage_sum_1_77,dpl
+0222 8583B1    1015            mov     (_read_ripple_voltage_voltage_sum_1_77 + 1),dph
+0225 85F0B2    1016            mov     (_read_ripple_voltage_voltage_sum_1_77 + 2),b
+0228 F5B3      1017            mov     (_read_ripple_voltage_voltage_sum_1_77 + 3),a
 022A E581      1018            mov     a,sp
 022C 24FC      1019            add     a,#0xfc
 022E F581      1020            mov     sp,a
@@ -1039,10 +1039,10 @@
 024E C003      1039            push    ar3
 0250 C004      1040            push    ar4
 0252 C005      1041            push    ar5
-0254 853082    1042            mov     dpl,_read_ripple_voltage_voltage_sum_1_77
-0257 853183    1043            mov     dph,(_read_ripple_voltage_voltage_sum_1_77 + 1)
-025A 8532F0    1044            mov     b,(_read_ripple_voltage_voltage_sum_1_77 + 2)
-025D E533      1045            mov     a,(_read_ripple_voltage_voltage_sum_1_77 + 3)
+0254 85B082    1042            mov     dpl,_read_ripple_voltage_voltage_sum_1_77
+0257 85B183    1043            mov     dph,(_read_ripple_voltage_voltage_sum_1_77 + 1)
+025A 85B2F0    1044            mov     b,(_read_ripple_voltage_voltage_sum_1_77 + 2)
+025D E5B3      1045            mov     a,(_read_ripple_voltage_voltage_sum_1_77 + 3)
 025F 120000    1046            lcall   ___fsdiv
 0262 AA82      1047            mov     r2,dpl
 0264 AB83      1048            mov     r3,dph
@@ -1075,15 +1075,15 @@
 027F 758A00    1075            mov     _TL0,#0x00
 0282           1076   ;        src/lab5.c:229: while(P2_2 == 1); // Wait for the signal to be 0
 0282           1077   L012001?:
-0282 20A2F0    1078            jb      _P2_2,L012001?
+0282 20A270    1078            jb      _P2_2,L012001?
 0285           1079   ;        src/lab5.c:230: while(P2_2 == 0); // Wait for the signal to be 1
 0285           1080   L012004?:
-0285 30A230    1081            jnb     _P2_2,L012004?
+0285 30A2B0    1081            jnb     _P2_2,L012004?
 0288           1082   ;        src/lab5.c:231: TR0 = 1; // Start timing
 0288 D28C      1083            setb    _TR0
 028A           1084   ;        src/lab5.c:232: while(P2_2 == 1); // Wait for the signal to be 0
 028A           1085   L012007?:
-028A 20A270    1086            jb      _P2_2,L012007?
+028A 20A2F0    1086            jb      _P2_2,L012007?
 028D           1087   ;        src/lab5.c:233: TR0 = 0; // Stop timer 0
 028D C28C      1088            clr     _TR0
 028F           1089   ;        src/lab5.c:236: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U);
@@ -1111,13 +1111,13 @@
 02B1 9400      1111            subb    a,#0x00
 02B3 5000      1112            jnc     L012011?
 02B5           1113   ;        src/lab5.c:239: time_us = last_accept_frequency;
-02B5 AAC0      1114            mov     r2,_last_accept_frequency
-02B7 ABC1      1115            mov     r3,(_last_accept_frequency + 1)
+02B5 AA38      1114            mov     r2,_last_accept_frequency
+02B7 AB39      1115            mov     r3,(_last_accept_frequency + 1)
 02B9 8000      1116            sjmp    L012012?
 02BB           1117   L012011?:
 02BB           1118   ;        src/lab5.c:242: last_accept_frequency = time_us;
-02BB 8AC0      1119            mov     _last_accept_frequency,r2
-02BD 8BC1      1120            mov     (_last_accept_frequency + 1),r3
+02BB 8A38      1119            mov     _last_accept_frequency,r2
+02BD 8B39      1120            mov     (_last_accept_frequency + 1),r3
 02BF           1121   L012012?:
 02BF           1122   ;        src/lab5.c:244: return time_us; 
 02BF 8A82      1123            mov     dpl,r2
@@ -1144,198 +1144,190 @@
 02CF 758A00    1144            mov     _TL0,#0x00
 02D2           1145   ;        src/lab5.c:259: while(P2_2 == 1); // Wait for p2.2 to be 0
 02D2           1146   L013001?:
-02D2 20A2C0    1147            jb      _P2_2,L013001?
+02D2 20A240    1147            jb      _P2_2,L013001?
 02D5           1148   ;        src/lab5.c:260: while(P2_2 == 0); // Wait for p2.2 to be 1
 02D5           1149   L013004?:
-02D5 30A200    1150            jnb     _P2_2,L013004?
+02D5 30A280    1150            jnb     _P2_2,L013004?
 02D8           1151   ;        src/lab5.c:261: TR0 = 1;
 02D8 D28C      1152            setb    _TR0
 02DA           1153   ;        src/lab5.c:263: while(P2_3 == 1); // Wait for p2.3 to be 1
 02DA           1154   L013007?:
-02DA 20A340    1155            jb      _P2_3,L013007?
+02DA 20A3C0    1155            jb      _P2_3,L013007?
 02DD           1156   ;        src/lab5.c:264: while(P2_3 == 0); // Wait for p2.3 to be 0
 02DD           1157   L013010?:
-02DD 30A380    1158            jnb     _P2_3,L013010?
+02DD 30A300    1158            jnb     _P2_3,L013010?
 02E0           1159   ;        src/lab5.c:265: TR0 = 0;
 02E0 C28C      1160            clr     _TR0
-02E2           1161   ;        src/lab5.c:267: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
-02E2 AB8C      1162            mov     r3,_TH0
-02E4 7A00      1163            mov     r2,#0x00
-02E6 AC8A      1164            mov     r4,_TL0
-02E8 7D00      1165            mov     r5,#0x00
-02EA EC        1166            mov     a,r4
-02EB 2A        1167            add     a,r2
-02EC F582      1168            mov     dpl,a
-02EE ED        1169            mov     a,r5
-02EF 3B        1170            addc    a,r3
-02F0 F583      1171            mov     dph,a
-02F2 750003    1172            mov     __divuint_PARM_2,#0x03
-02F5 E4        1173            clr     a
-02F6 F501      1174            mov     (__divuint_PARM_2 + 1),a
-02F8 120000    1175            lcall   __divuint
-02FB AA82      1176            mov     r2,dpl
-02FD E583      1177            mov     a,dph
-02FF CA        1178            xch     a,r2
-0300 25E0      1179            add     a,acc
+02E2           1161   ;        src/lab5.c:267: CKCON0 &= 0b_1111_1000; // Set Timer back to sysclk/12
+02E2 538EF8    1162            anl     _CKCON0,#0xF8
+02E5           1163   ;        src/lab5.c:268: time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
+02E5 AB8C      1164            mov     r3,_TH0
+02E7 7A00      1165            mov     r2,#0x00
+02E9 AC8A      1166            mov     r4,_TL0
+02EB 7D00      1167            mov     r5,#0x00
+02ED EC        1168            mov     a,r4
+02EE 2A        1169            add     a,r2
+02EF F582      1170            mov     dpl,a
+02F1 ED        1171            mov     a,r5
+02F2 3B        1172            addc    a,r3
+02F3 F583      1173            mov     dph,a
+02F5 750003    1174            mov     __divuint_PARM_2,#0x03
+02F8 E4        1175            clr     a
+02F9 F501      1176            mov     (__divuint_PARM_2 + 1),a
+02FB 120000    1177            lcall   __divuint
+02FE AA82      1178            mov     r2,dpl
+0300 E583      1179            mov     a,dph
 0302 CA        1180            xch     a,r2
-0303 33        1181            rlc     a
-0304 FB        1182            mov     r3,a
-0305           1183   ;        src/lab5.c:268: printf("%u\n", (TH0*0x100+TL0));
-0305 AD8C      1184            mov     r5,_TH0
-0307 7C00      1185            mov     r4,#0x00
-0309 AE8A      1186            mov     r6,_TL0
-030B 7F00      1187            mov     r7,#0x00
-030D EE        1188            mov     a,r6
-030E 2C        1189            add     a,r4
-030F FC        1190            mov     r4,a
-0310 EF        1191            mov     a,r7
-0311 3D        1192            addc    a,r5
-0312 FD        1193            mov     r5,a
-0313 C002      1194            push    ar2
-0315 C003      1195            push    ar3
-0317 C004      1196            push    ar4
-0319 C005      1197            push    ar5
-031B 74C0      1198            mov     a,#__str_0
-031D C0E0      1199            push    acc
-031F 74BD      1200            mov     a,#(__str_0 >> 8)
-0321 C0E0      1201            push    acc
-0323 7480      1202            mov     a,#0x80
-0325 C0E0      1203            push    acc
-0327 120000    1204            lcall   _printf
-032A E581      1205            mov     a,sp
-032C 24FB      1206            add     a,#0xfb
-032E F581      1207            mov     sp,a
-0330 D003      1208            pop     ar3
-0332 D002      1209            pop     ar2
-0334           1210   ;        src/lab5.c:270: return time_us;
-0334 8A82      1211            mov     dpl,r2
-0336 8B83      1212            mov     dph,r3
-0338 22        1213            ret
-0339           1214   ;------------------------------------------------------------
-0339           1215   ;Allocation info for local variables in function 'main'
-0339           1216   ;------------------------------------------------------------
-0339           1217   ;v1                        Allocated with name '_main_v1_1_86'
-0339           1218   ;v2                        Allocated to registers 
-0339           1219   ;period                    Allocated to registers 
-0339           1220   ;frequency                 Allocated to registers 
-0339           1221   ;------------------------------------------------------------
-0339           1222   ;        src/lab5.c:273: void main(void){
-0339           1223   ;        -----------------------------------------
-0339           1224   ;         function main
-0339           1225   ;        -----------------------------------------
-0339           1226   _main:
-0339           1227   ;        src/lab5.c:280: waitms(500);
-0339 9001F4    1228            mov     dptr,#0x01F4
-033C 120000    1229            lcall   _waitms
-033F           1230   ;        src/lab5.c:281: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
-033F 7440      1231            mov     a,#__str_1
-0341 C0E0      1232            push    acc
-0343 74BE      1233            mov     a,#(__str_1 >> 8)
-0345 C0E0      1234            push    acc
-0347 7480      1235            mov     a,#0x80
-0349 C0E0      1236            push    acc
-034B 120000    1237            lcall   _printf
-034E 1581      1238            dec     sp
-0350 1581      1239            dec     sp
-0352 1581      1240            dec     sp
-0354           1241   ;        src/lab5.c:285: __FILE__, __DATE__, __TIME__);
-0354           1242   ;        src/lab5.c:284: "Compiled: %s, %s\n\n",
-0354 7480      1243            mov     a,#__str_5
-0356 C0E0      1244            push    acc
-0358 74BE      1245            mov     a,#(__str_5 >> 8)
-035A C0E0      1246            push    acc
-035C 7480      1247            mov     a,#0x80
-035E C0E0      1248            push    acc
-0360 74C0      1249            mov     a,#__str_4
-0362 C0E0      1250            push    acc
-0364 74BE      1251            mov     a,#(__str_4 >> 8)
-0366 C0E0      1252            push    acc
-0368 7480      1253            mov     a,#0x80
-036A C0E0      1254            push    acc
-036C 7400      1255            mov     a,#__str_3
-036E C0E0      1256            push    acc
-0370 74BF      1257            mov     a,#(__str_3 >> 8)
-0372 C0E0      1258            push    acc
-0374 7480      1259            mov     a,#0x80
-0376 C0E0      1260            push    acc
-0378 7440      1261            mov     a,#__str_2
-037A C0E0      1262            push    acc
-037C 74BF      1263            mov     a,#(__str_2 >> 8)
-037E C0E0      1264            push    acc
-0380 7480      1265            mov     a,#0x80
-0382 C0E0      1266            push    acc
-0384 120000    1267            lcall   _printf
-0387 E581      1268            mov     a,sp
-0389 24F4      1269            add     a,#0xf4
-038B F581      1270            mov     sp,a
-038D           1271   ;        src/lab5.c:288: InitPinADC(1, 6);
-038D 750006    1272            mov     _InitPinADC_PARM_2,#0x06
-0390 758201    1273            mov     dpl,#0x01
-0393 120000    1274            lcall   _InitPinADC
-0396           1275   ;        src/lab5.c:289: InitPinADC(2, 1);
-0396 750001    1276            mov     _InitPinADC_PARM_2,#0x01
-0399 758202    1277            mov     dpl,#0x02
-039C 120000    1278            lcall   _InitPinADC
-039F           1279   ;        src/lab5.c:290: InitADC();
-039F 120000    1280            lcall   _InitADC
-03A2           1281   ;        src/lab5.c:291: TIMER0_Init();
-03A2 120000    1282            lcall   _TIMER0_Init
-03A5           1283   ;        src/lab5.c:292: init_pin_input();
-03A5 120000    1284            lcall   _init_pin_input
-03A8           1285   ;        src/lab5.c:294: while(1){
-03A8           1286   L014002?:
-03A8           1287   ;        src/lab5.c:295: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
-03A8 75820E    1288            mov     dpl,#0x0E
-03AB 120000    1289            lcall   _read_ripple_voltage
-03AE           1290   ;        src/lab5.c:301: period = measure_period();
-03AE 120000    1291            lcall   _measure_period
-03B1           1292   ;        src/lab5.c:305: measure_zero_cross_time();
-03B1 120000    1293            lcall   _measure_zero_cross_time
-03B4           1294   ;        src/lab5.c:306: waitms(500);
-03B4 9001F4    1295            mov     dptr,#0x01F4
-03B7 120000    1296            lcall   _waitms
-03BA 8000      1297            sjmp    L014002?
-03BC           1298            rseg R_CSEG
-03BC           1299   
-0000           1300            rseg R_XINIT
-0000           1301   
-0000           1302            rseg R_CONST
-0000           1303   __str_0:
-0000 2575      1304            db '%u'
-0002 0A        1305            db 0x0A
-0003 00        1306            db 0x00
-0004           1307   __str_1:
-0004 1B        1308            db 0x1B
-0005 5B324A    1309            db '[2J'
-0008 00        1310            db 0x00
-0009           1311   __str_2:
-0009 4C616235  1312            db 'Lab5'
-000D 0A        1313            db 0x0A
-000E 46696C65  1314            db 'File: %s'
+0303 25E0      1181            add     a,acc
+0305 CA        1182            xch     a,r2
+0306 33        1183            rlc     a
+0307 FB        1184            mov     r3,a
+0308           1185   ;        src/lab5.c:270: printf("%u\n", time_us);
+0308 C002      1186            push    ar2
+030A C003      1187            push    ar3
+030C C002      1188            push    ar2
+030E C003      1189            push    ar3
+0310 7440      1190            mov     a,#__str_0
+0312 C0E0      1191            push    acc
+0314 74BB      1192            mov     a,#(__str_0 >> 8)
+0316 C0E0      1193            push    acc
+0318 7480      1194            mov     a,#0x80
+031A C0E0      1195            push    acc
+031C 120000    1196            lcall   _printf
+031F E581      1197            mov     a,sp
+0321 24FB      1198            add     a,#0xfb
+0323 F581      1199            mov     sp,a
+0325 D003      1200            pop     ar3
+0327 D002      1201            pop     ar2
+0329           1202   ;        src/lab5.c:271: return time_us;
+0329 8A82      1203            mov     dpl,r2
+032B 8B83      1204            mov     dph,r3
+032D 22        1205            ret
+032E           1206   ;------------------------------------------------------------
+032E           1207   ;Allocation info for local variables in function 'main'
+032E           1208   ;------------------------------------------------------------
+032E           1209   ;v1                        Allocated with name '_main_v1_1_86'
+032E           1210   ;v2                        Allocated to registers 
+032E           1211   ;period                    Allocated to registers 
+032E           1212   ;frequency                 Allocated to registers 
+032E           1213   ;------------------------------------------------------------
+032E           1214   ;        src/lab5.c:274: void main(void){
+032E           1215   ;        -----------------------------------------
+032E           1216   ;         function main
+032E           1217   ;        -----------------------------------------
+032E           1218   _main:
+032E           1219   ;        src/lab5.c:281: waitms(500);
+032E 9001F4    1220            mov     dptr,#0x01F4
+0331 120000    1221            lcall   _waitms
+0334           1222   ;        src/lab5.c:282: printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
+0334 74C0      1223            mov     a,#__str_1
+0336 C0E0      1224            push    acc
+0338 74BB      1225            mov     a,#(__str_1 >> 8)
+033A C0E0      1226            push    acc
+033C 7480      1227            mov     a,#0x80
+033E C0E0      1228            push    acc
+0340 120000    1229            lcall   _printf
+0343 1581      1230            dec     sp
+0345 1581      1231            dec     sp
+0347 1581      1232            dec     sp
+0349           1233   ;        src/lab5.c:286: __FILE__, __DATE__, __TIME__);
+0349           1234   ;        src/lab5.c:285: "Compiled: %s, %s\n\n",
+0349 7400      1235            mov     a,#__str_5
+034B C0E0      1236            push    acc
+034D 74BC      1237            mov     a,#(__str_5 >> 8)
+034F C0E0      1238            push    acc
+0351 7480      1239            mov     a,#0x80
+0353 C0E0      1240            push    acc
+0355 7440      1241            mov     a,#__str_4
+0357 C0E0      1242            push    acc
+0359 74BC      1243            mov     a,#(__str_4 >> 8)
+035B C0E0      1244            push    acc
+035D 7480      1245            mov     a,#0x80
+035F C0E0      1246            push    acc
+0361 7480      1247            mov     a,#__str_3
+0363 C0E0      1248            push    acc
+0365 74BC      1249            mov     a,#(__str_3 >> 8)
+0367 C0E0      1250            push    acc
+0369 7480      1251            mov     a,#0x80
+036B C0E0      1252            push    acc
+036D 74C0      1253            mov     a,#__str_2
+036F C0E0      1254            push    acc
+0371 74BC      1255            mov     a,#(__str_2 >> 8)
+0373 C0E0      1256            push    acc
+0375 7480      1257            mov     a,#0x80
+0377 C0E0      1258            push    acc
+0379 120000    1259            lcall   _printf
+037C E581      1260            mov     a,sp
+037E 24F4      1261            add     a,#0xf4
+0380 F581      1262            mov     sp,a
+0382           1263   ;        src/lab5.c:289: InitPinADC(1, 6);
+0382 75C806    1264            mov     _InitPinADC_PARM_2,#0x06
+0385 758201    1265            mov     dpl,#0x01
+0388 120000    1266            lcall   _InitPinADC
+038B           1267   ;        src/lab5.c:290: InitPinADC(2, 1);
+038B 75C801    1268            mov     _InitPinADC_PARM_2,#0x01
+038E 758202    1269            mov     dpl,#0x02
+0391 120000    1270            lcall   _InitPinADC
+0394           1271   ;        src/lab5.c:291: InitADC();
+0394 120000    1272            lcall   _InitADC
+0397           1273   ;        src/lab5.c:292: TIMER0_Init();
+0397 120000    1274            lcall   _TIMER0_Init
+039A           1275   ;        src/lab5.c:293: init_pin_input();
+039A 120000    1276            lcall   _init_pin_input
+039D           1277   ;        src/lab5.c:295: while(1){
+039D           1278   L014002?:
+039D           1279   ;        src/lab5.c:296: v2 = read_ripple_voltage(QFP32_MUX_P2_1);
+039D 75820E    1280            mov     dpl,#0x0E
+03A0 120000    1281            lcall   _read_ripple_voltage
+03A3           1282   ;        src/lab5.c:302: period = measure_period();
+03A3 120000    1283            lcall   _measure_period
+03A6           1284   ;        src/lab5.c:306: measure_zero_cross_time();
+03A6 120000    1285            lcall   _measure_zero_cross_time
+03A9           1286   ;        src/lab5.c:307: waitms(500);
+03A9 9001F4    1287            mov     dptr,#0x01F4
+03AC 120000    1288            lcall   _waitms
+03AF 8000      1289            sjmp    L014002?
+03B1           1290            rseg R_CSEG
+03B1           1291   
+0000           1292            rseg R_XINIT
+0000           1293   
+0000           1294            rseg R_CONST
+0000           1295   __str_0:
+0000 2575      1296            db '%u'
+0002 0A        1297            db 0x0A
+0003 00        1298            db 0x00
+0004           1299   __str_1:
+0004 1B        1300            db 0x1B
+0005 5B324A    1301            db '[2J'
+0008 00        1302            db 0x00
+0009           1303   __str_2:
+0009 4C616235  1304            db 'Lab5'
+000D 0A        1305            db 0x0A
+000E 46696C65  1306            db 'File: %s'
      3A202573
-0016 0A        1315            db 0x0A
-0017 436F6D70  1316            db 'Compiled: %s, %s'
+0016 0A        1307            db 0x0A
+0017 436F6D70  1308            db 'Compiled: %s, %s'
      696C6564
      3A202573
      2C202573
-0027 0A        1317            db 0x0A
-0028 0A        1318            db 0x0A
-0029 00        1319            db 0x00
-002A           1320   __str_3:
-002A 7372632F  1321            db 'src/lab5.c'
+0027 0A        1309            db 0x0A
+0028 0A        1310            db 0x0A
+0029 00        1311            db 0x00
+002A           1312   __str_3:
+002A 7372632F  1313            db 'src/lab5.c'
      6C616235
      2E63
-0034 00        1322            db 0x00
-0035           1323   __str_4:
-0035 4D617220  1324            db 'Mar  2 2026'
+0034 00        1314            db 0x00
+0035           1315   __str_4:
+0035 4D617220  1316            db 'Mar  2 2026'
      20322032
      303236
-0040 00        1325            db 0x00
-0041           1326   __str_5:
-0041 31333A32  1327            db '13:28:41'
-     383A3431
-0049 00        1328            db 0x00
-004A           1329   
-0003           1330            CSEG
-0003           1331   
-0003           1332   end
+0040 00        1317            db 0x00
+0041           1318   __str_5:
+0041 31333A34  1319            db '13:47:29'
+     373A3239
+0049 00        1320            db 0x00
+004A           1321   
+0003           1322            CSEG
+0003           1323   
+0003           1324   end
