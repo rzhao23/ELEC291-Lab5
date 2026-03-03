@@ -249,29 +249,73 @@ unsigned int measure_period(void){
 // use p2.2 as reference signal
 // return time in us
 unsigned int time_us_prev = 0;
+unsigned int time_us_candidate = 0;
+bit ref_which_signal = 0; // 0 negative phase angle, 1 positive 
 
 unsigned int measure_zero_cross_time(void){
     unsigned int time_us;
+	int diff;
 
 	CKCON0&=0b_1111_1010;  // Timer 0 uses sysclk/48
 	CKCON0|=0b_0000_0010;
 	// ps. sysclk/48 will lose timing accuracy
     TR0 = 0;
     TH0 = 0; TL0 = 0; // Reset timer
-    while(P2_2 == 1); // Wait for p2.2 to be 0
-    while(P2_2 == 0); // Wait for p2.2 to be 1
-    TR0 = 1;
 
-    while(P2_3 == 1); // Wait for p2.3 to be 1
-    while(P2_3 == 0); // Wait for p2.3 to be 0
-    TR0 = 0;
+	if (!ref_which_signal) {
+		while(P2_2 == 1); // Wait for p2.2 to be 0
+		while(P2_2 == 0); // Wait for p2.2 to be 1
+		TR0 = 1;
 
-	CKCON0&=0b_1111_1000;
+		while(P2_3 == 1); // Wait for p2.3 to be 1
+		while(P2_3 == 0); // Wait for p2.3 to be 0
+		TR0 = 0;
+	}
+	else {
+		while(P2_3 == 1); // Wait for p2.2 to be 0
+		while(P2_3 == 0); // Wait for p2.2 to be 1
+		TR0 = 1;
 
+		while(P2_2 == 1); // Wait for p2.3 to be 1
+		while(P2_2 == 0); // Wait for p2.3 to be 0
+		TR0 = 0;
+	}
+	
+	CKCON0 &= 0b_1111_1000; // Set Timer back to sysclk/12
     time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
-	time_us_prev = time_us;
+    //printf("%u\n", (TH0*0x100+TL0));
+	
+	if (time_us_prev == 0) {
+		time_us_prev = time_us;
+	}
+	else {
+		diff = time_us_prev - time_us;
+		if (diff < 0) diff = -diff ;
 
-    //printf("%u\n", time_us);
+		if (diff <= 10) {
+			time_us_candidate = 0;
+			time_us_prev = time_us;
+		}
+		else {
+			if (time_us_candidate != 0) {
+				int cdiff = (int)time_us - (int)time_us_candidate;
+				if (cdiff < 0) cdiff = -cdiff;
+				if (cdiff <= 10) {
+					time_us_prev = time_us;
+					time_us_candidate = 0;
+				}
+				else {
+					time_us_candidate = time_us;
+					return time_us_candidate;
+				}
+			}
+			else {
+				time_us_candidate = time_us;
+			}
+		}
+	}
+	
+    //printf("%u\n", time_us_prev);
     return time_us;
 }
 
@@ -324,16 +368,41 @@ void main(void){
 		//phase_angle = (int)((long)zero_time_diff * (-1L * 360L) / (long)period);
 		//printf("time diff: %u\n", zero_time_diff);
 		//printf("period: %u\n", period);
-		phase_angle = (float)zero_time_diff * (-360.0f) / (float)period;
-		//printf("%d\n", phase_angle);
-
-		if (phase_angle <= -180){
+		if (ref_which_signal) {
+			phase_angle = (float)zero_time_diff * (360.0f) / (float)period;
+			if (phase_angle > 180){
+			phase_angle -= 360;
+			}
+		}
+		else {
+			phase_angle = (float)zero_time_diff * (-360.0f) / (float)period;
+			if (phase_angle <= -180){
 			phase_angle += 360;
 		}
+		}
+		
 
-		printf("%.2f\n", phase_angle);
+		
+
+		if (ref_which_signal == 0) { 
+			if (phase_angle < 0) {
+				printf("angle:%.2f\n", phase_angle);
+			}
+			else if (phase_angle >= 0) {
+				ref_which_signal = 1;
+			}
+		}
+		else {
+			if (phase_angle >= 0) {
+				printf("angle:%.2f\n", phase_angle);
+			}
+			else if (phase_angle < 0) {
+				ref_which_signal = 0;
+			}
+		}
         waitms(500);
     }
     
 }
 
+ 
