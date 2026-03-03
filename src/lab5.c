@@ -372,13 +372,10 @@ void main(void){
 		else {
 			phase_angle = (float)zero_time_diff * (-360.0f) / (float)period;
 			if (phase_angle <= -180){
-			phase_angle += 360;
-		}
+				phase_angle += 360;
+			}
 		}
 		
-
-		
-
 		if (ref_which_signal == 0) { 
 			if (phase_angle < 0) {
 				printf("angle:%.2f\n", phase_angle);
