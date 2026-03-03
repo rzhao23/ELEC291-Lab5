@@ -207,15 +207,22 @@ void init_pin_input(void){
 // measure voltage with ripple by taking average of 32 samples
 float read_ripple_voltage(unsigned char pin){
     unsigned char sample_count = 0;
-    float voltage_sum = 0;
+    //float voltage_sum = 0;
+	float max_voltage = (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
+	float measured_voltage;
 
     while(sample_count < 32){
-        voltage_sum += (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
-        sample_count++;
+        // voltage_sum += (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
+		measured_voltage = (ADC_at_Pin(pin)*VDD)/0b_0011_1111_1111_1111;
+        if(measured_voltage > max_voltage){
+			max_voltage = measured_voltage;
+		}
+		sample_count++;
         waitms(1);
     }
-
-    return voltage_sum / sample_count;
+	
+	return max_voltage;
+    //return voltage_sum / sample_count;
 }
 
 // return measured period in us
@@ -343,11 +350,19 @@ void main(void){
     init_pin_input();
 
     while(1){
-        v2 = read_ripple_voltage(QFP32_MUX_P2_1);
-        //printf("v2 = %.2f\n", v2);
-        //waitms(500);
+        v1 = read_ripple_voltage(QFP32_MUX_P2_1); // v1 is the reference voltage
+        v2 = read_ripple_voltage(QFP32_MUX_P1_6);
+		
+		// calculate the rms value of v1, v2
+		// formula: vrms = (v_measure + vd)/sqrt(2)
+		v1 = (v1 + 0.2) / 1.41421356237;
+		v2 = (v2 + 0.2) / 1.41421356237;
 
-        //v1 = read_ripple_voltage(QFP32_MUX_P1_6);
+		printf("v1: %.2f\n", v1);
+		printf("v2: %.2f\n", v2);
+
+		//printf("v2 = %.2f\n", v2);
+        //waitms(500);
         //printf("%d\n", P2_2);
         
 		period = measure_period();
@@ -366,17 +381,15 @@ void main(void){
 		if (ref_which_signal) {
 			phase_angle = (float)zero_time_diff * (360.0f) / (float)period;
 			if (phase_angle > 180){
-			phase_angle -= 360;
+				phase_angle -= 360;
 			}
 		}
 		else {
 			phase_angle = (float)zero_time_diff * (-360.0f) / (float)period;
 			if (phase_angle <= -180){
-			phase_angle += 360;
+				phase_angle += 360;
+			}
 		}
-		}
-		
-
 		
 
 		if (ref_which_signal == 0) { 
