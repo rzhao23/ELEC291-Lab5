@@ -299,11 +299,16 @@ void main(void){
     init_pin_input();
 
     while(1){
-        v2 = read_ripple_voltage(QFP32_MUX_P2_1);
-        //printf("v2 = %.2f\n", v2);
-        //waitms(500);
+        v1 = read_ripple_voltage(QFP32_MUX_P2_1); // v1 is the reference voltage
+        v2 = read_ripple_voltage(QFP32_MUX_P1_6);
+		
+		// calculate the rms value of v1, v2
+		// formula: vp = vr*f*R*C + vd
+		v1 = (0.1f * frequency * v1 + 0.7) * 1.41421356237;
+		v2 = (0.1f * frequency * v2 + 0.7) * 1.41421356237;
 
-        //v1 = read_ripple_voltage(QFP32_MUX_P1_6);
+		//printf("v2 = %.2f\n", v2);
+        //waitms(500);
         //printf("%d\n", P2_2);
         
 		period = measure_period();
@@ -317,8 +322,8 @@ void main(void){
 
 		zero_time_diff = measure_zero_cross_time();
 		//phase_angle = (int)((long)zero_time_diff * (-1L * 360L) / (long)period);
-		printf("time diff: %u\n", zero_time_diff);
-		printf("period: %u\n", period);
+		//printf("time diff: %u\n", zero_time_diff);
+		//printf("period: %u\n", period);
 		phase_angle = (float)zero_time_diff * (-360.0f) / (float)period;
 		//printf("%d\n", phase_angle);
 
@@ -326,7 +331,7 @@ void main(void){
 			phase_angle += 360;
 		}
 
-		//printf("%.2f\n", phase_angle);
+		printf("%.2f\n", phase_angle);
         waitms(500);
     }
     
