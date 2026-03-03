@@ -3,8 +3,8 @@
         {
             "name": "EFM8 C51",
             "includePath": [
-                "D:/CrossIDE/CrossIDE/Call51/Include/mcs51",
-                "D:/CrossIDE/CrossIDE/Call51/Include",
+                "D:/CrossIDE/Call51/Include/mcs51",
+                "D:/CrossIDE/Call51/Include",
                 "${workspaceFolder}/inc"
             ],
             "defines": [

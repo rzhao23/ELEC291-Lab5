@@ -250,6 +250,7 @@ unsigned int measure_period(void){
 // return time in us
 unsigned int time_us_prev = 0;
 unsigned int time_us_candidate = 0;
+bit ref_which_signal = 0; // 0 negative phase angle, 1 positive 
 
 unsigned int measure_zero_cross_time(void){
     unsigned int time_us;
@@ -260,17 +261,30 @@ unsigned int measure_zero_cross_time(void){
 	// ps. sysclk/48 will lose timing accuracy
     TR0 = 0;
     TH0 = 0; TL0 = 0; // Reset timer
-    while(P2_2 == 1); // Wait for p2.2 to be 0
-    while(P2_2 == 0); // Wait for p2.2 to be 1
-    TR0 = 1;
 
-    while(P2_3 == 1); // Wait for p2.3 to be 1
-    while(P2_3 == 0); // Wait for p2.3 to be 0
-    TR0 = 0;
+	if (!ref_which_signal) {
+		while(P2_2 == 1); // Wait for p2.2 to be 0
+		while(P2_2 == 0); // Wait for p2.2 to be 1
+		TR0 = 1;
+
+		while(P2_3 == 1); // Wait for p2.3 to be 1
+		while(P2_3 == 0); // Wait for p2.3 to be 0
+		TR0 = 0;
+	}
+	else {
+		while(P2_3 == 1); // Wait for p2.2 to be 0
+		while(P2_3 == 0); // Wait for p2.2 to be 1
+		TR0 = 1;
+
+		while(P2_2 == 1); // Wait for p2.3 to be 1
+		while(P2_2 == 0); // Wait for p2.3 to be 0
+		TR0 = 0;
+	}
 	
 	CKCON0 &= 0b_1111_1000; // Set Timer back to sysclk/12
     time_us = ((unsigned int)(TH0*0x100+TL0) / 3U) * 2U; // note: may overflow, i'm not sure
     //printf("%u\n", (TH0*0x100+TL0));
+	
 	if (time_us_prev == 0) {
 		time_us_prev = time_us;
 	}
@@ -295,10 +309,14 @@ unsigned int measure_zero_cross_time(void){
 					return time_us_candidate;
 				}
 			}
+			else {
+				time_us_candidate = time_us;
+			}
 		}
 	}
-    printf("%u\n", time_us_prev);
-    return time_us_prev;
+	
+    //printf("%u\n", time_us_prev);
+    return time_us;
 }
 
 void main(void){
@@ -307,6 +325,8 @@ void main(void){
     float v2;
     unsigned int period;
     unsigned int frequency;
+	unsigned int zero_time_diff;
+	float phase_angle;
 
     waitms(500);
     printf("\x1b[2J"); // Clear screen using ANSI escape sequence.
@@ -329,14 +349,55 @@ void main(void){
 
         //v1 = read_ripple_voltage(QFP32_MUX_P1_6);
         //printf("%d\n", P2_2);
-        period = measure_period();
+        
+		period = measure_period();
+		if(period == 0){
+			waitms(100);
+			continue;
+		}
+
         frequency = 1000000 / period; // frequency in Hz
         //printf("f2 = %u\n\n",frequency);
 
-		measure_zero_cross_time();
+		zero_time_diff = measure_zero_cross_time();
+		//phase_angle = (int)((long)zero_time_diff * (-1L * 360L) / (long)period);
+		//printf("time diff: %u\n", zero_time_diff);
+		//printf("period: %u\n", period);
+		if (ref_which_signal) {
+			phase_angle = (float)zero_time_diff * (360.0f) / (float)period;
+			if (phase_angle > 180){
+			phase_angle -= 360;
+			}
+		}
+		else {
+			phase_angle = (float)zero_time_diff * (-360.0f) / (float)period;
+			if (phase_angle <= -180){
+			phase_angle += 360;
+		}
+		}
+		
 
+		
+
+		if (ref_which_signal == 0) { 
+			if (phase_angle < 0) {
+				printf("angle:%.2f\n", phase_angle);
+			}
+			else if (phase_angle >= 0) {
+				ref_which_signal = 1;
+			}
+		}
+		else {
+			if (phase_angle >= 0) {
+				printf("angle:%.2f\n", phase_angle);
+			}
+			else if (phase_angle < 0) {
+				ref_which_signal = 0;
+			}
+		}
         waitms(500);
     }
     
 }
 
+ 
