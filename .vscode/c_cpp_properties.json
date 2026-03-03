@@ -3,8 +3,8 @@
         {
             "name": "EFM8 C51",
             "includePath": [
-                "D:/CrossIDE/CrossIDE/Call51/Include/mcs51",
-                "D:/CrossIDE/CrossIDE/Call51/Include",
+                "D:/CrossIDE/Call51/Include/mcs51",
+                "D:/CrossIDE/Call51/Include",
                 "${workspaceFolder}/inc"
             ],
             "defines": [
@@ -94,7 +94,7 @@
             "windowsSdkVersion": "10.0.26100.0",
             "cStandard": "c89",
             "intelliSenseMode": "gcc-x86",
-            "compilerPath": "D:\\CrossIDE\\CrossIDE\\Call51\\Bin\\c51.exe"
+            "compilerPath": "D:CrossIDE\\Call51\\Bin\\c51.exe"
         }
     ],
     "version": 4
