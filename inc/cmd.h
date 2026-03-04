@@ -18,6 +18,7 @@ void cmd_reset(unsigned char argc, char *argv[]) reentrant;
 
 extern const cli_cmd_t code cli_commands[];
 extern const unsigned char cli_cmd_count;
+extern bit rms_vpp_signal;
 
 void cli_parse_and_dispatch(char *input);
 

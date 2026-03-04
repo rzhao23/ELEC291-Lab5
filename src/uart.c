@@ -21,9 +21,7 @@
 /* Advance a ring-buffer index with power-of-2 wrap */
 #define BUF_NEXT(idx, mask)   (((idx) + 1u) & (mask))
 
-/* =========================================================================
- * UART0  (SFR page 0x00)
- * ========================================================================= */
+// UART0  (SFR page 0x00)
 #define UART0_PAGE  0x00u
 #define TX0_SIZE    64u                     /* must be a power of 2 */
 #define RX0_SIZE    64u
@@ -39,7 +37,6 @@ static xdata char    rx0_buf[RX0_SIZE];
 static unsigned char rx0_head = 0;
 static unsigned char rx0_tail = 0;
 
-/* ---- Init ------------------------------------------------------------ */
 void UART_init(void)
 {
     unsigned char saved_page = SFRPAGE;
@@ -64,7 +61,6 @@ void UART_init(void)
     SFRPAGE = saved_page;
 }
 
-/* ---- ISR ------------------------------------------------------------- */
 void UART0_ISR(void) __interrupt(4)
 {
     unsigned char saved_page = SFRPAGE;
@@ -89,7 +85,6 @@ void UART0_ISR(void) __interrupt(4)
     SFRPAGE = saved_page;
 }
 
-/* ---- Public API ------------------------------------------------------ */
 void UART_send_char(char c)
 {
     unsigned char saved_page = SFRPAGE;
@@ -130,10 +125,6 @@ char UART_read(void)
     return c;
 }
 
-
-/* =========================================================================
- * UART1  (SFR page 0x20)
- * ========================================================================= */
 #define UART1_PAGE      0x20u
 #define TX1_SIZE        64u                 /* must be a power of 2 */
 #define RX1_SIZE        64u
@@ -153,7 +144,6 @@ static xdata char    rx1_buf[RX1_SIZE];
 static unsigned char rx1_head = 0;
 static unsigned char rx1_tail = 0;
 
-/* ---- Init ------------------------------------------------------------ */
 void UART1_init(void)
 {
     unsigned char saved_page = SFRPAGE;
@@ -176,7 +166,6 @@ void UART1_init(void)
     SFRPAGE = saved_page;
 }
 
-/* ---- ISR ------------------------------------------------------------- */
 void UART1_ISR(void) __interrupt(15)
 {
     unsigned char saved_page = SFRPAGE;
@@ -201,7 +190,6 @@ void UART1_ISR(void) __interrupt(15)
     SFRPAGE = saved_page;
 }
 
-/* ---- Public API ------------------------------------------------------ */
 void UART1_send_char(char c)
 {
     unsigned char saved_page = SFRPAGE;
