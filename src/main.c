@@ -18,7 +18,8 @@ unsigned int last_accept_frequency = 0;
 unsigned int zero_time_diff    = 0;
 unsigned int time_us_prev      = 0;
 unsigned int time_us_candidate = 0;
-bit          ref_which_signal  = 0; // 0 = negative phase, 1 = positive
+bit ref_which_signal = 0; // 0 = negative phase, 1 = positive
+bit rms_vpp_signal = 0;
 
 // Shared xdata formatting buffers (kept out of scarce internal DATA RAM)
 static xdata char fmt_buf[20];  // used by amplitude() and update_phase_angle()
@@ -157,7 +158,6 @@ void main(void){
     UART_init();
     UART1_init();
     waitms(500);
-    UART_send_string("hello\n");
 
     // p1.6 is v2; p2.1 is v1
     InitPinADC(1, 6);
@@ -192,10 +192,16 @@ void main(void){
         v1 = read_ripple_voltage(QFP32_MUX_P2_1); // v1 is the reference voltage
         v2 = read_ripple_voltage(QFP32_MUX_P1_6);
 		
-		// calculate the rms value of v1, v2
-		// formula: vrms = (v_measure + vd)/sqrt(2)
-		v1 = (v1 + 0.2) / 1.41421356237;
-		v2 = (v2 + 0.2) / 1.41421356237;
+        // calculate the rms value of v1, v2
+        if (!rms_vpp_signal) {
+		    // formula: vrms = (v_measure + vd)/sqrt(2)
+            v1 = (v1 + 0.2) / 1.41421356237;
+            v2 = (v2 + 0.2) / 1.41421356237;
+        }
+        else {
+            v1 = (v1 + 0.2) * 2;
+            v2 = (v2 + 0.2) * 2;
+        }
         
 		period = measure_period();
 		if(period == 0){

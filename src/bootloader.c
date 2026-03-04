@@ -56,7 +56,7 @@ char _c51_external_startup (void)
 	P0SKIP = 0xC3;
 	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	XBR1     = 0x00;
-	XBR2     = 0x41; // Enable crossbar (bit6), enable UART1 (bit0) on P0.6/P0.7
+	XBR2     = 0x41; // Enable crossbar (bit6), enable UART1 (bit0) on 
 	SFRPAGE = 0x00;
 
 	return 0;
