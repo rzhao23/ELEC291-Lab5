@@ -63,6 +63,20 @@ void cmd_disable(unsigned char argc, char *argv[]) reentrant {
     }
 }
 
+void cmd_vol (unsigned char argc, char *argv[]) reentrant {
+    if (argc < 2) {
+        UART1_send_string("Usage: tibo vol -vrms|vpp-2\r\n");
+        return;
+    }
+    if (strcmp(argv[1], "-vrms") == 0) {
+        rms_vpp_signal = 0;
+    } else if (strcmp(argv[1], "-vpp") == 0) {
+        rms_vpp_signal = 1;
+    } else {
+        UART1_send_string("Usage: tibo vol -vrms|vpp-2\r\n");
+    }
+}
+
 void cmd_info(unsigned char argc, char *argv[]) reentrant {
     UART1_send_string("EFM8 Frequency measurement using Timer/Counter 0.\r\n");
     UART1_send_string("File: ");
@@ -85,6 +99,7 @@ const cli_cmd_t code cli_commands[] = {
     {"tibo", "psize", "Modify the size of Window", cmd_psize},
     {"tibo", "enable", "Display CH1/CH2", cmd_enable},
     {"tibo", "disable", "Shutdown CH1/CH2 display", cmd_disable},
+    {"tibo", "vol", "Toggle Vrms/Vpp display", cmd_vol},
     {"tibo", "info",   "Show device info", cmd_info},
     {"tibo", "--reset", "Reset the System", cmd_reset},
 };
