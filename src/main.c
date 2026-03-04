@@ -243,11 +243,10 @@ void main(void){
 		// Display format:
 		// Vr = x.xv xHz
 		// Vn = x.xv x (degree)
-        sprintf(buff, "Vr=%.2fv %uHz", v1, frequency);
-        LCDprint(buff, 1, 1);
-        sprintf(buff, "Vm=%.2fv %.1f%c", v2, phase_angle, 0xDF);
-        LCDprint(buff, 2, 1);
-		
+		sprintf(buff, "Vr=%.2fv %uHz", v1, frequency);
+		LCDprint(buff, 1, 1);
+		sprintf(buff, "Vm=%.2fv %.1f%c", v2, phase_angle, 0xDF);
+		LCDprint(buff, 2, 1);
 
         // Send structured data packet for Python oscilloscope.
         // Format: $<v1>,<v2>,<freq>,<phase>\n

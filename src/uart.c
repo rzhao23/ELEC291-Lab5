@@ -85,6 +85,7 @@ void UART0_ISR(void) __interrupt(4)
     SFRPAGE = saved_page;
 }
 
+/* ---- Public API ------------------------------------------------------ */
 void UART_send_char(char c)
 {
     unsigned char saved_page = SFRPAGE;
