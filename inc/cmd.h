@@ -10,7 +10,11 @@ typedef struct {
 } cli_cmd_t;
 
 void cmd_help(unsigned char argc, char *argv[]) reentrant;
-
+void cmd_psize(unsigned char argc, char *argv[]) reentrant;
+void cmd_enable(unsigned char argc, char *argv[]) __reentrant;
+void cmd_disable(unsigned char argc, char *argv[]) reentrant;
+void cmd_info(unsigned char argc, char *argv[]) reentrant;
+void cmd_reset(unsigned char argc, char *argv[]) reentrant;
 
 extern const cli_cmd_t code cli_commands[];
 extern const unsigned char cli_cmd_count;

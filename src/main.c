@@ -13,8 +13,6 @@
 
 // Period / frequency measurement (measure_period)
 unsigned int last_accept_frequency = 0;
-unsigned int period    = 0;
-unsigned int frequency = 0;
 
 // Zero-crossing measurement (measure_zero_cross_time)
 unsigned int zero_time_diff    = 0;
@@ -22,131 +20,9 @@ unsigned int time_us_prev      = 0;
 unsigned int time_us_candidate = 0;
 bit          ref_which_signal  = 0; // 0 = negative phase, 1 = positive
 
-// Results written by amplitude() and update_phase_angle(), read by main()
-float v1          = 0.0f; // Reference voltage RMS (P2.1)
-float v2          = 0.0f; // Measured voltage RMS  (P1.6)
-float phase_angle = 0.0f; // Phase angle in degrees
-
 // Shared xdata formatting buffers (kept out of scarce internal DATA RAM)
 static xdata char fmt_buf[20];  // used by amplitude() and update_phase_angle()
 static xdata char uart_buf[32]; // used by main() for the data packet
-
-// ---- Non-blocking phase monitor state ----
-static bit phase_monitor_init = 0;
-static bit last_p22 = 0;
-static bit last_p23 = 0;
-static bit period_wait_fall = 0;
-static bit zero_wait_second = 0;
-static unsigned int period_start_tick = 0;
-static unsigned int zero_start_tick = 0;
-
-static unsigned int timer0_read16(void)
-{
-    unsigned char tl = TL0;
-    unsigned char th = TH0;
-    return (((unsigned int)th) << 8) | tl;
-}
-
-static void phase_monitor_step(void)
-{
-    bit p22, p23, rise22, fall22, rise23;
-    unsigned int now_ticks, delta_ticks, time_us;
-    float angle;
-
-    p22 = P2_2;
-    p23 = P2_3;
-
-    if (!phase_monitor_init) {
-        last_p22 = p22;
-        last_p23 = p23;
-        phase_monitor_init = 1;
-        return;
-    }
-
-    rise22 = (!last_p22) && p22;
-    fall22 = last_p22 && (!p22);
-    rise23 = (!last_p23) && p23;
-    now_ticks = timer0_read16();
-
-    // Keep the original period behavior: measure P2.2 high-time from rising->falling.
-    if (!period_wait_fall) {
-        if (rise22) {
-            period_start_tick = now_ticks;
-            period_wait_fall = 1;
-        }
-    } else if (fall22) {
-        delta_ticks = now_ticks - period_start_tick;
-        time_us = delta_ticks / 3U; // keep original scale used by existing code
-        if (time_us >= 100U) {
-            period = time_us;
-            last_accept_frequency = time_us;
-        } else if (last_accept_frequency != 0U) {
-            period = last_accept_frequency;
-        }
-        if (period != 0U) {
-            frequency = 1000000U / period;
-        }
-        period_wait_fall = 0;
-    }
-
-    // Non-blocking replacement for zero-cross wait loops.
-    if (!zero_wait_second) {
-        if ((!ref_which_signal && rise22) || (ref_which_signal && rise23)) {
-            zero_start_tick = now_ticks;
-            zero_wait_second = 1;
-        }
-    } else {
-        if ((!ref_which_signal && rise23) || (ref_which_signal && rise22)) {
-            delta_ticks = now_ticks - zero_start_tick;
-            zero_time_diff = (delta_ticks / 3U) * 2U; // keep original scale
-            zero_wait_second = 0;
-
-            if (period != 0U) {
-                if (ref_which_signal) {
-                    angle = (float)zero_time_diff * (360.0f) / (float)period;
-                    if (angle > 180.0f) angle -= 360.0f;
-                } else {
-                    angle = (float)zero_time_diff * (-360.0f) / (float)period;
-                    if (angle <= -180.0f) angle += 360.0f;
-                }
-
-                if (ref_which_signal == 0) {
-                    if (angle < 0.0f) {
-                        phase_angle = angle;
-                        sprintf(fmt_buf, "angle:%.2f\n", phase_angle);
-                        UART_send_string(fmt_buf);
-                    } else {
-                        ref_which_signal = 1;
-                    }
-                } else {
-                    if (angle >= 0.0f) {
-                        phase_angle = angle;
-                        sprintf(fmt_buf, "angle:%.2f\n", phase_angle);
-                        UART_send_string(fmt_buf);
-                    } else {
-                        ref_which_signal = 0;
-                    }
-                }
-            }
-        }
-    }
-
-    last_p22 = p22;
-    last_p23 = p23;
-}
-
-static void waitms_with_phase_monitor(unsigned int ms)
-{
-    unsigned int j;
-    unsigned char k;
-
-    for (j = 0; j < ms; j++) {
-        for (k = 0; k < 100; k++) {
-            phase_monitor_step();
-        }
-        waitms(1);
-    }
-}
 
 // ---- Raw ADC read from a mux pin ----
 unsigned int ADC_at_Pin(unsigned char pin)
@@ -177,7 +53,7 @@ float read_ripple_voltage(unsigned char pin)
             max_voltage = measured_voltage;
         }
         sample_count++;
-        waitms_with_phase_monitor(1);
+        waitms(1);
     }
     return max_voltage;
 }
@@ -264,74 +140,116 @@ unsigned int measure_zero_cross_time(void)
     return time_us;
 }
 
-// ---- Measure amplitudes and update globals v1, v2 ----
-void amplitude(void)
-{
-    v1 = read_ripple_voltage(QFP32_MUX_P2_1); // Reference voltage
-    v2 = read_ripple_voltage(QFP32_MUX_P1_6);
-
-    // Convert peak to RMS: Vrms = (Vpeak + Vd) / sqrt(2)
-    v1 = (v1 + 0.2f) / 1.41421356237f;
-    v2 = (v2 + 0.2f) / 1.41421356237f;
-
-    sprintf(fmt_buf,"v1: %.2f\n", v1);
-    UART_send_string(fmt_buf);
-    sprintf(fmt_buf,"v2: %.2f\n", v2);
-    UART_send_string(fmt_buf);
-}
-
-// ---- Measure phase angle and update global phase_angle ----
-void update_phase_angle(void)
-{
-    phase_monitor_step();
-}
 
 // ---- Main ----
-void main(void)
-{
-    char buff[24]; // LCD display buffer
-
+void main(void){
+    // Measured voltage variables
+    float v1;
+    float v2;
+    unsigned int period;
+    unsigned int frequency;
+	unsigned int zero_time_diff;
+	float phase_angle;
+	char buff[16]; // LCD buffer
+    xdata char cmd_buf[64];
+    unsigned char cmd_len = 0;
+    
     UART_init();
     UART1_init();
-
     waitms(500);
-    UART_send_string("\x1b[2J"); // Clear screen
-    UART_send_string("Lab5\nFile: ");
-    UART_send_string(__FILE__);
-    UART_send_string("\nCompiled: ");
-    UART_send_string(__DATE__);
-    UART_send_string(", ");
-    UART_send_string(__TIME__);
-    UART_send_string("\n\n");
+    UART_send_string("hello\n");
 
-    // Initialize ADC pins: P1.6 = v2, P2.1 = v1
+    // p1.6 is v2; p2.1 is v1
     InitPinADC(1, 6);
     InitPinADC(2, 1);
     InitADC();
     TIMER0_Init();
-    TR0 = 1; // Free-running timer source for non-blocking edge time stamps
     init_pin_input();
-    LCD_4BIT();
+	
+	// Configure LCD
+	LCD_4BIT();
+    LCDprint("Welcome", 1, 1);
+    UART_send_string("Welcome\n");
+	UART1_send_string("Welcome\n");
+	
+    while(1){
 
-    while (1) {
-        amplitude();
-        update_phase_angle();
+        while (UART1_available()) {
+			char c = UART1_read();
+			if (c == '\r' || c == '\n') {
+				if (cmd_len > 0) {
+					cmd_buf[cmd_len] = '\0';
+					UART1_send_string("\r\n");
+					cli_parse_and_dispatch(cmd_buf);
+					cmd_len = 0;
+				}
+			} else if (cmd_len < 31) {
+				cmd_buf[cmd_len++] = c;
+				UART1_send_char(c);  // echo
+			}
+		}
 
-        // LCD line 1: "Vr=x.xxv xxxHz"
-        sprintf(buff, "Vr=%.2fv %uHz", v1, frequency);
-        LCDprint(buff, 1, 1);
+        v1 = read_ripple_voltage(QFP32_MUX_P2_1); // v1 is the reference voltage
+        v2 = read_ripple_voltage(QFP32_MUX_P1_6);
+		
+		// calculate the rms value of v1, v2
+		// formula: vrms = (v_measure + vd)/sqrt(2)
+		v1 = (v1 + 0.2) / 1.41421356237;
+		v2 = (v2 + 0.2) / 1.41421356237;
+        
+		period = measure_period();
+		if(period == 0){
+			waitms(100);
+			continue;
+		}
 
-        // LCD line 2: "Vm=x.xxv xxx.x°"
-        sprintf(buff, "Vm=%.2fv %.1f%c", v2, phase_angle, 0xDF);
-        LCDprint(buff, 2, 1);
+        frequency = 1000000 / period; // frequency in Hz
+        //printf("f2 = %u\n\n",frequency);
+
+		zero_time_diff = measure_zero_cross_time();
+		//phase_angle = (int)((long)zero_time_diff * (-1L * 360L) / (long)period);
+		//printf("time diff: %u\n", zero_time_diff);
+		//printf("period: %u\n", period);
+		if (ref_which_signal) {
+			phase_angle = (float)zero_time_diff * (360.0f) / (float)period;
+			if (phase_angle > 180){
+				phase_angle -= 360;
+			}
+		}
+		else {
+			phase_angle = (float)zero_time_diff * (-360.0f) / (float)period;
+			if (phase_angle <= -180){
+				phase_angle += 360;
+			}
+		}
+
+		if (ref_which_signal == 0) { 
+            if (phase_angle >= 0) {
+				ref_which_signal = 1;
+			}
+		}
+		else {
+            if (phase_angle < 0) {
+				ref_which_signal = 0;
+			}
+		}
+
+		// Display format:
+		// Vr = x.xv xHz
+		// Vn = x.xv x (degree)
+		sprintf(buff, "Vr=%.2fv %uHz", v1, frequency);
+		LCDprint(buff, 1, 1);
+		sprintf(buff, "Vm=%.2fv %.1f%c", v2, phase_angle, 0xDF);
+		LCDprint(buff, 2, 1);
 
         // Send structured data packet for Python oscilloscope.
         // Format: $<v1>,<v2>,<freq>,<phase>\n
         // The '$' prefix lets the Python parser ignore other debug output.
+        
         sprintf(uart_buf, "$%.3f,%.3f,%u,%.2f\n", v1, v2, frequency, phase_angle);
         UART_send_string(uart_buf);
-		UART1_send_string("hello\n");
-
-        waitms_with_phase_monitor(500);
+        waitms(500);
     }
+    
 }
+

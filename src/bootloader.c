@@ -9,8 +9,8 @@ char _c51_external_startup (void)
 	WDTCN = 0xDE; //First key
 	WDTCN = 0xAD; //Second key
   
-	VDM0CN=0x80;       // enable VDD monitor
-	RSTSRC=0x02|0x04;  // Enable reset on missing clock detector and VDD
+	VDM0CN |= 0x80;       // enable VDD monitor
+	RSTSRC = 0x02;  // Enable reset on missing clock detector and VDD
 
 	#if (SYSCLK == 48000000L)	
 		SFRPAGE = 0x10;
@@ -49,34 +49,25 @@ char _c51_external_startup (void)
 	#else
 		#error SYSCLK must be either 12250000L, 24500000L, 48000000L, or 72000000L
 	#endif
-	
-	P0MDOUT |= 0x10; // Enable UART0 TX as push-pull output (P0.4)
-	P0SKIP  |= 0xCF; // Skip P0.0-P0.3 and P0.6-P0.7; UART0 on P0.4/P0.5
-	P1SKIP  |= 0xFF; // Skip all P1 (LCD/ADC GPIO, not crossbar peripherals)
-	P2SKIP  |= 0xFF; // Skip all P2 (LCD/ADC GPIO, not crossbar peripherals)
-	P3MDIN  |= 0x03; // P3.0 and P3.1 as digital (not analog)
-	P3MDOUT |= 0x01; // P3.0 as push-pull output (UART1 TX)
+
+	SFRPAGE = 0x00;
+	P0MDOUT |= 0x14; // Enable UART0 TX as push-pull output (P0.4)
+					// UART1 TX P0.6
+	P0SKIP = 0xC3;
 	XBR0     = 0x01; // Enable UART0 on P0.4(TX) and P0.5(RX)
 	XBR1     = 0x00;
-	XBR2     = 0x41; // Enable crossbar (bit6), enable UART1 (bit0) on P3.0/P3.1
-
-	// Configure Uart 0
-	#if (((SYSCLK/BAUDRATE)/(2L*12L))>0xFFL)
-		#error Timer 0 reload value is incorrect because (SYSCLK/BAUDRATE)/(2L*12L) > 0xFF
-	#endif
-	SCON0 = 0x10;
-	TH1 = 0x100-((SYSCLK/BAUDRATE)/(2L*12L));
-	TL1 = TH1;      // Init Timer1
-	TMOD &= ~0xf0;  // TMOD: timer 1 in 8-bit auto-reload
-	TMOD |=  0x20;                       
-	TR1 = 1; // START Timer1
-	TI = 1;  // Indicate TX0 ready
-
-	// Configure UART1 (uses Timer 1 for baud rate, same rate as UART0)
-	SCON1 = 0x10; // Mode 1: 8-bit variable baud rate, REN1=1 (receiver enabled)
-	TI1   = 1;    // Indicate TX1 ready
+	XBR2     = 0x41; // Enable crossbar (bit6), enable UART1 (bit0) on P0.6/P0.7
+	SFRPAGE = 0x00;
 
 	return 0;
+}
+
+// init p2.2 and p2.3 as input pin
+void init_pin_input(void){
+    P2MDIN |= 0b_0000_1100; // enable p2.2 and p2.3 to be input pin
+    P2MDOUT &= 0b_1111_0011; // disable p2.2 and p2.3 from output pin 
+    P2SKIP |= 0b_0000_1100;
+    XBR2 |= 0x40;
 }
 
 void InitADC (void)
@@ -116,14 +107,6 @@ void InitADC (void)
 		(0x0 << 0) ; // ADCM. 0x0: ADBUSY, 0x1: TIMER0, 0x2: TIMER2, 0x3: TIMER3, 0x4: CNVSTR, 0x5: CEX5, 0x6: TIMER4, 0x7: TIMER5, 0x8: CLU0, 0x9: CLU1, 0xA: CLU2, 0xB: CLU3
 
 	ADEN=1; // Enable ADC
-}
-
-// init p2.2 and p2.3 as input pin
-void init_pin_input(void){
-    P2MDIN |= 0b_0000_1100; // enable p2.2 and p2.3 to be input pin
-    P2MDOUT &= 0b_1111_0011; // disable p2.2 and p2.3 from output pin 
-    P2SKIP |= 0b_0000_1100;
-    XBR2 |= 0x40;
 }
 
 void InitPinADC (unsigned char portno, unsigned char pinno)
